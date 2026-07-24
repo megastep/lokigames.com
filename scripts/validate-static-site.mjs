@@ -2,7 +2,7 @@
 
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
-import { hasUnsafeLegacyJavaScript, isDirectoryListing, isNoIndexRoute } from './archive-policy.mjs';
+import { hasServerSideRemnant, hasUnsafeLegacyJavaScript, isDirectoryListing, isNoIndexRoute, isTemplateFragment } from './archive-policy.mjs';
 
 const root = path.resolve(process.argv[2] ?? 'docs');
 const failures = [];
@@ -38,21 +38,32 @@ const validateLocalReferences = async (file, html) => {
 };
 const files = await walk(root);
 const htmlFiles = [];
+const templateFiles = [];
 for (const file of files.filter((item) => item.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   if (/<html\b/i.test(html) && /<head\b/i.test(html)) htmlFiles.push(file);
+  if (isTemplateFragment(html)) templateFiles.push(file);
 }
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
 const robots = await readFile(path.join(root, 'robots.txt'), 'utf8').catch(() => '');
 
 if (!/Sitemap:\s+(?:https?:\/\/|\/)/.test(robots)) failures.push('robots.txt does not reference the generated sitemap URL.');
 if (!sitemap.startsWith('<?xml')) failures.push('sitemap.xml is missing or invalid.');
+for (const file of templateFiles) {
+  const relative = path.relative(root, file).split(path.sep).join('/');
+  if (sitemap.includes(`/${relative}</loc>`)) failures.push(`${relative}: template fragment is present in sitemap.xml.`);
+}
+for (const file of files.filter((item) => item.endsWith('.html') && isNoIndex(item))) {
+  const relative = path.relative(root, file).split(path.sep).join('/');
+  if (sitemap.includes(`/${relative}</loc>`)) failures.push(`${relative}: noindex route is present in sitemap.xml.`);
+}
 
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const relative = path.relative(root, file);
   const noindex = isNoIndex(file);
   if (isDirectoryListing(html)) failures.push(`${relative}: captured directory listing remains in deployment output.`);
+  if (hasServerSideRemnant(html)) failures.push(`${relative}: server-side remnant remains in deployment output.`);
   if (hasUnsafeLegacyJavaScript(html)) failures.push(`${relative}: unsafe legacy JavaScript remains.`);
   if (!noindex) {
     for (const pattern of [/<title\b[^>]*>/gi, /<meta\s+name="description"/gi, /<link\s+rel="canonical"/gi, /<meta\s+property="og:title"/gi, /<meta\s+name="twitter:card"/gi]) {

@@ -8,7 +8,7 @@
 import { cp, mkdir, readFile, readdir, rename, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { isCriticalImage, isDirectoryListing, isNoIndexRoute, sanitizeUnsafeLegacyJavaScript } from './archive-policy.mjs';
+import { isCriticalImage, isDirectoryListing, isNoIndexRoute, isTemplateFragment, sanitizeUnsafeLegacyJavaScript } from './archive-policy.mjs';
 
 const root = process.cwd();
 const source = path.join(root, 'legacy-source', 'www.lokigames.com');
@@ -104,6 +104,7 @@ const plainText = (html) => html.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').r
 const descriptionFor = (html, title) => {
   const existing = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1];
   const candidate = existing || plainText(html).replace(title, '').trim() || archiveDescription;
+  if (candidate.length <= 160) return candidate;
   return candidate.slice(0, 160).replace(/\s+\S*$/, '').trim() || archiveDescription;
 };
 const titleFromHtml = (html, fallback) => html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1].replace(/\s+/g, ' ').trim() || html.match(/<TITLE[^>]*>([\s\S]*?)<\/TITLE>/i)?.[1].replace(/\s+/g, ' ').trim() || fallback;
@@ -521,14 +522,15 @@ for (const file of await walk(destination)) {
         .replace(/\.php3f?(?:\.html)?(?=["'#?\s>])/gi, '.html')
         .replaceAll('_global/', 'global/')
         .replaceAll('_img/', 'img/')
-        .replaceAll('_bak/', 'bak/'),
+        .replaceAll('_bak/', 'bak/')
+        .replace(/<\?(?:php)?[\s\S]*?\?>/gi, ''),
       file,
     ), file);
     staticHtml = redirectRetiredMail(staticHtml, file);
     staticHtml = await repairUnavailableLocalReferences(staticHtml, file);
     if (file !== path.join(destination, 'index.html')) staticHtml = sanitizeUnsafeLegacyJavaScript(staticHtml);
     if (!file.includes(`${path.sep}_layouts${path.sep}`) && !file.includes(`${path.sep}_includes${path.sep}`) && !staticHtml.startsWith('---\n')) {
-      staticHtml = `${frontMatter({ noindex: isNoIndex(file) })}${injectSeo(staticHtml, file)}`;
+      staticHtml = `${frontMatter({ noindex: isNoIndex(file) || isTemplateFragment(staticHtml) })}${injectSeo(staticHtml, file)}`;
     }
     if (html !== staticHtml) await writeFile(file, staticHtml);
   }
