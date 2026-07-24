@@ -68,6 +68,9 @@ for (const file of htmlFiles) {
   if (isDirectoryListing(html)) failures.push(`${relative}: captured directory listing remains in deployment output.`);
   if (hasServerSideRemnant(html)) failures.push(`${relative}: server-side remnant remains in deployment output.`);
   if (hasUnsafeLegacyJavaScript(html)) failures.push(`${relative}: unsafe legacy JavaScript remains.`);
+  if (relative === 'orders/index.html' && !/Loki Store has closed[\s\S]*resellers\.html/i.test(html)) {
+    failures.push('orders/index.html: archived store-closure notice is missing.');
+  }
   if (!noindex) {
     for (const pattern of [/<title\b[^>]*>/gi, /<meta\s+name="description"/gi, /<link\s+rel="canonical"/gi, /<meta\s+property="og:title"/gi, /<meta\s+name="twitter:card"/gi]) {
       if ((html.match(pattern) ?? []).length !== 1) failures.push(`${relative}: expected exactly one ${pattern}.`);

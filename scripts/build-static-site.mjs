@@ -62,6 +62,14 @@ const titleFor = async (fragmentPath) => {
   }
 };
 
+const renderLiteralPhpEchoes = (html) => html.replace(/<\?php([\s\S]*?)\?>/gi, (_block, code) => {
+  // A few captured pages use PHP only to print fixed archival copy. Preserve
+  // those literal strings while continuing to omit executable or dynamic PHP.
+  return [...code.matchAll(/\becho\s+"([\s\S]*?)"\s*;/gi)]
+    .map((match) => match[1].replace(/\\"/g, '"').replace(/\\\\/g, '\\'))
+    .join('');
+});
+
 const renderFragment = (fragment) => {
   const replacements = [
     [/&lt;\?php/g, '<?php'],
@@ -81,11 +89,10 @@ const renderFragment = (fragment) => {
     [/<\?php\s+tabcell_special\('(head|dark|light)',\s*(\d+),\s*\d+\)\s*;?\s*\?>/gi, '<td class="$1" colspan="$2">'],
     [/<\?php\s+tabcell\('(head|dark|light)'\)\s*;?\s*\?>/gi, '<td class="$1">'],
     [/<\?php\s+tabcell\('end'\)\s*;?\s*\?>/gi, '</td>'],
-    [/<\?php[\s\S]*?\?>/gi, ''],
     [/\.php3f?(?:\.html)?(?=["'#?])/gi, '.html'],
   ];
 
-  const rendered = replacements.reduce((html, [pattern, replacement]) => html.replace(pattern, replacement), fragment)
+  const rendered = renderLiteralPhpEchoes(replacements.reduce((html, [pattern, replacement]) => html.replace(pattern, replacement), fragment))
     .replace(/<\/TABLE>(?!\s*<\/table>)/gi, '</table>')
     .replace(/<\/input>/gi, '')
     .replace(/\s+textwrap=(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
