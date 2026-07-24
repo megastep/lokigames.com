@@ -535,6 +535,31 @@ const optimizedImages = await optimizeImages();
 const sitemap = `---\n---\n<?xml version="1.0" encoding="UTF-8"?>\n{% assign canonical_origin = site.github.url | default: site.url %}<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{% for page in site.html_pages %}{% unless page.noindex %}\n  <url><loc>{{ canonical_origin }}{{ page.url }}</loc></url>{% endunless %}{% endfor %}\n</urlset>\n`;
 await writeFile(path.join(destination, 'sitemap.xml'), sitemap);
 await writeFile(path.join(destination, 'robots.txt'), `---\n---\nUser-agent: *\nDisallow: /i-am+so+british-like-ck/\nSitemap: {{ site.github.url | default: site.url }}/sitemap.xml\n`);
+await writeFile(path.join(destination, 'llms.txt'), `---
+---
+{% assign canonical_origin = site.github.url | default: site.url %}
+# ${archiveTitle}
+
+> ${archiveDescription}
+
+This is a historical archive. Loki Entertainment Software is no longer operating; the website preserves its original information about Linux game publishing, support, development, news, and press releases.
+
+## Key pages
+
+- [Home]({{ canonical_origin }}/): Archive overview and historical site navigation.
+- [Products]({{ canonical_origin }}/products/): Loki game catalogue, product information, screenshots, and reviews.
+- [Support]({{ canonical_origin }}/support/): Historical game FAQs, patches, demonstrations, and technical support material.
+- [Development]({{ canonical_origin }}/development/): Open-source development projects and legacy Linux game-development resources.
+- [Press]({{ canonical_origin }}/press/): Company press releases and press materials.
+- [News]({{ canonical_origin }}/news/): Historical company news archive.
+- [About Loki]({{ canonical_origin }}/about/): Company information, events, and archived contact details.
+
+## Archive notes
+
+- Historical third-party links and retired Loki services may not be available.
+- The archive preserves original materials; unavailable local resources lead to an archive notice.
+- [Sitemap]({{ canonical_origin }}/sitemap.xml) lists indexable archival pages.
+`);
 
 const staticFiles = await walk(destination);
 if (staticFiles.some((file) => file.endsWith('.php') || file.endsWith('.php3.html') || file.endsWith('.php3f.html'))) {

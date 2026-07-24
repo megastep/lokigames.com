@@ -46,9 +46,12 @@ for (const file of files.filter((item) => item.endsWith('.html'))) {
 }
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
 const robots = await readFile(path.join(root, 'robots.txt'), 'utf8').catch(() => '');
+const llms = await readFile(path.join(root, 'llms.txt'), 'utf8').catch(() => '');
 
 if (!/Sitemap:\s+(?:https?:\/\/|\/)/.test(robots)) failures.push('robots.txt does not reference the generated sitemap URL.');
 if (!sitemap.startsWith('<?xml')) failures.push('sitemap.xml is missing or invalid.');
+if (!/^# Loki Entertainment Software Archive\b/m.test(llms) || !/## Key pages/.test(llms)) failures.push('llms.txt is missing its archive summary or key-page index.');
+if (/megastep\.github\.io\/lokigames\.com/i.test(llms)) failures.push('llms.txt hardcodes a deployment URL.');
 for (const file of templateFiles) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   if (sitemap.includes(`/${relative}</loc>`)) failures.push(`${relative}: template fragment is present in sitemap.xml.`);
