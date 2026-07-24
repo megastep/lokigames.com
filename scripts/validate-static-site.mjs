@@ -2,6 +2,7 @@
 
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import { hasUnsafeLegacyJavaScript, isDirectoryListing, isNoIndexRoute } from './archive-policy.mjs';
 
 const root = path.resolve(process.argv[2] ?? 'docs');
 const failures = [];
@@ -15,8 +16,26 @@ const walk = async (directory) => {
   return nested.flat();
 };
 
-const isNoIndex = (file) => /(?:^|\/)(?:_?bak|icons|downloads?|img)(?:\/|$)|(?:legacy-services|form_response|contact_form)\.html$/i.test(path.relative(root, file));
+const isNoIndex = (file) => isNoIndexRoute(path.relative(root, file));
 const isReachable = async (target) => access(target).then(() => true, () => false);
+const isExternalReference = (value) => /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|www\.[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/?#]|$))/i.test(value);
+const localReferences = /\b(href|src|action)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
+const validateLocalReferences = async (file, html) => {
+  for (const match of html.matchAll(localReferences)) {
+    const attribute = match[1].toLowerCase();
+    const value = match[2] ?? match[3] ?? match[4] ?? '';
+    if (!value || isExternalReference(value)) continue;
+    const pathname = decodeURI(value.split(/[?#]/, 1)[0]);
+    if (!pathname) continue;
+    const target = path.resolve(pathname.startsWith('/') ? root : path.dirname(file), pathname.replace(/^\/+/, ''));
+    if (!target.startsWith(root)) {
+      failures.push(`${path.relative(root, file)}: local ${attribute} escapes the archive: ${value}`);
+      continue;
+    }
+    const candidates = attribute === 'href' ? [target, path.join(target, 'index.html'), `${target}.html`] : [target];
+    if (!(await Promise.all(candidates.map(isReachable))).some(Boolean)) failures.push(`${path.relative(root, file)}: missing local ${attribute}: ${value}`);
+  }
+};
 const files = await walk(root);
 const htmlFiles = [];
 for (const file of files.filter((item) => item.endsWith('.html'))) {
@@ -33,7 +52,8 @@ for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const relative = path.relative(root, file);
   const noindex = isNoIndex(file);
-  if (relative === 'index.html' && (/javascript:|\beval\(|document\.(?:all|layers)/i.test(html))) failures.push(`${relative}: unsafe legacy JavaScript remains.`);
+  if (isDirectoryListing(html)) failures.push(`${relative}: captured directory listing remains in deployment output.`);
+  if (hasUnsafeLegacyJavaScript(html)) failures.push(`${relative}: unsafe legacy JavaScript remains.`);
   if (!noindex) {
     for (const pattern of [/<title\b[^>]*>/gi, /<meta\s+name="description"/gi, /<link\s+rel="canonical"/gi, /<meta\s+property="og:title"/gi, /<meta\s+name="twitter:card"/gi]) {
       if ((html.match(pattern) ?? []).length !== 1) failures.push(`${relative}: expected exactly one ${pattern}.`);
@@ -49,6 +69,7 @@ for (const file of htmlFiles) {
     const fallback = picture[1].match(/<img\b/i);
     if (!webp || !fallback || !(await isReachable(path.resolve(path.dirname(file), webp)))) failures.push(`${relative}: invalid WebP picture fallback.`);
   }
+  await validateLocalReferences(file, html);
 }
 
 if (failures.length) {

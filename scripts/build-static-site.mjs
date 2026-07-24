@@ -8,6 +8,7 @@
 import { cp, mkdir, readFile, readdir, rename, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
+import { isCriticalImage, isDirectoryListing, isNoIndexRoute, sanitizeUnsafeLegacyJavaScript } from './archive-policy.mjs';
 
 const root = process.cwd();
 const source = path.join(root, 'legacy-source', 'www.lokigames.com');
@@ -98,7 +99,7 @@ const canonicalPath = (output) => {
   return relative.endsWith('/index.html') ? `/${relative.slice(0, -'index.html'.length)}` : `/${relative}`;
 };
 const frontMatter = (fields) => `---\n${Object.entries(fields).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n')}\n---\n`;
-const isNoIndex = (output) => /(?:^|\/)(?:_?bak|icons|downloads?|img)(?:\/|$)|(?:legacy-services|form_response|contact_form)\.html$/i.test(path.relative(destination, output));
+const isNoIndex = (output) => isNoIndexRoute(path.relative(destination, output));
 const plainText = (html) => html.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ').replace(/<!--[^]*?-->/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/\s+/g, ' ').trim();
 const descriptionFor = (html, title) => {
   const existing = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1];
@@ -218,6 +219,51 @@ const redirectRetiredMail = (html, output) => html.replace(/\bhref\s*=\s*(["'])(
   return `href="${path.relative(path.dirname(output), target).split(path.sep).join('/')}#email"`;
 });
 
+const localAttribute = /\b(href|src|action)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
+const isExternalReference = (value) => /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|\{\{|\{%|www\.[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/?#]|$))/i.test(value);
+const relativeReference = (output, target) => {
+  const relative = path.relative(path.dirname(output), target).split(path.sep).join('/');
+  return relative === 'index.html' ? './' : relative.endsWith('/index.html') ? relative.slice(0, -'index.html'.length) : relative;
+};
+const firstExistingFile = async (candidates) => {
+  for (const candidate of candidates) {
+    try {
+      if ((await stat(candidate)).isFile()) return candidate;
+    } catch { /* try the next archive fallback */ }
+  }
+};
+const repairUnavailableLocalReferences = async (html, output) => {
+  let repaired = html;
+  for (const match of [...repaired.matchAll(localAttribute)].reverse()) {
+    const attribute = match[1].toLowerCase();
+    const original = match[2] ?? match[3] ?? match[4] ?? '';
+    if (!original || isExternalReference(original)) continue;
+    const decoded = original.replace(/%3f/gi, '?').replace(/&amp;/gi, '&');
+    const [pathname, suffix = ''] = decoded.match(/^([^?#]*)(.*)$/).slice(1);
+    if (!pathname) continue;
+    const target = path.resolve(pathname.startsWith('/') ? destination : path.dirname(output), pathname.replace(/^\/+/, ''));
+    if (!target.startsWith(destination)) continue;
+    const routeCandidates = [target, path.join(target, 'index.html'), `${target}.html`];
+    if (attribute === 'href' && pathname.endsWith('.html')) {
+      const directory = target.slice(0, -'.html'.length);
+      routeCandidates.push(path.join(directory, 'index.html'));
+      if (/\/(?:faq3|myth2?faq)\.html$/i.test(target)) routeCandidates.push(path.join(path.dirname(target), 'faq.html'));
+    }
+    const available = await firstExistingFile(routeCandidates);
+    let replacement;
+    if (available) {
+      const fragment = suffix.includes('#') ? `#${suffix.split('#')[1]}` : '';
+      replacement = relativeReference(output, available) + fragment;
+    } else if (attribute === 'src') {
+      replacement = relativeReference(output, path.join(destination, 'global', 'img', 'pixel.gif'));
+    } else {
+      replacement = relativeReference(output, path.join(destination, 'archive-unavailable.html'));
+    }
+    repaired = `${repaired.slice(0, match.index)}${attribute}="${replacement}"${repaired.slice(match.index + match[0].length)}`;
+  }
+  return repaired;
+};
+
 const seoTags = ({ title, description, noindex }) => `
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -248,7 +294,6 @@ const injectSeo = (html, output) => {
 };
 
 const homepageScript = `const menus = ['products', 'orders', 'support', 'development', 'press', 'about', 'news'];
-const routes = { products: 'products/', orders: 'orders/', support: 'support/', development: 'development/', press: 'press/', about: 'about/', news: 'news/' };
 const menuElement = (name) => document.getElementById(\`menu\${name}\`);
 const setImage = (name, state) => {
   const image = document.images[name];
@@ -331,6 +376,12 @@ const modernizeHomePage = async (output) => {
 
 const routesForHome = { products: 'products/', orders: 'orders/', support: 'support/', development: 'development/', press: 'press/', about: 'about/', news: 'news/' };
 
+const removeDirectoryListings = async () => {
+  for (const file of (await walk(destination)).filter((item) => item.endsWith('.html'))) {
+    if (isDirectoryListing(await readFile(file, 'utf8'))) await unlink(file);
+  }
+};
+
 const optimizeImages = async () => {
   const htmlFiles = (await walk(destination)).filter((file) => file.endsWith('.html') && !file.includes(`${path.sep}_`));
   const generated = new Map();
@@ -358,7 +409,9 @@ const optimizeImages = async () => {
       const webpRelative = path.relative(path.dirname(file), webpPath).split(path.sep).join('/');
       const sizedTag = /\bwidth\s*=/.test(tag) || !dimensions.width || !dimensions.height
         ? tag : tag.replace(/<img\b/i, `<img width="${dimensions.width}" height="${dimensions.height}"`);
-      const enrichedTag = /\bloading\s*=/.test(sizedTag) ? sizedTag : sizedTag.replace(/<img\b/i, '<img loading="lazy" decoding="async"');
+      const enrichedTag = /\bloading\s*=/.test(sizedTag) || isCriticalImage(path.relative(destination, file), sizedTag)
+        ? sizedTag.replace(/<img\b/i, '<img decoding="async"')
+        : sizedTag.replace(/<img\b/i, '<img loading="lazy" decoding="async"');
       const picture = `<picture><source srcset="${webpRelative}" type="image/webp">${enrichedTag}</picture>`;
       html = `${html.slice(0, match.index)}${picture}${html.slice(match.index + tag.length)}`;
     }
@@ -433,6 +486,11 @@ await writeLegacyPage(path.join(destination, 'legacy-services.html'), 'Loki lega
   <h2 id="email">Retired email</h2>
   <div class="small">Historical Loki email addresses are preserved as archival text, but they no longer accept messages.</div>
 `, true);
+await writeLegacyPage(path.join(destination, 'archive-unavailable.html'), 'Archived Loki resource unavailable', `
+  <h1>Archived resource unavailable</h1>
+  <div class="normal">This historical link or asset was not included in the captured Loki Games website snapshot.</div>
+  <div class="small">The original link text is preserved where it appears in the archive.</div>
+`, true);
 
 const fragments = (await walk(source)).filter((file) => file.endsWith('.php3f.html'));
 for (const fragmentPath of fragments) {
@@ -449,6 +507,7 @@ for (const fragmentPath of fragments) {
 await renameHiddenLegacyPaths(destination);
 await rename(path.join(destination, 'legacy-layouts'), path.join(destination, '_layouts'));
 await rename(path.join(destination, 'legacy-includes'), path.join(destination, '_includes'));
+await removeDirectoryListings();
 
 for (const file of await walk(destination)) {
   if (file.endsWith('.php3.html') || file.endsWith('.php3f.html') || file.includes('?')) {
@@ -466,6 +525,8 @@ for (const file of await walk(destination)) {
       file,
     ), file);
     staticHtml = redirectRetiredMail(staticHtml, file);
+    staticHtml = await repairUnavailableLocalReferences(staticHtml, file);
+    if (file !== path.join(destination, 'index.html')) staticHtml = sanitizeUnsafeLegacyJavaScript(staticHtml);
     if (!file.includes(`${path.sep}_layouts${path.sep}`) && !file.includes(`${path.sep}_includes${path.sep}`) && !staticHtml.startsWith('---\n')) {
       staticHtml = `${frontMatter({ noindex: isNoIndex(file) })}${injectSeo(staticHtml, file)}`;
     }

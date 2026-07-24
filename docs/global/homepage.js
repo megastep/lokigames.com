@@ -1,5 +1,4 @@
 const menus = ['products', 'orders', 'support', 'development', 'press', 'about', 'news'];
-const routes = { products: 'products/', orders: 'orders/', support: 'support/', development: 'development/', press: 'press/', about: 'about/', news: 'news/' };
 const menuElement = (name) => document.getElementById(`menu${name}`);
 const setImage = (name, state) => {
   const image = document.images[name];
