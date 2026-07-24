@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src = "/_global/_img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src = "/_global/_img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src = "/_global/_img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src = "/_global/_img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src = "/_global/_img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src = "/_global/_img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src = "/_global/_img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src = "/_global/_img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src = "/_global/_img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src = "/_global/_img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src = "/_global/_img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src = "/_global/_img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src = "/_global/_img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src = "/_global/_img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/_global/_img/overview/sections/"+name+".gif'") : "/_global/_img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src = "/_global/_img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="/about/contact.php3">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="/news/links.php3">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="/about/copyright.php3">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="/">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">LOKI TO BRING INTERPLAY'S <I>DESCENT 3&#153;</I> TO LINUX
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+June 2, 2000
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Press Contact:<BR>     
+Kayt Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Telephone: 714.505.8915 x12<BR>
+Facsimile: 714.505.3247<BR>
+<A HREF="mailto:press@lokigames.com">press@lokigames.com</A><BR>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Outrage Press Contact:<BR>
+Matt Toschlog<BR>
+Outrage Entertainment, Inc.<BR>
+Telephone: 734-663-9120<BR>
+Facsimile: 734-663-6702<BR>
+<A HREF="mailto:info@outrage.com">info@outrage.com</A><BR>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Latest Sequel in Hit Series Soon to Be Available for Linux
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Tustin, CA.  --  June 2, 2000 -- Loki Entertainment Software, the foremost authority on porting popular commercial games to Linux, today announces an agreement with <A HREF="http://www.interplay.com">Interplay Entertainment Corporation</A>, a worldwide developer and publisher of award-winning entertainment software, to bring the critically-acclaimed <I>Descent 3&#153;</I> to Linux gamers 
+by July 2000.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"<I>Descent 3</I> represents a great blend of action and high performance 3D graphics," said Scott Draeker, president of Loki Entertainment Software. "This is a new kind of game for Linux, and one which our users are sure to enjoy."
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Descent 3</I>, developed by <A HREF="http://www.outrage.com">Outrage Entertainment</a>, is a fast-paced 3D action shooter. It envelopes gamers in a frenetic 3D world of 360� of movement as they pilot ships through 15 massive, detailed levels with multiple objectives and sophisticated puzzles. Players experience intensely furious subterranean shooting action, plus the thrill of soaring above the surface, engaging in combat with enemy air and ground forces and encountering an entirely new legion of devious robots and other enemies. 
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"We're excited to see the Linux market growing and we're very happy to be a part of it," said Matt Toschlog, President of Outrage. Jeff Slutter, who programmed the Linux version for Outrage, said, "We originally released a dedicated server version of <I>Descent 3</I> for Linux and are very pleased that Loki will now bring to market the full client version."
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The Linux version of <I>Descent 3</I> will support the <A HREF="http://www.rocknride.com">Rock 'n' Ride simulator</a> for the ultimate in gaming experiences. The Rock 'n' Ride moves a gamer and their monitor up to 55 degrees for genuine interactive motion.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Descent 3</I> is fully optimized for Internet play with 16 players at one time. It  has a suggested retail price under $30.00 (U.S. Dollars).
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Loki Entertainment Software</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Based in Orange County, CA, Loki works with leading game publishers to port their best-selling PC and Macintosh titles to Linux. Loki meets a pent-up need in the Linux community by providing fully-supported, shrink-wrapped games for sale through traditional retail channels.  Founded in 1998, Loki is privately held and takes its name from the Norse god of mischief. For more information visit <A HREF="http://www.lokigames.com">www.lokigames.com</a>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Outrage Entertainment</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Outrage Entertainment, Inc. is a leading developer of PC and video games.  Located in Ann Arbor, MI,  Outrage was founded in 1996 when Parallax Software, developer of <I>Descent</I> and <I>Descent II</I>, spun off its development operations into two independent companies.  In 1999, Outrage completed <I>Descent 3</I> and <I>Descent 3: Mercenary</I>, and is currently developing an original title for the PlayStation 2.  For more information, see <A HREF="http://www.outrage.com">http://www.outrage.com</a>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Interplay Entertainment Corp. is a leading developer, publisher and distributor of interactive entertainment software for both core gamers and the mass market. Interplay currently balances its development efforts by publishing for personal computers and current generation video game consoles. Interplay releases products through Interplay, Shiny Entertainment, Digital Mayhem, Black Isle Studios, 14 Degrees East, its affiliated labels and its wholly owned subsidiary Interplay OEM, Inc.  More comprehensive information on Interplay and its products is available through its worldwide web site at <A HREF="http://www.interplay.com">http://www.interplay.com</a>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Safe Harbor Statement under the Private Securities Litigation Reform Act of 1995: This release may contain forward-looking statements involving risks and uncertainties that may cause actual future events or results to differ materially and adversely from those described in the forward-looking statements.  Important factors that may cause such a difference for Interplay include, but are not limited to, risks of delays in development and introduction of new products, dependence on new product introductions which achieve significant market acceptance and the uncertainties of consumer preferences, dependence on third party software developers for a significant portion of new products, risks of rapid technological change and platform change, intense competition, seasonality, risks of product defects, dependence upon licenses from third parties, risks associated with future capital requirements, dependence upon third party distribution, dependence upon key personnel and risks associated with international business, intellectual property disputes and other factors discussed in the Company's filings from time to time with the Securities Exchange Commission, including but not limited to the Registration Statement on Form S-1 as amended (Registration Number 333-48473) and Final Prospectus dated June 19, 1998 and the Company's subsequent quarterly filings on Form 10Q.  Interplay disclaims any obligation to revise or update any forward-looking statement that may be made from time to time by it or on its behalf.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">This press release contains statements that are forward looking as that term is defined by the United States Private Securities Litigation Reform Act of 1995. These statements are based on current expectations that are subject to risks and uncertainties. Actual results will differ due to factors such as shifts in customer demand, product shipment schedules, product mix, competitive products and pricing, technological shifts and other variables. Readers are referred to Corel's most recent reports filed with the Securities and Exchange Commission.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"># # #
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Note: All trademarks and copyrights are the property of their respective owners.
+</FONT></P>
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="/_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/products/">Products</A> | <A
+HREF="http://store.lokigames.com/dr/v2/ec_main.entry?sp=10007&sid=26095&cid=0">Order</A> | <A HREF="/support/">Support</A> | <A HREF="/development/">Development</A> | <A HREF="/press/">Press</A> | <A HREF="/news/">News</A> | <A HREF="/about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/about/copyright.php3">&copy;</A> 2000 Loki Entertainment Software | <A HREF="/about/contact.php3">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

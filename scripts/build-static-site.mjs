@@ -10,6 +10,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const source = path.join(root, 'legacy-source', 'www.lokigames.com');
+const recoveredPressSource = path.join(root, 'recovered-source', 'press');
 const destination = path.join(root, 'docs');
 const legacyHost = /(?:https?:)?\/\/(?:www\.)?lokigames\.com(?=[:/?#]|["'\s<])/gi;
 const legacySubdomain = /(?:https?|ftp|news):\/\/([a-z0-9-]+)\.lokigames\.com(?=[:/?#]|["'\s<])/gi;
@@ -203,6 +204,14 @@ const rewriteInternalPhpLinks = async (html, output) => {
 
 await rm(destination, { recursive: true, force: true });
 await cp(source, destination, { recursive: true });
+// The original server now exposes only PHP template stubs for press releases.
+// Archived full-page captures are stored separately so the source snapshot stays
+// untouched while the resulting static archive preserves the release bodies.
+try {
+  await cp(recoveredPressSource, path.join(destination, 'press', 'archive'), { recursive: true });
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
 await renameHiddenLegacyPaths(destination);
 await mkdir(path.join(destination, 'global'), { recursive: true });
 await writeFile(path.join(destination, 'global', 'legacy.css'), `

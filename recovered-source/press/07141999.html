@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src = "/_global/_img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src = "/_global/_img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src = "/_global/_img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src = "/_global/_img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src = "/_global/_img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src = "/_global/_img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src = "/_global/_img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src = "/_global/_img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src = "/_global/_img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src = "/_global/_img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src = "/_global/_img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src = "/_global/_img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src = "/_global/_img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src = "/_global/_img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/_global/_img/overview/sections/"+name+".gif'") : "/_global/_img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src = "/_global/_img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="/about/contact.php3">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="/news/links.php3">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="/about/copyright.php3">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="/">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>News Release</B><BR>
+For Immediate Release
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Tel.: ++1 (714) 585-4357<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P> 
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Terra Soft Contact:<BR>
+Kai Staats<BR>
+Terra Soft Solutions, Inc.<BR>
+Tel.: ++1 (970) 278-9243<BR>
+<A HREF="mailto:kstaats@terraplex.com">kstaats@terraplex.com</A>
+</FONT></P> 
+
+<H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Linux Games Coming to the PowerPC
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" CLASS="normal"><I>Tustin, Calif., July 14, 1999</I> -- Terra Soft Solutions
+and Loki Entertainment Software announce a strategic alliance
+to bring best-selling PC games to Linux on PowerPC computers --
+in some cases before those same games are available for the MacOS.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Entertainment Software has become a strong force in the
+gaming industry, licensing MacOS and Windows games and porting
+them to the Linux operating system. Terra Soft Solutions has quickly
+established itself as a leader in the Linux for PowerPC arena.
+ Through the partnership, Loki and Terra Soft will combine their
+efforts to bring Linux games to PowerPC computers.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is compatible with a wide-variety of computer hardware,
+including i386-based hardware manufactured by Intel, AMD and Cyrix,
+and PowerPC-based hardware such as Apple Computer's iMac. Through
+this new alliance, Loki will continue to license and port PC games
+to the Linux OS. Terra Soft will work with Loki to develop PPC-compatible
+versions based on Loki's source code.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">&quot;We are thrilled to work with Terra Soft to expand the
+universe of applications for Linux on the PowerPC, states Loki
+President Scott Draeker. &quot;This partnership ensures that PowerPC
+users who install Linux will have access to the best games that
+the PC world has to offer.&quot;
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">&quot;This is a challenging opportunity. One that will keep
+us quite busy,&quot; notes Stephen Edie, Software Engineer for
+Terra Soft. &quot;My personal background and my 'passion' are
+with gaming. Through my work on porting the CMD 646 IDE driver
+for the Blue &amp; Whites and ongoing work on the graphical installer
+for Gone Home, I have become quite familiar with the PowerPC architecture.
+I believe that Terra Soft's experience with the PowerPC coupled
+with Loki's background is an incredible combination. It allows
+each of us to do what we do best and provide games that may not
+otherwise be made available on the PowerPC.&quot;
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">In addition to working with Loki to bring Linux games to the
+PowerPC, Terra Soft will soon offer game bundles with its Yellow
+Dog Linux Gone Home distribution. Retail versions of Loki's games,
+which will include both the i386 and PPC versions, will be available
+as stand-alone products for sale directly from Loki, Terra Soft
+and other software retailers.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki plans to bring a wide variety of games to Linux, including
+the most popular action, adventure, and educational titles. Loki's
+current product line includes Civilization: Call to Power, Myth
+II: Soulblighter, Railroad Tycoon II Gold Edition, and Eric's
+Ultimate Solitaire. A total of 8 titles are planned for release
+in 1999. Today's announcement ensures that all of Loki's titles
+will be available for both i386 and PowerPC.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Loki Entertainment Software
+Based in Tustin, CA, Loki works with leading game publishers
+to port their best-selling PC and Macintosh titles to the Linux
+platform. Loki meets a pent-up need in the Linux community by
+providing fully-supported, shrink-wrapped games for sale through
+traditional retail channels. For more information, visit www.lokigames.com.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Terra Soft Solutions, Inc.
+Based in Loveland, CO, Terra Soft is the developer of Yellow
+Dog Linux for Apple Macintosh G3 and PPC computers. Champion Server,
+their flagship product, is a highly professional distribution
+geared toward a wide range of network applications such as ISPs,
+corporate intra/extranets, web and network servers. Terra Soft
+recently introduced Black Lab Linux, a parallel computing system
+for research and development facilities. For more information,
+visit <A HREF="http://www.yellowdoglinux.com/">www.yellowdoglinux.com</A>.
+</FONT></P>
+<P><IMG SRC="/_global/_img/blurline.gif" WIDTH="333" HEIGHT="1" BORDER="0"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"> Linux is a trademark of Linus Torvalds. All
+ other product names are trademarks of their respective owners.
+</FONT></P> 
+
+
+
+
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="/_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/products/">Products</A> | <A HREF="/orders/">Order</A> | <A HREF="/support/">Support</A> | <A HREF="/development/">Development</A> | <A HREF="/press/">Press</A> | <A HREF="/news/">News</A> | <A HREF="/about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/about/copyright.php3">&copy;</A> 1999 Loki Entertainment Software | <A HREF="/about/contact.php3">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

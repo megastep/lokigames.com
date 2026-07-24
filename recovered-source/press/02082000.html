@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src = "/_global/_img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src = "/_global/_img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src = "/_global/_img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src = "/_global/_img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src = "/_global/_img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src = "/_global/_img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src = "/_global/_img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src = "/_global/_img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src = "/_global/_img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src = "/_global/_img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src = "/_global/_img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src = "/_global/_img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src = "/_global/_img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src = "/_global/_img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/_global/_img/overview/sections/"+name+".gif'") : "/_global/_img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src = "/_global/_img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="/about/contact.php3">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="/news/links.php3">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="/about/copyright.php3">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="/">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Spearheads OpenAL
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+March 8, 2000
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Press Contact:<BR>     
+Kayt Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Telephone: 714.505.8915 x12<BR>
+Facsimile: 714.505.3247<BR>
+<A HREF="mailto:press@lokigames.com">press@lokigames.com</A><BR>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Open-Source, Cross-Platform 3D-Audio Library Debuts at the Game Developers Conference
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">San Jose, CA. -- March 8, 2000 -- Loki Entertainment Software, the leading publisher of commercial games for the Linux operating system, today announces a multi-company project to create and distribute OpenAL, an open-source, cross-platform 3D-Audio library.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">3D-Audio greatly improves the immersive quality of a game. It allows games and other applications to take advantage of powerful spacialized sound effects, including distance and direction attenuation, panning and reverb. With these features, gamers can, for example, determine by sound the distance and direction of an explosion in a 3D-gaming environment.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"OpenAL represents a milestone for Linux and for the game industry in general," said Scott Draeker, president, Loki Entertainment Software.  "Until now, games running on Linux have not had access to the advanced 3D-Audio features available on other platforms. OpenAL provides those advanced features with an open-source, nonproprietary implementation which is available not just for Linux, but for Windows and MacOS games as well. What SGI's OpenGL has done for 3D-Video, OpenAL will do for 3D-Audio."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Prior to OpenAL, there was no standard way to implement 3D-Audio for Linux. Because the proprietary audio libraries for Mac and Windows are not compatible with Linux, Loki decided to create an audio API that would be both cross-platform and open-source. Loki drew upon the previous efforts of members of the open-source community and teamed with hardware vendors such as Creative Technology Ltd. (NASDAQ: CREAF) to make the project a reality.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Creative Technology, the leader in providing advanced PC audio hardware, plans to release Linux drivers that will work with OpenAL, and which natively support the advanced 3D-Audio effects which OpenAL enables. In addition, Creative is evaluating MacOS and Windows implementations of the OpenAL standard
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"Creative is excited to be a part of the OpenAL creation and authoring committee", said Jacob Hawley, Director of the Custom Engineering division at Creative. "This API will help content developers provide robust applications on Linux and other leading platforms, opening new markets for hardware vendors such as Creative in the process. This API is a win / win for everyone."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"OpenAL is another major step forward for Linux and shows how complete a gaming platform Linux has become," said Dr. Michael Cowpland, President and CEO of Corel Corporation. "Corel has long been a supporter of open standards and cross-platform compatibility. We are thrilled with the progress by Loki and Creative Labs and we look forward to including more of their technology in our future releases."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki is already incorporating OpenAL into it's growing product line of AAA Linux games. In March, Loki will release the Linux version of Activision's Heavy Gear II, the first Linux game to support 3D-Audio using OpenAL.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The source code for OpenAL for Mac, Windows and Linux is freely available for download and is offered under the GNU Library Public License (LGPL).  Visit <a href="http://www.openal.org">www.openal.org</a> for more information.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Loki Entertainment Software</B>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Entertainment Software A privately held company, Loki Entertainment Software has headquarters in Orange County, California and was established in 1998. Loki meets a pent-up need in the Linux community by providing fully-supported, shrink-wrapped games for sale through traditional retail channels worldwide. Loki's first Linux title, Civilization: Call to Power was awarded Linux Journal's award for Best End User Product of 1999. Loki released 7 front-line Linux game titles in 1999, and plans 16 titles for 2000. For more information, visit <a href="http://www.lokigames.com">www.lokigames.com</A>.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Creative Technology Ltd.</B>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Creative Technology Ltd. develops, manufactures and markets a wide array of advanced multimedia solutions for the PC, entertainment, education, music and productivity tools markets. Creative's products are marketed through the OEM, systems integrator and retail channels under a variety of trademarks, including the "Blaster" family name. With the new Sound Blaster� PCI standard, Creative has produced a solution that utilizes a combination of hardware and software for near-perfect compatibility with existing DOS and Windows titles. Creative's corporate headquarters and primary manufacturing are based in Singapore, with sales, distribution and research and development being carried out through an extensive, global network of subsidiaries located in North America, Europe, Asia and Africa.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Corel Corporation</B>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Corel Corporation Corel Corporation is an internationally recognized developer of award-winning business productivity, graphics and operating system solutions on the Windows&#174;, Linux&#174;, UNIX&#174;, Macintosh&#174; and Java&#153; platforms. Corel also develops market-leading, Web-based solutions including applications, contents, e-commerce and online services. For access to these services and more information go to <a href="http://www.corel.com">www.corel.com</a> or <a href="http://www.corelcity.com">www.corelcity.com</a>. Corel is headquartered in Ottawa, Canada. Corel's common stock trades on the NASDAQ Stock Market under the 
+symbol CORL and on the Toronto Stock Exchange under the symbol COR.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">This press release contains statements that are forward looking as that term is defined by the United States Private Securities Litigation Reform Act of 1995. These statements are based on current expectations that are subject to risks and uncertainties. Actual results will differ due to factors such as shifts in customer demand, product shipment schedules, product mix, competitive products and pricing, technological shifts and other variables. Readers are referred to Corel's most recent reports filed with the Securities and Exchange Commission.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"># # #
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">All company and product names are the trademarks, registrations, or copyrights of their respective owners.
+</FONT></P>
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="/_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/products/">Products</A> | <A HREF="/orders/">Order</A> | <A HREF="/support/">Support</A> | <A HREF="/development/">Development</A> | <A HREF="/press/">Press</A> | <A HREF="/news/">News</A> | <A HREF="/about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/about/copyright.php3">&copy;</A> 1999 Loki Entertainment Software | <A HREF="/about/contact.php3">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

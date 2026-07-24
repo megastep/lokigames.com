@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Software, Inc. -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (pic != "error") {
+		if (document.images && active) {
+			image = eval(pic + "_on.src");
+			document[pic].src = image;
+		}
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Software, Inc.">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Software, Inc.</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Gathering of Developers and Loki Software Partner for More Linux Games
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+January 4, 2001
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Rune and Heavy Metal: F.A.K.K.2 Coming Soon for Linux
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Tustin, California - January 4 2001 - Loki Software, Inc., the leading publisher of commercial games for the Linux operating system, announced today an agreement with developer-driven computer and videogame publisher Gathering of Developers to bring the hit PC games Rune and Heavy Metal: F.A.K.K.2 to Linux early this year.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Rune, developed by Human Head Studios, was recently released for Windows and Mac OS to rave reviews. In this 3D heroic-fantasy action game, players assume the role of Ragnar the Viking, a young warrior about to enter into manhood and take his rightful place next to his father as a warrior of his village. The game showcases 43 single-player levels, multiplayer deathmatch and team deathmatch modes, 21 different multiplayer characters, and 5 multiplayer mutator modes, among other unique and titillating options. Rune uses an enhanced version of the Unreal Tournament Engine to offer a new particle effects system and a new melee-combat focused AI. For more information on Rune, visit <A HREF="http://www.runegame.com/">www.runegame.com</A>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heavy Metal: F.A.K.K.2 by developer Ritual Entertainment is an intense third-person 3D action-adventure game based on Kevin Eastman's Heavy Metal 2000 movie, the sequel to the explosive and groundbreaking animated film Heavy Metal. Players take on the role of Julie, the legendary F.A.K.K.2 heroine, and battle against Gith Industries' army of freakish and deviant characters in an effort to save Eden, Julie's homeworld. Powered by an enhanced version of id Software's Quake III Engine, the game features detailed renderings of indoor and outdoor settings with breathtaking realism. For more information, visit <A HREF="http://fakk2.godgames.com/">fakk2.godgames.com</A>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki is now accepting beta tester applications for these exciting titles. Interested participants should review system requirements on www.lokigames.com and complete an online registration form at odin.lokigames.com.
+</FONT></P>
+<H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">About Loki Software, Inc.
+</FONT></H5>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Founded in 1998 in Orange County, California, Loki works with leading publishers and developers to port their best-selling PC products to Linux. Game titles from Loki include SimCity 3000 Unlimited, Descent 3, and Soldier of Fortune. In addition to this arsenal of games, Loki has initiated and continues to support several Open Source development projects, including OpenAL (tm), a cross-platform 3D-Audio Library, and SDL MPEG Player Library (SMPEG), a general-purpose MPEG video/audio player for Linux. For more information visit <A HREF="../../">www.lokigames.com</A>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact: Kayt Sorhaindo, <A HREF="mailto:press@lokigames.com">press@lokigames.com</A>
+
+<H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">About Gathering of Developers
+</FONT></H5>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Founded in Dallas, TX in January 1998, Gathering of Developers is a developer-driven computer and video game publishing company, and a wholly-owned subsidiary of Take-Two Interactive Software, Inc (NASDAQ: TTWO). The company's mission is to be the worldwide leader in the development and delivery of commercially successful computer and video game software designed for a range of platforms. The company's pioneering partners are industry leaders and proven hit makers 3D Realms, Epic Games, PopTop Software, Ritual Entertainment, Terminal Reality Inc and Edge of Reality. For more information visit Gathering of Developers Web site at <A HREF="http://www.godgames.com/">www.godgames.com</A>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Gathering of Developers Contact: Andrea Schneider, (212) 696-2000 or <A HREF="mailto:aschneider@tsicomm.com">aschneider@tsicomm.com</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">###
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is a registered trademark of Linus Torvalds. All company and product names are the trademarks, registrations, or copyrights of their respective owners.
+</FONT></P><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A
+HREF="../../orders/">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><BR>
+Loki is a registered trademark of Loki Software, Inc.
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>

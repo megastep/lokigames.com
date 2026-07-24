@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>News Release</B><BR>
+For Immediate Release
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Tel.: ++1 (714) 505-8915<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P> 
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Activision Contact:<BR>
+Maryanne Lataif<BR>
+Vice President, Corporate Communications<BR>
+Activision, Inc.<BR>
+Tel.: ++1 (310) 255-2704<BR>
+<A HREF="mailto:mlataif@activision.com">mlataif@activision.com</A>
+</FONT></P> 
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Atlanta Linux Enthusiasts Contact:<BR>
+Chris Farris<BR>
+Vice President, ALS<BR>
+Tel.: ++1 (678) 777-3943<BR>
+<A HREF="mailto:chrisf@linuxshowcase.org">chrisf@linuxshowcase.org</A>
+</FONT></P> 
+
+<H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Hack Winners Announced<BR>
+Contestants Hacked the Linux Source Code for Activision's Hit Title, Civilization: Call to Power
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" CLASS="normal"><I>Atlanta, GA, October 15, 1999</I> -- Winners of the first annual Loki Hack were announced in an afternoon press conference at the Atlanta Linux Showcase at the Cobb Galleria Centre.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Entertainment Software, in cooperation with Activision, Inc., the Atlanta Linux Enthusiasts and VA LiNUX Systems, kicked off Loki Hack 1999 on Monday, October 11. During the Hack, enthusiastic and talented hackers from across the country and around the world had 48 hours in a secure setting to make alterations to the Linux source code for Activision's popular strategy game Civilization: Call to Power.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The hackers had full rein to add features, alter logic,  and implement additional library support. Upon conclusion of the contest on Wednesday, October 13, a panel of judges, including Sam Lantinga of Loki Entertainment Software, Greg Hankins of the Atlanta Linux Showcase, and Jeff "Hemos" Bates of Slashdot evaluated the hacks.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"This is the closest we could get to Open Source with our commercial products," said Scott Draeker, Loki president and founder. "The world can't see the source, but the contestants did. And all the hacks, mods, and changes will be posted in binary form for free download from our website next week. This was our chance to show the gaming world what the Open Source community can accomplish, and the results have been incredible."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">At the press conference Draeker awarded first prize to Christopher Yeoh, a developer from Denver, Colorado. Yeoh completed several modifications to Civilization: Call to Power, including the addition of extra units such as land carriers and stealth carriers. Yeoh also enhanced the Spy unit by allowing it to infiltrate an enemy city. If successful, the Spy is destroyed, but the player can view the infiltrated city's statistics until payment is received from the enemy. 
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">First prize is a StartX MP Workstation from VA LiNUX Systems. Runners-up will receive their choice of Gamer-X sound cards from Creative Labs, Inc., 3950U2 Ultra2 Dual Channel SCSI cards from Adaptec, Inc., and  Millennium G400 video cards from Matrox Graphics, Inc. All contestants completed at least one hack and will each receive a prize.</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Hack 1999 was sponsored by Activision, the Atlanta Linux Showcase, VA LiNUX Systems, Creative Labs, Adaptec, and Matrox Graphics. VA LiNUX Systems provided the development machines used by the contestants and contributed the first prize. Creative Labs, Adaptec, and Matrox Graphics contributed prizes for the runners-up.</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"We are happy to be supporting hackers in their efforts to fiddle the bits of Civilization: Call to Power," said Jason Della Rocca, Developer Relations Manager of Matrox Graphics, Inc. "Matrox has been a fervent supporter of the Linux community, with recent efforts made on supporting the GLX project. Perhaps the winner of this event can have a look at our driver code base..."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">For more information on Loki Hack and it's sponsors, visit www.lokigames.com/hack/. Profiles of the contestants and their hacks are available at www.lokigames.com/hack/profiles.html.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Loki Entertainment Software: Based in Orange County, CA, Loki works with leading game publishers to port their best-selling PC and Macintosh titles to Linux. Loki meets a pent-up need in the Linux community by providing fully-supported, shrink-wrapped games for sale through traditional retail channels. Founded in 1998, Loki is privately held and takes its name from the Norse god of mischief. For more information visit www.lokigames.com.
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Activision, Inc.: Headquartered in Santa Monica, California, Activision, Inc. is a leading worldwide developer, publisher and distributor of interactive entertainment and leisure products.  Founded in 1979, Activision posted revenues of $436 million for the fiscal year ended March 31, 1999.<P>
+Activision maintains publishing and development operations in the US, Canada, the United Kingdom, France, Germany, Japan and Australia, and distribution subsidiaries in the United Kingdom, Germany, The Netherlands and Belgium.  More information about Activision and its products can be found on the company's World Wide Web site, which is located at http://www.activision.com.
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About The Atlanta Linux Showcase: The Atlanta Linux Showcase is the community's premier technical and community show organized and run by a group of computer professionals wishing to help promote Linux. ALS was founded in 1997 and is run entirely by volunteers. Last years show was the largest Linux event in 1998 drawing its attendees from 23 countires. The Atlanta Linux Showcase, Inc. is a not-for-profit corporation. For more information visit www.linuxshowcase.org.
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">
+<P><IMG SRC="../../global/img/blurline.gif" WIDTH="333" HEIGHT="1" BORDER="0"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">All company and product names are the trademarks, registrations, or copyrights of their respective owners.
+</FONT></P> 
+
+
+
+
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A HREF="../../orders/">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 1999 Loki Entertainment Software | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

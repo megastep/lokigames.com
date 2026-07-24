@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src = "/_global/_img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src = "/_global/_img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src = "/_global/_img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src = "/_global/_img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src = "/_global/_img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src = "/_global/_img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src = "/_global/_img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src = "/_global/_img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src = "/_global/_img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src = "/_global/_img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src = "/_global/_img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src = "/_global/_img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src = "/_global/_img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src = "/_global/_img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/_global/_img/overview/sections/"+name+".gif'") : "/_global/_img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src = "/_global/_img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="/about/contact.php3">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="/news/links.php3">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="/about/copyright.php3">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="/">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Linux Quake III Arena(TM) - Loki and id Software(TM) Sign Exclusive
+Agreement
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+December 2, 1999
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Tustin, CA - Loki Entertainment Software, the leader in bringing best-selling PC games to Linux, today announces an exclusive agreement with id Software to publish, package and distribute worldwide Quake III Arena for Linux.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Through this agreement, Loki will publish the highly-anticipated Quake III Arena for Linux on December 27, near-simultaneously with the Windows and Macintosh versions.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"id Software has an unmatched reputation for its games and for its support of the Linux operating system," said Scott Draeker, president and founder of Loki Entertainment Software. "Our partnership represents the most significant step to date for the establishment of Linux as a viable game platform."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"Quake III Arena, soon available for the PC, Linux and Macintosh, delivers the most intense, heart-pounding gameplay and stunning technical wizardry of any game on any platform, bar none," said Todd Hollenshead, CEO, id Software.  "id Software went to great lengths to assure a near simultaneous multi-
+platform launch for Quake III Arena, assuring that no will gamer miss out on the action."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Quake III Arena, developed by the gaming wizards at id Software, is the third installment of one of the most popular computer game franchises of all time.  Organic caverns, gothic cathedrals and futuristic spacescapes play host to Quake III Arena's unrivaled blend of action, strategy and jaw-dropping technology as Linux gamers are invited to square off against 32 of history's greatest warriors.  Built around a revolutionary new graphics engine capable of delivering mind blowing 3D special effects including curved surfaces and volumetric fog, Quake&gt;III Arena is the final word in deathmatching mayhem.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The Linux version of Quake III Arena will be packaged in a limited edition collector's tin box. Loki will also include the Linux operating system, SuSE Linux 6.3, so that new users can try Linux and the game. Quake III Arena for Linux has a suggested retail price of $49.95 (U.S. Dollars).
+</FONT></P>
+<H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">About id Software
+</FONT></H5>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">id -- Freud's primal part of the human psyche and one of the hottest game shops on Earth -- has been rocking the gaming world from Mesquite, Texas since 1991.  As a renowned leader in the industry, id Software has forged frenetic titles such as Wolfenstein 3-D, DOOM, DOOM II, QUAKE and QUAKE II.  With intense graphics and mind-blowing adventure, id's games continually break retail and shareware sales records. id's advanced QUAKE II engine is leading the next revolution in 3-D interactive games with both single and multiplayer technology. And, in keeping with tradition, id Software amplifies the world of adrenaline pumping 3-D gaming with the development of their latest action title, QUAKE III Arena.
+Check out more about id Software at www.idsoftware.com.
+</FONT></P>
+<H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">About Loki Entertainment Software
+</FONT></H5>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">A privately held company, Loki Entertainment Software has headquarters in Orange County, California and was established in 1998. Loki meets a pent-up need in the Linux community by providing fully-
+supported, shrink-wrapped games for sale through traditional retail channels worldwide. Loki's first Linux title, Civilization: Call to Power was recently awarded Linux Journal's award for Best End User Product of 1999.
+Loki has released 6 front line Linux game titles this year. For more information, visit www.lokigames.com.
+</FONT></P>
+<H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">About Linux
+</FONT></H5>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">First created in 1991 by Linus Torvalds, Linux is now the fastest growing operating system in the world according to a recent International Data Corporation (IDC) study.  Currently, it is estimated that Linux is used by some 8 million people worldwide.  With advanced features such as true multi-user and multi-tasking capabilities, Linux has inspired a steadily growing number of individuals and businesses to adopt Linux for a wide range of functions: as servers, for networking, for software development, and more recently as a desktop and gaming platform.  (Linux is a registered trademark of Linus  Torvalds.)
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Press Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Telephone: 714-505-8915 x12<BR>
+Facsimile: 714-505-3247<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Reseller Inquiries:<BR>
+Dennis E. Burke<BR>
+Loki Entertainment Software<BR>
+Telephone: 510-524-0462<BR>
+Facsimile: 510-527-2625<BR>
+<A HREF="mailto:dxmerch@earthlink.net">dxmerch@earthlink.net</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">id Software Press Contact:<BR>
+Wendy Zaas/Bryce Baer<BR>
+The Bohle Company<BR>
+Telephone: 310-785-0515<BR>
+Facsimile: 310-785-1113<BR>
+<A HREF="mailto:wendy@bohle.com">wendy@bohle.com</A><BR>
+<A HREF="mailto:bryce@bohle.com">bryce@bohle.com</A>
+</FONT></P><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="/_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/products/">Products</A> | <A HREF="/orders/">Order</A> | <A HREF="/support/">Support</A> | <A HREF="/development/">Development</A> | <A HREF="/press/">Press</A> | <A HREF="/news/">News</A> | <A HREF="/about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/about/copyright.php3">&copy;</A> 1999 Loki Entertainment Software | <A HREF="/about/contact.php3">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

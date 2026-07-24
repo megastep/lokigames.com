@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>News Release</B><BR>
+For Immediate Release
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Tel.: ++1 (714) 505-8915 x12<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P> 
+
+<H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Serves Public CVS
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" CLASS="normal"><I>TUSTIN, CA, November 4, 1999</I> - Loki Entertainment  announces today the 
+creation of a CVS server to facilitate public access to its Open-Source 
+projects.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki is a leader in the Linux gaming arena, working with successful game 
+publishers to port their commercial PC and Macintosh titles to the Linux 
+platform. While it is their responsibility to closely guard the 
+publisher's original game code, Loki has taken the initiative to make 
+available to the public any improvements to the Linux software code.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"One reason we've been successful is that we create Open Source tools to 
+replace proprietary code in our games," said Scott Draeker, president of 
+Loki. "We give these tools back to the community in the form of Open 
+Source projects. We hope other developers will evaluate our tools for 
+projects and choose to use them rather than the proprietary alternatives."
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The Loki CVS server allows the public to access the latest development 
+source code for Loki's several Open-Source projects, including SMJPEG, a 
+motion JPEG library, SMPEG, a MPEG-1 playback library, and Setup, a GUI 
+Installer. Other modules available for viewing include SDL, a 
+cross-platform multimedia development API, and Mixer, an enhanced version 
+of the sample SDL audio mixer.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki's Open-Source projects are freely available for download from 
+www.lokigames.com, and are offered under the GNU Library Public License 
+(LGPL). A web interface for the CVS server is available at 
+/legacy-services.html#cvs/. Additional information on CVS is located at 
+http://www.loria.fr/~molli/cvs-index.html.
+</FONT></P>
+<H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">About Loki Entertainment Software
+</FONT></H5>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">A privately held company, Loki Entertainment Software has headquarters in 
+Orange County, California and was established in 1998. Loki meets a 
+pent-up need in the Linux community by providing fully-supported, 
+shrink-wrapped games for sale through traditional retail channels. For 
+more information, visit www.lokigames.com.
+</FONT></P>
+<P><IMG SRC="../../global/img/blurline.gif" WIDTH="333" HEIGHT="1" BORDER="0"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is a trademark of Linus Torvalds.  All other product names are 
+trademarks of their respective owners.
+</FONT></P><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A
+HREF="../../legacy-services.html#store/dr/v2/ec_main.entry?sp=10007&sid=26095&cid=0">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 2000 Loki Entertainment Software | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

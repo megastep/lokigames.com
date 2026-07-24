@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>News Release</B><BR>
+For Immediate Release
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Tel.: ++1 (714) 505-8915 x12<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P> 
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">3DO Contact:<BR>
+Kate Hedstrom<BR>
+PR Manager<BR>
+Tel.: ++1 (650) 261-3137<BR>
+<A HREF="mailto:Kate.Hedstrom@3do.com">Kate.Hedstrom@3do.com</A>
+</FONT></P>
+<H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Heroes(tm) Coming to Linux:<BR>
+Loki Ports Top-Selling Strategy Game Heroes III to Linux
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" CLASS="normal"><I>TUSTIN, CA, November 3, 1999</I> - Loki Entertainment Software, the foremost 
+company bringing popular PC and Macintosh games to Linux, announced today 
+it is now developing the Linux version of Heroes of Might and Magic(tm) 
+III.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heroes III was originally published by The 3DO Company and developed by 
+New World Computing. 
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heroes of Might and Magic III is the latest installment in the series of 
+top-selling, critically-acclaimed strategy games. This turn-based, 
+strategy war game set in the popular Might and Magic(r) fantasy world has 
+already captivated legions of PC gamers. It was awarded 5 out of 5 stars 
+from both Computer Games Magazine and the CNET Gamecenter, as well as an 
+Editor's Choice Award from Computer Gaming World Magazine.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"We are pleased to be working with 3DO to bring Heroes of Might and Magic 
+III to the Linux platform," said Scott Draeker, president of Loki. "3DO 
+has done an admirable job with Heroes III, and our customers have told us 
+they want want to play this game on Linux."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heroes III will be available for the Linux operating system wherever 
+software is sold by mid-December.
+</FONT></P>
+<H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">About The 3DO Company 
+</FONT></H5>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The 3DO Company, headquartered in Redwood City, Calif., develops, 
+publishes and distributes interactive entertainment software for personal 
+computers, the Internet and advanced entertainment systems such as the 
+PlayStation&reg; game console and Nintendo(r) 64. More information about 
+3DO's products can be found on the Internet at <A HREF="http://www.3do.com/">www.3do.com</A>.
+</FONT></P>
+<H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">About Loki Entertainment Software
+</FONT></H5>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Based in Orange County, CA, Loki works with leading game publishers to 
+port their best-selling PC and Macintosh titles to Linux. Loki meets a 
+pent-up need in the Linux community by providing fully-supported, 
+shrink-wrapped games for sale through traditional retail channels. 
+Founded in 1998, Loki is privately held and takes its name from the Norse 
+god of mischief. For more information visit <A HREF="../../">www.lokigames.com</A>.
+</FONT></P>
+<P><IMG SRC="../../global/img/blurline.gif" WIDTH="333" HEIGHT="1" BORDER="0"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">3DO, Heroes, Heroes of Might and Magic, Might and Magic, and their 
+respective logos, are trademarks and/or service marks of The 3DO Company 
+in the U.S. and other countries. New World Computing is a division of The 
+3DO Company.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">PlayStation and the PlayStation logos are registered trademarks of Sony 
+Computer Entertainment Inc.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Nintendo, and Nintendo are registered trademarks of Nintendo of America 
+Inc.
+and &copy; 1996 Nintendo of America Inc.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is a trademark of Linus Torvalds.  All other product names are 
+trademarks of their respective owners.
+</FONT></P><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A HREF="../../orders/">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 1999 Loki Entertainment Software | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

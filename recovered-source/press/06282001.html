@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999-2001 Loki Software, Inc. -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src = "/_global/_img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src = "/_global/_img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src = "/_global/_img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src = "/_global/_img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src = "/_global/_img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src = "/_global/_img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src = "/_global/_img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src = "/_global/_img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src = "/_global/_img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src = "/_global/_img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src = "/_global/_img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src = "/_global/_img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src = "/_global/_img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src = "/_global/_img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/_global/_img/overview/sections/"+name+".gif'") : "/_global/_img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (pic != "error") {
+		if (document.images && active) {
+			image = eval(pic + "_on.src");
+			document[pic].src = image;
+		}
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src = "/_global/_img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'http://www.lokigames.com/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Software, Inc.">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="/about/contact.php3">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="/news/links.php3">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="/about/copyright.php3">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="/">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Software, Inc.</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Write the Games Linux People Play
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+June 28, 2001
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">New book teaches how to program Linux games with SDL, Open AL, and other APIs
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">San Francisco, CA--No Starch Press and Loki Software today announced 
+the launch of the complete and authoritative guide to developing 
+games for Linux. PROGRAMMING LINUX GAMES: LEARN TO WRITE THE GAMES 
+LINUX PEOPLE PLAY (August 2001, 1-886411-49-2, $39.95, paperback, 432 
+pp., http://www.nostarch.com/plg.htm) guides readers through all the 
+important Linux development tools and gaming APIs, with a special 
+focus on Simple DirectMedia Layer (SDL). Written by the gaming 
+masters at Loki Software, this book is the ultimate resource for 
+Linux game developers.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">PROGRAMMING LINUX GAMES discusses important multimedia toolkits while 
+teaching the basics of Linux game programming. It includes detailed 
+coverage of Linux graphics and audio interfaces as well as lots of 
+real-world examples. Readers learn how to:
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">- Use the Simple DirectMedia Layer (SDL) library to build a powerful 
+scrolling game engine (complete with environmental audio and an 
+embedded scripting system)<BR>
+- Play sound effects and music with OSS, ALSA, ESD, and OpenAL<BR>
+- Manage compressed audio streams with Ogg Vorbis<BR>
+- Build a multiplayer game with TCP/IP sockets<BR>
+- Write games for the Linux framebuffer console<BR>
+- Construct professional-quality installation scripts for their games<BR>
+- Distribute their game to the Linux community
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Available in bookstores or from the Loki webstore 
+(www.lokigames.com/orders) and No Starch Press (1-800-420-7240, 
+www.nostarch.com), PROGRAMMING LINUX GAMES is the ultimate resource 
+for writing and developing Linux games.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Loki Software, Inc.</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Software, Inc. (www.lokigames.com) ports best-selling PC games 
+to Linux.  Loki supports several Open Source development projects, 
+including OpenAL(tm), a cross-platform environmental audio library, 
+and SMPEG, a general purpose MPEG video/audio player for Linux. John Hall is a computer science student at 
+Georgia Institute of Technology and a contractor with Loki Software. 
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Linux Journal Press</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux Journal Press publishes computer books on cutting-edge Linux 
+topics that help to advance the acceptance and usability of Linux. An 
+imprint of No Starch Press (www.nostarch.com), Linux Journal Press 
+titles are developed in partnership with Linux Journal (www.ssc.com 
+and www.linuxjournal.com).
+</FONT></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Contact Amanda Staab at 415-863-9900 or amanda@nostarch.com to 
+schedule an interview or request a review copy.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">More contact information:
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">No Starch Press<BR>
+555 De Haro Street, Suite 250<BR>
+San Francisco, CA 94107<BR>
+www.nostarch.com
+</FONT></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">###
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is a registered trademark of Linus Torvalds. All company and product names are the trademarks, registrations, or copyrights of their respective owners.
+</FONT></P><!--htdig_noindex--><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="/_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/products/">Products</A> | <A
+HREF="http://www.lokigames.com/orders/">Order</A> | <A HREF="/support/">Support</A> | <A HREF="/development/">Development</A> | <A HREF="/press/">Press</A> | <A HREF="/news/">News</A> | <A HREF="/about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="/about/copyright.php3">&copy;</A> 2000 Loki Software, Inc. | <A HREF="/about/contact.php3">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><BR>
+Loki is a registered trademark of Loki Software, Inc.
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+<!--/htdig_noindex-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>News Release</B><BR>
+For Immediate Release
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Contact:<BR>
+Kathryn Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Tel.: ++1 (714) 505-8915 x12<BR>
+<A HREF="mailto:sigyn@lokigames.com">sigyn@lokigames.com</A>
+</FONT></P> 
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Activision Contact:<BR>
+Maryanne Lataif<BR>
+Vice President, Corporate Communications<BR>
+Activision, Inc.<BR>
+Tel.: ++1 (310) 255-2704<BR>
+<A HREF="mailto:mlataif@activision.com">mlataif@activision.com</A>
+</FONT></P> 
+
+<H4><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#FFFFFF" CLASS="headline">Activision and Loki Partner to Bring Games to Linux<BR>
+Heretic II and Heavy Gear II Soon to Be Available for Linux
+</FONT></H4>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" CLASS="normal"><I>Tustin, Calif., October 11, 1999</I> -- Building upon the success of their first joint venture with Civilization: Call to Power, Activision, Inc. and Loki Entertainment Software today announce they have joined forces to bring more PC and Macintosh games to the Linux platform.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Entertainment Software launched the Linux version of Activision's popular strategy game Civilization: Call to Power in May, 1999, to strong reviews. Under the terms of the new agreement, Loki will develop, publish and support the Linux ports of five popular Activision games, including 
+Heretic II and Heavy Gear II, over the next two years. The agreement solidifies Activision's commitment to the ever-growing Linux software community, and positions Loki as the foremost authority on commercial Linux games.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"Activision is committed to providing Linux users with quality gaming experiences," states Philippe Erwin, director of licensing for Activision.  "By extending our partnership with Loki and offering popular games like Heavy Gear II and Heretic II, we will enhance the level of quality entertainment that Linux users have available to them and contribute to the growth of the platform." 
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">"We are excited to work with Activision to continually provide exciting and high-quality games for the Linux community," said Scott Draeker, Loki founder and president. "Earlier this year, people wondered if there were a market for commercial games on Linux. We have put those doubts to rest, 
+and will now focus on expanding the gaming universe for Linux users."
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">This universe will soon include Heavy Gear II, a combat-simulation game, and Heretic II, a breath-taking third-person action game.
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heavy Gear II, released for Windows in June, 1999, features a state-of-the-art 3D hardware-only engine, and delivers fast-paced solo and multi-player squad combat action, photo-realistic graphics and richly-detailed battlefields. Gamers take command of an elite strike force that operates deep behind enemy lines, and leads special operations through more than 80 death-defying missions. As they attempt to undermine the opposition, players can send orders to squad-mates and use real squad battle strategies like flanking maneuvers and diversionary tactics to ambush enemies.</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Heretic II, the next Activision title on the Loki lineup, transports players to a richly animated medieval land that has been ravaged by an evil plague. Gamers embark on an epic journey across an enemy-infested continent in search of a magical cure. Heretic II combines the control and fast-paced action of a first-person shooter game with an over-the-should third-person perspective, a combination that fully immerses gamers into their character's experiences. Featuring 22 thrilling single-player environments and five intense deathmatch levels, Heretic II challenges players to overcome the insidious plague by solving puzzles and gathering clues.</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Loki Entertainment Software: Based in Orange County, CA, Loki works with leading game publishers to port their best-selling PC and Macintosh titles to Linux. Loki meets a pent-up need in the Linux community by providing fully-supported, shrink-wrapped games for sale through traditional retail channels. Founded in 1998, Loki is privately held and takes its name from the Norse god of mischief. For more information visit www.lokigames.com.
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Activision, Inc.: Headquartered in Santa Monica, California, Activision, Inc. is a leading worldwide developer, publisher and distributor of interactive entertainment and leisure products.  Founded in 1979, Activision posted revenues of $436 million for the fiscal year ended March 31, 1999.<P>
+Activision maintains publishing and development operations in the US, Canada, the United Kingdom, France, Germany, Japan and Australia, and distribution subsidiaries in the United Kingdom, Germany, The Netherlands and Belgium.  More information about Activision and its products can be found on the company's World Wide Web site, which is located at http://www.activision.com.
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">
+<P><IMG SRC="../../global/img/blurline.gif" WIDTH="333" HEIGHT="1" BORDER="0"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">All company and product names are the trademarks, registrations, or copyrights of their respective owners.
+</FONT></P> 
+
+
+
+
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A HREF="../../orders/">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 1999 Loki Entertainment Software | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:w&#101;bmast&#101;r@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><A HREF="mailto:root@[127.0.0.1]"></A><A HREF="mailto:postmaster@[127.0.0.1]"></A><A HREF="mailto:abuse@[127.0.0.1]"></A><A HREF="mailto:news.admin.net-abuse.email@myriad.alias.net"></a>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="Geneva, Helvetica, Arial, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
+

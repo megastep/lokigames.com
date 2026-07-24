@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Software, Inc. -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Software, Inc.">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Software, Inc.</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Games on QLITech Advanced Multimedia Workstations
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+June 22, 2000
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Press Contact:<BR>
+Kayt Sorhaindo<BR>
+<A HREF="mailto:press@lokigames.com">press@lokigames.com</A><BR>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">QLITech Press Contact:<BR>
+Ray Sanders<BR>
+<a href="mailto:ray@qlitech.net">ray@qlitech.net</a><BR>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Tustin, CA.  --  June 22, 2000 -- Loki Software, Inc., the foremost authority in bringing popular PC games to the Linux platform, today announces an agreement with QLITech Linux Computers, a leading Linux system vendor in the Midwest.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Under the terms of the agreement, QLITech now bundles a variety of hit Loki titles on the Advanced Multimedia Workstations. Customers of these high-end gaming systems now receive Civilization: Call to Power, Heavy Gear II and a Loki Games Demo CD with a full install of Eric's Ultimate Solitaire.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">The Advanced Multimedia Workstations are QLITech's most popular pre-configured workstations. Featuring a Matrox Millenium G400 32Mb AGP graphics card, a 52X CD-ROM, a Creative Labs Sound Blaster Live!, with Cambridge Soundworks 5 Speaker surround sound system, the workstations offer users a premium gaming experience. 
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About QLITech Linux Computers</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Founded in November, 1998, QLITech is a privately-held company that provides and supports custom Linux systems. QLITech is committed to providing high-end service and support at affordable rates. For more information visit <a href="http://www.qlitech.net">http://www.qlitech.net</a>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Loki Software, Inc.</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Founded in 1998, CA, Loki works with leading game publishers and developers to port their best-selling PC and Macintosh titles to Linux. Loki will soon release Linux versions of SimCity 3000 Unlimited, Soldier of Fortune and Sid Meier's Alpha Centuari. For more information visit <A href=""></a>.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">#     #     #
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Note: All trademarks and copyrights are the property of their respective owners.
+</FONT></P>
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A
+HREF="../../legacy-services.html#store/dr/v2/ec_main.entry?sp=10007&sid=26095&cid=0">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><BR>
+Loki is a registered trademark of Loki Software, Inc.
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>

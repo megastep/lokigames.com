@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<!-- Copyright (C) 1999 Loki Entertainment Software -->
+<!-- Design and programming from John Grantham -->
+<!-- http://surf.to/multimedia -->
+<TITLE>Loki | PressCenter | PressCenter Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var active = 0;
+
+function activate() {
+	active = 1;
+}
+
+
+// JavaScripts for all pages except for HOME
+
+if (document.images) {
+
+var section = 'press';
+
+products_on = new Image();
+products_on.src="../../global/img/overview/nav/products_on.gif";
+products_off = new Image();
+products_off.src="../../global/img/overview/nav/products_off.gif";
+
+orders_on = new Image();
+orders_on.src="../../global/img/overview/nav/orders_on.gif";
+orders_off = new Image();
+orders_off.src="../../global/img/overview/nav/orders_off.gif";
+
+support_on = new Image();
+support_on.src="../../global/img/overview/nav/support_on.gif";
+support_off = new Image();
+support_off.src="../../global/img/overview/nav/support_off.gif";
+
+development_on = new Image();
+development_on.src="../../global/img/overview/nav/development_on.gif";
+development_off = new Image();
+development_off.src="../../global/img/overview/nav/development_off.gif";
+
+press_on = new Image();
+press_on.src="../../global/img/overview/nav/press_on.gif";
+press_off = new Image();
+press_off.src="../../global/img/overview/nav/press_off.gif";
+
+news_on = new Image();
+news_on.src="../../global/img/overview/nav/news_on.gif";
+news_off = new Image();
+news_off.src="../../global/img/overview/nav/news_off.gif";
+
+about_on = new Image();
+about_on.src="../../global/img/overview/nav/about_on.gif";
+about_off = new Image();
+about_off.src="../../global/img/overview/nav/about_off.gif";
+
+}
+
+function flip(name,on) {
+	if (document.images && active && (name != section)) {
+		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
+		document[name].src = image;
+	}
+}
+
+function flipNav(name,on) {
+	if (document.images && active) {
+		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
+		document.portal.src = portalImg;
+	}
+}
+
+function flipSec(pic) {
+	if (document.images && active) {
+		image = eval(pic + "_on.src");
+		document[pic].src = image;
+	}
+}
+
+
+// Global JavaScripts
+
+function flipPortalStart() {
+//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
+}
+
+var ie4 = (document.all)    ? 1 : 0;
+var nn4 = (document.layers) ? 1 : 0;
+bOK = (ie4) || (nn4);
+
+if (nn4) {
+	layerVar = "document.layers"; styleVar = ""; visVar = "show";
+} else if (ie4) {
+	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
+}
+
+var layer = "null";
+        
+function showLayer(num,isMenu){
+	if (bOK && active) {
+		hideAllLayers();
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
+		if (isMenu == 1) {
+			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
+		}
+	} else if (active) {
+		window.location = eval("'/"+buttonsList[num]+"/'");
+	}
+}
+     
+function hideLayer(num){
+	if (bOK && active) {
+		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
+	}
+}
+
+function hideAllLayers() {
+	if (bOK && active) {
+		for (i = 0; i < layerList.length; i++) {
+			hideLayer(i);
+			hideLayer(0);
+			flipNav('',0);
+		}
+	}
+}
+
+layerList = new Array();
+layerList[0] = "menuback";
+layerList[1] = "menuproducts";
+layerList[2] = "menuorders";
+layerList[3] = "menusupport";
+layerList[4] = "menudevelopment";
+layerList[5] = "menupress";
+layerList[6] = "menuabout";
+layerList[7] = "menunews";
+
+if (document.images) {
+
+buttonsList = new Array();
+buttonsList[0] = "back";
+buttonsList[1] = "products";
+buttonsList[2] = "orders";
+buttonsList[3] = "support";
+buttonsList[4] = "development";
+buttonsList[5] = "press";
+buttonsList[6] = "about";
+buttonsList[7] = "news";
+
+}
+
+
+//-->
+</SCRIPT>
+<META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
+
+<MAP NAME="standardsmap">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+</MAP>
+
+</HEAD>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Entertainment Software</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">PressCenter Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline"><I>Heavy Gear II</I> Now Available from SuSE
+</FONT></H4>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
+May 21, 2000
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">With <I>Heavy Gear II</I> Loki Entertainment Software is opening the door to new dimensions in the Linux world: with 3D audio effects and joystick support, a further step has been taken towards the acceptance of Linux by the home user.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux, once just an insider tip for computer professionals, is well on its way to becoming the operating system of choice for home users as well. After its overwhelming success on the server market and its increasing use in companies of all kinds, the ground has been prepared for the all-round use of Linux, with beginner-friendly installation routines, intuitive desktops and application software such as office packets and games.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">With the release of the first "big" Linux game, <I>Civilization: Call To Power</I> (Awarded the "Best End User Product of 1999" by Linux Journal), Loki Entertainment has already made a name for itself. Just like its successors, <I>Heavy Gear II</I> makes optimal use of the qualities of Linux in the network, whereby multi-player games based on rounds, or real-time, are possible. Due to its success, it is no surprise that around a dozen more titles are planned on being ported to Linux for the year 2000.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki is currently placing its main emphasis on 3D sound support by means of OpenAL. "OpenAL represents a milestone for Linux," realizes Scott Draeker, president of Loki Entertainment Software. "Until now, 3D audio features in games were reserved for users of other platforms. This has all changed now."
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">OpenAL, entirely in the tradition of the Open Source community, is issued under the LPGL license (GNU Library Public License).
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Dirk Hohndel, CTO of SuSE Linux AG, is also aware of the chances offered by this: "Linux games play a significant role in the success of the desktop market. Through the common efforts of the Linux community, most recently with OpenAL and the XFree86 version 4.0, ensuring enhanced 3D graphics card support, decisive steps forward have been taken." 
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">For more information about this product please visit <a href="http://www.suse.de/en/produkte/software/index.html">http://www.suse.de/en/produkte/software/index.html</a>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About Loki Entertainment Software</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">A privately held company, Loki Entertainment Software has headquarters in Orange County, California and was established in 1998. Loki meets a pent-up need in the Linux community by providing fully-supported, shrink-wrapped games for sale through traditional retail channels worldwide. Loki released 7 front-line Linux game titles in 1999, and plans 16 titles for 2000. For more information, visit <a href="">www.lokigames.com.</a>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>About SuSE</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">With more than 340 employees, SuSE Linux AG is one of the world's largest Linux specialists. Thanks to its stability and quality, SuSE Linux is currently being employed by over one million private users and more than 50,000 business customers around the world. The development and sales center in Nuremberg is backed up by branches in Oakland/USA, London, Prague and Marano sul Panaro/Italy, dedicated to the further development and dissemination of SuSE Linux. For the efficient deployment of Linux within the corporate sphere, SuSE backs up its commercial Linux software and complete Linux systems with a comprehensive range of qualified consulting and support services. The SuSE Labs are making a major contribution to the development of Linux, especially in the areas of Linux-Kernel, glibc, XFree86, KDE, ISDN4Linux, ALSA (Advanced Linux Sound Architecture) and USB (Universal Serial Bus), as well as high availability and Multiplatform Support. SuSE received the award for "Best Linux Distribution" at LinuxWorld Expo 2000 in New York.  More information is available at <a href="http://www.suse.de/en/">http://www.suse.de/en/.</a>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"># # #
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">All company and product names are the trademarks, registrations, or 
+copyrights of their respective owners.
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>Contact:</B>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Michaela Geuthner<BR>
+International Marketing<BR>
+SuSE GmbH            <BR>
+Schanzaeckerstr. 10<BR>      
+D-90443 Nuernberg <BR>
+E-Mail: <a href="mailto:mg@suse.de">mg@suse.de</a><BR>
+Phone: +49-911-74053-196<BR>
+FAX:  +49-911-74053-479<BR>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Kayt Sorhaindo<BR>
+Loki Entertainment Software<BR>
+Telephone: 714.505.8915 x12<BR>
+Facsimile: 714.505.3247<BR>
+E-mail:<a href="mailto:press@lokigames.com">press@lokigames.com</a><BR>
+</FONT></P>
+<NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
+<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A
+HREF="../../legacy-services.html#store/dr/v2/ec_main.entry?sp=10007&sid=26095&cid=0">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+</FONT></P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A>
+</FONT></P>
+<P>&nbsp;</P>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><I>Note: This site currently only fully supports Netscape Navigator 4.x or Internet Explorer 4.x or better. We will be adding support for other browsers shortly. We apologize for any inconvenience.</I></FONT></P>
+
+</BODY>
+</HTML>
