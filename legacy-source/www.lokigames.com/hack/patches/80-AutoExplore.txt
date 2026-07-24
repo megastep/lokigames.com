@@ -1,0 +1,33 @@
+
+			LokiHack '99 Patch
+
+Patch Title:	AutoExplore
+Author:		John R. Hall
+E-mail:		overcode@resnet.gatech.edu
+
+Short Description:  Allows players to command units to automatically
+explore the surrounding area.
+
+Long Description:   It's annoying to have to micromanage every unit on the
+map, especially during the exploration phase of the game. AutoExplore
+takes the work off of your hands by commanding units to move themselves
+each turn in a more or less straight path (but with a few turns).
+This hack also attempts to fix the annoying problem of mis-targeting units
+when the display jumps across the map to show enemy moves (it disables
+mouse clicks while animations are displaying).
+
+Documentation:      Edit your keymap file to bind the 0 key (or whatever
+you want) to MOVE_AUTOEXPLORE. You may do this to either the user keymap
+(~/.civctp/userkeymap) or the main keymap in your CivCTP installation
+directory (ctp_data/default/uidata/keymap.txt). Do this by adding the
+line:
+0 MOVE_AUTOEXPLORE
+You may then command a unit or group to autoexplore by selecting it and
+pressing 0.
+
+Known Bugs:	None! My code is always perfect!
+Well, this was quite a HACK, in that I did the job in the quickest way
+possible... But it seems to work well.
+I haven't really tested the mouse thing much. Please let me know.
+
+---

@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<header>
+<title>Loki GL driver support pages/Matrox</title>
+</header>
+<body bgcolor="#000000"
+ text="#FFFFFF"
+ link="#B08F6F"
+ vlink="#B08F6F" alink="#3366CC">
+
+<H1>Step by Step installation guide for Matrox (pre-DRI)</H2>
+<p>
+The current driver for Matrox G400 and G200 is provided by the
+"Utah" Accelerated X Open Source group, hosted at
+<a href="http://glx.on.openprojects.net/">
+http://glx.on.openprojects.net/</a>. This driver offers a bunch
+of options, and is still under development. There are several
+components, some of them optional, which are installed in your
+system: the X server, the GLX module, the GL library, AGP
+devices, or DMA configuration. We do not install any of these
+components, and at the moment provide only a GL library with
+the game. We also use only <tt>agpgart</tt> and avoid both
+<tt>newagp</tt> and <tt>DMA</tt>, both of which have stricter
+system requirements. The source to generate the matching GLX
+and devices for the GL libraries we shipped is provided below.
+In all likelihood, we will replace them soon with a more current
+snapshot, following internal tests. We hope that the following
+instructions will aide you in deciding which configuration to
+use.
+<p>
+<ul>
+<li><a href="howto-3d-matrox.html#step1">Step 1: X Server Requirements</a>
+<li><a href="howto-3d-matrox.html#step2">Step 2: Get GLX/GL/devices</a>
+<li><a href="howto-3d-matrox.html#step3">Step 3: Install AGP device</a>
+<li><a href="howto-3d-matrox.html#step4">Step 4: Install GLX/GL</a>
+<li><a href="howto-3d-matrox.html#step5">Step 5: Alternatives</a>
+<li><a href="howto-3d-matrox.html#step6">Step 6: Troubleshooting</a>
+</ul>
+<p>
+For further information see the FAQ at
+<a href="http://utah-glx.sourceforge.net/faq.html">
+http://utah-glx.sourceforge.net/faq.html</a>. There is also
+a guide for setting things up for Quake3 (test version),
+at
+<a href="http://www.execpc.com/~tz/linglxqs.txt">
+http://www.execpc.com/~tz/linglxqs.txt</a>.
+</p>
+
+
+<H2><a name="step1">Step 1: Get X Server</a></H2>
+<p>
+GLX for Matrox has no special requirements, as long as you use
+a recent XF86_SVGA-3.3.5 server for your distribution.
+</p>
+
+
+
+<H2><a name="step2">Step 2: Get GLX/GL/devices</a></H2>
+<p>
+The "Utah" GLX requires a snapshot of the Mesa sources for
+compilation. See our 
+<a href="howto-3d-mesa.html">Mesa page</a> for references.
+<p>
+You will then need the GLX source itself, and, if you intend
+to use AGP support, the source for a AGP related device. 
+If you intend to use a DMA configuration (which might require
+changing your LILO boot parameters), please consult the
+"Utah GLX" pages at 
+<a href="http://utah-glx.sourceforge.net/">
+http://utah-glx.sourceforge.net/</a>. The "Utah" GLX team
+is in the process of replacing the <tt>agpgart</tt> device
+with <tt>newagp</tt> (which requires you to upgrade your system
+to a recent, unstable kernel), again, please consult their
+documentation and mailing list archives. Currently, we offer
+assistance for the <tt>agpgart</tt> solution only.
+<p>
+You can download the GLX source snapshot 
+<a href="download/glx-src-991121.tar.gz">glx-src-991121.tar.gz</a>
+we are testing our games with. There will be more
+recent snapshots in the future, pending internal testing. You 
+can obtain daily, but usually untested snapshots
+from the CVS or pre-packed at 
+<a href="http://utah-glx.sourceforge.net/download.html">
+http://utah-glx.sourceforge.net/download.html</a>,
+in particular 
+<a href="http://matroxusers.com/driver/linux.html">
+http://matroxusers.com/driver/linux.html</a>. Matrox' site
+at
+<a href="http://www.matrox.com/mga/drivers/3rd_party/glx.htm">
+http://www.matrox.com/mga/drivers/3rd_party/glx.htm</a> also
+offer untested daily snapshots.
+</p>
+
+
+
+
+<H2><a name="step3">Step 3: Install the AGP device</a></H2>
+<p>
+If you intend to use DMA, or <tt>newagp</tt>, or if you
+are using a kernel that has AGP/GART support already, please
+skip this section.
+<p>
+Unpack <tt>glx-src-991121.tar.gz</tt> in a directory of your choice.
+Do
+<pre>
+<pre>
+cd glx-src-991121
+cd gart
+</pre>
+to get into the AGP/GART device directory. Check the Makefile.loki and
+add SMP support, and/or remove MODVERSIONS, depending on
+your kernel configuration. We tested with 2.2.13 kernels,
+a recent stable kernel should work. Use <tt>uname -r</tt>
+to find out what kernel you are using. To compile the module,
+just do
+<pre>
+make -f Makefile.loki agpgart.o
+</pre>
+You should now have an agpgart.o file. As root, do
+<pre>
+cp agpgart.o /lib/modules/[kernel_version]/misc/
+</pre>
+where <tt>[kernel version]</tt> is the output of <tt>uname -r</tt>.
+You might also want to add the following line to your module 
+configuration file, e.g. <tt>/etc/conf.modules</tt>.
+<pre>
+alias char-major-174 agpgart
+</pre>
+Next, you will have to create the device in <tt>/dev/</tt>. Please
+do
+<pre>
+make -f Makefile.loki /dev/gart
+ls -l /dev/gart
+</pre>
+The result should be something like this (be sure to check permissions):
+<pre>
+crw-rw-rw-   1 root     root     174,   0 Nov 18 16:51 /dev/gart
+</pre>
+Now you can load the module:
+<pre>
+/sbin/insmod agpgart.o
+/sbin/lsmod
+</pre>
+and you should get something like this output:
+<pre>
+Module                  Size  Used by
+agpgart                 6096   0  (unused)
+</pre>
+To test your device:
+<pre>
+make -f Makefile.loki testgart
+./testgart
+</pre>
+and the result would be something like
+<pre>
+Gart size: 64
+Allocated 64 megs of GART memory
+MemoryBenchmark: 187 mb/s
+MemoryBenchmark: 191 mb/s
+MemoryBenchmark: 191 mb/s
+Average speed: 189 mb/s
+Testing data integrity : passed.
+</pre>
+Congratulations, you have working AGP/GART support now.
+</p>
+
+
+
+
+<H2><a name="step4">Step 4: Install GLX/GL</a></H2>
+<p>
+In the directory where you unpacked <tt>glx-src-991121.tar.gz</tt>,
+do 
+<pre>
+cd glx-src-991121
+cd glx
+</pre>
+The "Utah" GLX comes with a very convenient configuration
+setup. Please to check whether you have the necessary tools installed on
+your system, e.g.
+<pre>
+automake --version
+autoconf --version
+libtool --version
+</pre>
+Then, for the AGP GART configuration we describe here, use
+<pre>
+./configure --with-mesa=[mesa-3.2-src] --enable-agp
+make
+</pre>
+where <tt>[mesa-3.2-src]</tt> is the location of the Mesa 3.2
+source snapshot you obtained. Once the compilation is
+finished, use <tt>make install</tt> to install the
+GL library and GLX module in your system.
+<p>
+Next, check your <tt>XF86_Config</tt> file (usually located
+in <tt>/etc/X11/</tt> and/or <tt>/usr/X11R6/lib/X11/</tt>) for
+an entry like
+<pre>
+Section "Module"
+   Load "glx.so"
+EndSection
+</pre>
+You will have to restart your X server, as the GLX module is only
+loaded at startup. As soon as the X server is up again, do
+<pre>
+xdpyinfo | grep -i glx
+xpyinfo | more
+</pre>
+to check whether the GLX extension is now listed as supported:
+<pre>
+number of extensions:    20
+    ...
+    GLX
+    ...
+</pre>
+Finally, you should copy the new GL into the local directory
+of the games that support direct loading of a driver.
+<pre>
+cp libGL/libGL.so.1.0 /usr/local/games/quake3/libMesaMatroxGL.so.3.2.991125
+cp libGL/libGL.so.1.0 /usr/local/games/HereticII/gl_drivers/libMesaMatrox.so
+</pre>
+To force using the new GL driver, specify it from the commandline, e.g.
+<pre>
+/usr/local/games/quake/quake3 +set r_gldriver libMesaMatroxGL.so.3.2.991125
+//usr/local/games/HereticII/heretic2 +set gl_driver libMesaMatrox.so
+</pre>
+You will need a patched version of HereticII due to dynamic linkage 
+requirements of GL/GLX combos, and you should make sure to use the Quake3
+point release.
+</p>
+
+
+<H2><a name="step5">Step 5: Alternatives</a></H2>
+<p>
+Matrox has announced a DRI-only driver to be released in 2000.
+</p>
+
+
+
+<H2><a name="step6">Step 6: Troubleshooting</a></H2>
+
+<p>
+If by any means possible, please check the game output to the console. 
+Please look for the output of GL_VERSION, GL_RENDERER and GL_VENDOR
+on the console. You could also try the 
+<tt>news://news.lokigames.com/loki.games.*</tt> newsgroups for advice. 
+</p>
+
+</body>
+</html>
+

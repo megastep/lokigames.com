@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Game Updates
+
+
+<div class="normal">
+<A NAME="Update"></A><B>Where can I download the update to 1.1?</B><BR>
+The 1.1 patch is available <A HREF="../../products/civctp/updates.html"> here </A> on our website for x86, or we have a beta version for PPC and alpha architectures.
+</div>
+
+<div class="normal">
+<A NAME="howto"></A><B>How do I apply the 1.1 update?</B><BR>
+NOTE: The following information is similar to the README included with the update.
+<OL>
+	<LI><P>Unpack the tarball.  Anywhere will do, you don't need to save the update directory once you've applied the patch.</P>
+		<BLOCKQUOTE>tar -xzvf CivCTP-1.1-x86.tar.gz</BLOCKQUOTE></LI>
+	<LI><P>Enter the new directory that's created by unpacking the archive.</P>
+		<BLOCKQUOTE>cd CivCTP-1.1</BLOCKQUOTE></LI>
+	<LI><P>Run the 'upgrade' script, giving the location of your Civ:CTP installation as an argument.</P>
+<P>
+NOTE: You don't have to be logged in as root to run the upgrade, but you do need to have write permissions to the game directory and files. (It's a good idea to run the upgrade script logged in as the same user under which you installed the game.)</P>
+		<BLOCKQUOTE>./upgrade /usr/local/games/CivCTP</BLOCKQUOTE></LI>
+	<LI><P>[optional] Remove the patch directory.</P>
+		<BLOCKQUOTE>cd ../; rm -rf CivCTP-1.1</BLOCKQUOTE></LI>
+</OL>
+</div>
+
+<div class="normal">
+<A NAME="German"></A><B>I have the European version of the game.  Why can't I upgrade to 1.1?</B><BR>
+The European version of the game comes patched with the 1.1 update.  European users won't have to worry about any upgrades until 1.2 is released.
+</div>
+
+<div class="normal">
+<A NAME="SavGam"></A><B>Why can't I load my 1.0 save game files after upgrading to 1.1?</B><BR>
+Save game format was changed in the 1.1 update, to make all save game files fully compatible with the windows version save games.  So finish that game before upgrading, or upgrade before you start!
+</div>
+
+<div class="normal">
+<A NAME="PPCSav"></A><B>Will 1.1 save games be compatible across the three platforms (Alpha, PPC, x86)?</B><BR>
+Yes, all three will be save game and network compatible.
+</div>
+
+<div class="normal">
+<A NAME="Update2"></A><B>Are you going to release a 1.2 update also?</B><BR>
+We are working on the 1.2 patch, but haven't set a release date, yet.
+</div>
+
+<div class="small">
+<A HREF="faq3.html#Updates">Back to Questions</A></div>
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

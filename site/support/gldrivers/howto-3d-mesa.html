@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Loki OpenGL driver support pages / Mesa</title>
+</head>
+<body>
+
+<H2>Getting Mesa</H2>
+<p>
+Mesa sometimes depends on card-specific drivers, like Glide, 
+and it also offers optimizations for various CPU types. We do not 
+provide binary packages of Mesa, as this is better left to the 
+provider of your distribution. We do not provide source packages of
+Mesa as the current stable branch of CVS is the best source to get the
+most up-to-date code.
+<p>
+You can obtain Mesa sources from
+<a href="http://mesa3d.sourceforge.net/">http://mesa3d.sourceforge.net/</a>.
+<p>
+Mesa 3.2 is the current stable release. The Mesa 3.3 branch is an
+unstable branch for developers and the adventurous only, and is
+subject to major architectural changes in connection to the
+XFree86/DRI integration. Please use
+<pre>
+cvs -d:pserver:anonymous@cvs.mesa3d.sourceforge.net:/cvsroot/mesa3d login
+cvs -z3 -d:pserver:anonymous@cvs.mesa3d.sourceforge.net:/cvsroot/mesa3d co -r mesa_3_2_dev Mesa
+</pre>
+to obtain these sources. If you wish to use the Mesa 3.3 sources
+simply omit the <tt>-r mesa_3_2_dev</tt> when checking out Mesa. If
+you would like to later update to the 3.2 sources, simply use:
+<pre>
+cvs -z3 -d:pserver:anonymous@cvs.mesa3d.sourceforge.net:/cvsroot/mesa3d update -r mesa_3_2_dev
+</pre>
+<p>
+
+<H2>Alternatives</H2>
+<p>
+Some Linux vendors (Xi Graphics, etc.) offer commercial OpenGL
+drivers. We have not tested any of these. NVIDIA's binary-only driver
+is also not derived from Mesa, but appears to work quite well with our
+games. As it is based on XFree86 4.0, it is currently unsupported.
+<p>
+
+<H2>Troubleshooting</H2>
+<p>
+If by any means possible, please check the game output to the console
+for messages. If your game runs at only a few frames per second, or 
+even slower, then you might be using a software-only Mesa, or Mesa
+can't access your hardware. Please look for the output of
+GL_VERSION, GL_RENDERER and GL_VENDOR on the console. Our games
+usually tell you which path the library was loaded from.
+<p>
+If all fails, please contact support@lokigames.com and provide
+details.
+
+
+</body>
+</html>
+

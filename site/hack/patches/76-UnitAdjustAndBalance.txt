@@ -1,0 +1,132 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Customize Your Civ
+Author:
+E-mail:
+
+Short Description:  Adds user-settable combat attributes to civilizations
+
+Long Description:   
+
+	This hack allows civilizations to have different game characteristics. Civilizations in the basic CivCTP implementation
+are all nearly identical to each other except for their on-screen representations. A Japanese warrior is identical to a North American
+warrior is identical to a Micronesian warrior.  With the Civ-Attributes hack, civilizations can be configured to have their own discrete 
+combat attributes. 
+
+Documentation:     
+
+The attributes which are customizable are:
+
+	MAX_MOVEMENT
+	MAX_HP
+	POWER_POINTS
+	ATTACK
+	DEFENSE
+	FIREPOWER
+	SHIELD_COST
+	MAX_FUEL
+	SHIELD_HUNGER
+	FUEL_HUNGER
+
+	In the standard CivCTP, these attributes are already part of what describes each unit. For example, the standard  Settler has a 
+MAX_MOVEMENT of 100, an ATTACK of 0, and a DEFENSE of 10. These attributes are found in the UNITS.TXT file in your CivCTP gamedata 
+directory (ctp_data/default/gamedata).  The CivCTP designers have balanced the attributes of each of these units. Another file in the same
+directory, CIVILISATION.TXT, defines the standard attributes for civilizations. The 10 new Civ-Attributes are located in this file, under
+the definition for each civilization. 
+
+For example, the Roman civ is defined something like this:
+
+ROMAN #17
+{
+	CIV_LEADER_NAME
+	
+	...
+
+	# CIV-ATTRIBUTES here
+
+	MAX_MOVEMENT 2.0
+	MAX_HP 1.2
+	POWER_POINTS .4 
+
+	# the other CIV-ATTRIBUTES would follow.
+	...
+}
+
+This example above means that each Roman civilization unit will have a movement allowance twice as large as the standard value for that 
+unit. Consult the CivCTP documentation for the definition of a movement allowance, but basically it means the Roman units will
+travel twice as far as before. The example also gives Roman units 20% more hit points, but reduces each unit's power points by 60%.
+Again, for explanations of the various attributes, consult the CivCTP documentation.
+
+***
+
+Defined more formally:
+
+	All ten attributes must appear in the file. A sample CIVILISATION.TXT file is included with this patch. Each attribute tag
+("MAX_MOVEMENT") must be followed by a decimal value which is the attribute factor. Internally the standard value for
+the attribute is multiplied by the attribute factor. For example:
+
+	A Settler has a movement allowance of 100.
+	The Roman civilization defines a MAX_MOVEMENT factor of 2.0
+	Therefore, Roman Settlers have movement allowances of 100*2.0 = 200.
+
+The attribute factor is applied to EVERY unit in the civilization. Therefore, a Calvary unit which could move 3 times as far as a
+Warrior unit will still move 3 times as far as a Warrior unit of the same civilization. This preserves the balance of power
+between the units.
+
+***
+
+What about the balance of power between players? Couldn't one player just give himself factors of 1000 and be invincible?
+	
+	Well, it's possible, but there are several reasons why it shouldn't happen. For one thing, EVERY player in a multiplayer
+game MUST have the same CIVILISATION.TXT file. If you and a friend want to each pick a civilisation to configure, then
+both of you must agree to the other's attributes. Your opponent can't "surprise" you by giving himself amazing attributes. Furthermore,
+even if your opponent did try to scam you and substitute a better civilisation definition, the game will catch the discrepancy and
+report an error.
+
+	I would suggest employing a mathematical technique to keep the balance between the players. My suggestion would be averaging
+the attribute factors together. If two players have the same average of their factors, they should still be equal in terms of the game.
+
+***
+
+	Things I would have done if I had time:
+
+		--Enforce the equality of the factors in the game
+		--Include production attributes. One player might have units which were weaker than his opponents', but be able to produce them
+			much more quickly
+		--Include terrain attributes. One civilization might be set up to be particuarly strong in mountainous terrain, or
+			extremely weak at sea.
+
+***
+
+	The goal of this hack was to allow for different strategies. If every player has units which are exactly identical to his 
+opponents, then every player's strategy would be basically the same. In a battle, the player with more units would probably
+win. 
+
+	But if one player had units which were particularly fast, and another player had units which had poor attacking ability
+but excellent defensive attributes, and another player had units which were very weak in close combat but devastatingly
+strong with ranged fire...
+
+	The possibilities aren't quite endless, but hopefully greater than in the standard edition.
+
+
+***
+
+Known bugs:
+
+	--Loading previously saved games doesn't work, whether or not they were saved with the same Civ-Attributes
+
+
+	Who am I? I'm Chris Swiedler. My email address is ceswiedler@mindspring.com. I'm not going to have access to the source code in the
+future, so I can't really support this hack, but if you have problems editing your CIVILISATION.TXT file, I can help you out. If you want
+to shower me with compliments or flames, feel free.
+
+	Disclaimer: (apart from what Loki Games and Activision will doubtless make clear to you) This hack may very well have bugs. I did
+not have time to thoroughly test it. Unfortunately it's the sort of hack which affects a great deal of the code, and so has a 
+greater chance of causing problems. But, well, it was fun for me to write, and I hope someone enjoys it.
+
+
+Chris Swiedler
+10/13/1999
+
+---

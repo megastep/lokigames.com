@@ -1,0 +1,154 @@
+
+
+                           Heretic II 1.06a
+
+This is the first patch release for the Linux version of Heretic II.
+
+
+New enhancements include:
+ * Fully rewritten video and input subsystem, utilizing SDL 1.1.1
+ * Optimized MMX assembly for the software renderer
+ * Completely reorganized internal linking architecture
+ * Many crash fixes
+ * Joystick support
+.. and many more improvements.
+
+
+INSTALLING THIS PATCH
+=====================
+
+Just run the script by typing the following from the command line :
+
+     sh heretic2-1.06a-x86.run
+
+It will prompt you for the installation path of the game. If different
+from the default (/usr/local/games/heretic2), type the name of the
+directory where you installed the game.
+
+
+RUNNING THE GAME
+================
+
+To start the game, run the "heretic2" binary in the installation directory.
+
+A few tips:
+
+If you want to run in software mode, start the game with the options:
+	+set vid_ref soft
+
+If you want to run in hardware mode, start the game with the options:
+	+set vid_ref glx
+
+You can specify a GL driver to be loaded by adding the following options:
+	+set gl_driver /usr/lib/libGL.so.1
+where "/usr/lib/libGL.so.1" is the full path of the GL driver you want.
+
+Note: Mesa 3.0 does not work correctly with Heretic II and Voodoo cards.
+
+
+PATCH DETAILS
+=============
+
+1. Save Games
+   All known save game related crashes are fixed.
+   WARNING: Save games are not compatible with the original game.
+
+2. Software Renderer
+   The software renderer has been fully optimized with x86 and MMX
+   assembly.  The MMX instructions are enabled by default if your
+   processor supports them.  You can disable MMX optimization by
+   adding "+set cpu_mmx 0" to the Heretic II command line.
+
+3. OpenGL Renderer
+   Heretic II ships with support for 3Dfx cards, and other cards
+   may be supported.  For details go to http://www.lokigames.com/
+
+4. Fullscreen Mode
+   The game is configured to prevent you from losing keyboard focus,
+   by locking you into fullscreen mode.  You can switch to windowed
+   mode by running the game with "+set always_grab 0" and then changing
+   the fullscreen option in the video settings menu.
+   WARNING: Do not do this when using the Voodoo card in pass-thru mode.
+
+5. New Key Bindings
+   If you disable the focus protection as described above, you can use
+   some new key bindings:
+
+     ALT-Enter : Toggle fullscreen mode on or off.
+     CTRL-g    : Toggle binding the mouse in the window.
+
+6. Joystick Support
+   In order to use the new joystick support, you must have the joystick
+   driver configured and calibrated in your kernel.  The joystick driver
+   is included with Linux 2.2, and also available from:
+	http://atrey.karlin.mff.cuni.cz/~vojtech/joystick/
+   To enable joystick support in Heretic II, go to the "More Options"
+   menu and change the joystick option to yes.  If the option reverts
+   to "no" when you go back to the menu, Heretic II was unable to find
+   the joystick; verify that the joystick module is working properly.
+
+   The patch installs a default joystick configuration that maps the
+   joystick x and y axes to left/right rotate and move forward/backward
+   respectively.  You can change the axis mapping like this:
+
+   Joystick X axis variable: joy_advaxisx
+   Joystick Y axis variable: joy_advaxisy
+   Joystick Z axis variable: joy_advaxisz
+   Joystick axis 3 variable: joy_advaxisr
+   Joystick axis 4 variable: joy_advaxisu
+   Joystick axis 5 variable: joy_advaxisv
+
+   Available axis actions:
+   No action:              0
+   Move forward and back:  1
+   Look left and right:    2
+   Strafe side to side:    3
+   Turn left or right:     4
+   Jump up or crouch down: 5
+
+   So, to map the X axis to strafe right and left, you would add the
+   following line to your config.cfg file in ~/.loki/heretic2:
+	set joy_advaxisx 3
+
+   You can map the buttons and hat positions normally in the control
+   configuration menu.
+
+   Joysticks with built-in trackballs (like the MadCatz Panther XL)
+   map the trackball as though it were a mouse device.  You can change
+   the sensitivity by modifying the "joy_ballsensitivity" variable.
+   The default value for this parameter is 0.03.
+
+7. Mouse-wheel Support
+   If you have a mouse with a wheel, you can now use it in Heretic II.
+   First map your mouse wheel in X11 to buttons 4 and 5 as described:
+	http://www.inria.fr/koala/colas/mouse-wheel-scroll/
+   Now, edit the config.cfg file in the ~/.loki/heretic2 directory and
+   bind the mouse wheel movements to the actions you want to perform.
+
+   For example, you can bind the wheel to switch weapons:
+	bind MWheelUp   "weapnext"
+	bind MWheelDown "weapprev"
+
+8. Multi-player Fixes
+   Maps and skins are now saved to the user's directory: ~/.loki/heretic2
+   Maps and skins are now loaded case-insensitively.
+
+9. Server Timeout
+   The server timeout has been extended so the server shouldn't stop
+   when loading a particularly large level on slower machines.
+
+
+TECHNICAL SUPPORT
+=================
+
+Support for Heretic II for Linux is available from Loki Entertainment
+Software at:
+
+    Bug Tracking System: http://fenris.lokigames.com/
+    Website:  http://www.lokigames.com/  Follow the links for support.
+    Email:    support@lokigames.com
+    Phone:    801-356-7629. Telephone support is available between the
+              hours of 9 A.M. and 5 P.M. Mountain Standard Time.
+
+    You can also communicate with other Heretic II enthusiasts at:
+    Usenet:   news://news.lokigames.com/loki.games.heretic2

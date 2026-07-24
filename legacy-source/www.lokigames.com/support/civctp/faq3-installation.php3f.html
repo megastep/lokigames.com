@@ -1,0 +1,100 @@
+<?php echo $headline ?>
+Installation
+<?php echo $_headline ?>
+
+<?php echo $text_normal ?>
+<A NAME="howto"></A><B>How do I install the game?</B><BR>
+From the README file on the CD:
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<OL>
+<LI>  <P> Mount the CD-ROM using the "mount" command. If you are unsure how 
+this works, please check the documentation for your Linux distribution. 
+Generally, the format for mounting a CD-ROM under Linux is similar to</P> 
+<BLOCKQUOTE>mount -t iso9660 -r /dev/cdrom /mnt/cdrom.</BLOCKQUOTE></LI>
+
+<LI>  <P>Under X11, enter the command "sh [Mounted CD-ROM Path]/install". 
+Be sure to replace the [Mounted CD-ROM Path] portion of this command with 
+the correct path for the mounted CD-ROM. In the example above, the 
+command would be</P> <BLOCKQUOTE>sh /mnt/cdrom/install.sh.</BLOCKQUOTE></LI>
+
+<LI>   The installer program will display a welcome screen with the options 
+"Install", "Uninstall" and "Exit". Select Install.</LI>
+
+<LI>   The installer will now display a list of mounted volumes on your 
+Linux system. Select a volume with at least 400MB of free hard disk space.</LI>
+
+<LI>   In the provided text box, enter in the path name of the directory 
+where you would like to install the game. If you are unsure, simply leave 
+the default directory unchanged.</LI>
+
+<LI> You have the option of installing the game videos as well. This option 
+requires an additional 225MB of hard drive space. If you would like to 
+install the videos, simply check the "Install Videos?" box in the 
+installer window.  If you don't install the videos, the game will look
+for a CD-ROM entry in /etc/fstab, see if it is mounted, and play them
+from that directory.</LI>
+
+<LI>   Once you have made your selections, click "Install" to install the 
+game. The installer will now copy all the necessary files (and the videos 
+if you chose the "Install Videos?" option) to your hard drive.</LI>
+
+<LI>   <P>Once installation is complete, you will be asked if you would like 
+to add the game to your "Path". There is a problem with the way the installer
+adds links to your "Path", so you should say no to this option.  After the
+installation is complete, you can add the game to your "Path" with a 
+command like this:</P><BLOCKQUOTE>su -c 'ln -s /usr/local/games/CivCTP/civctp /usr/bin/civctp'</BLOCKQUOTE>
+<P>Make sure to replace the first pathname in this command with the location of 
+your CivCTP installation, and replace the second pathname with the location
+that you would like to have the link set up.  This location should work on 
+most systems.</P> 
+ If you don't wish to add the game to your path, it will 
+not affect the operation of the game. Making a "Path" entry allows you to 
+launch the game from within any directory. Without a "Path" entry, you 
+can launch the game by simply entering the complete path name of the game 
+program. For example "/usr/local/games/CivCTP/civctp".</LI>
+</OL>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="install"></A><B>Why won't the install.sh script run?</B><BR>
+The readme file has an error.  The script is named &quot;install&quot; and not &quot;install.sh&quot;.  Also, as noted in the README, the file is not itself executable, and must be run 'sh install'.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="Symlinks"></A><B>What's wrong with the symlinks?</B><BR>
+<P>The install script has an error that tries to create the symlinks in the wrong locations. Say 'no' to all symlink prompts (or 'no to all'), and then execute the following:</P>
+<BLOCKQUOTE>ln -s /usr/local/games/CivCTP/civctp /usr/bin/civctp</BLOCKQUOTE>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+substituting the path in which you installed civctp, and a location in your $PATH (binary search path) respectively. (Type 'echo $PATH' to find out what those locations are.)  If you already had the script make links for you, remove those old links first. 
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="Root"></A><B>Do I have to be logged in as root to install the game?</B><BR>
+No, but you do have to have write privileges to /usr/local/games (or wherever you install the game).
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="install_maps"></A><B>How do I install custom maps?</B><BR>
+The map is essentially a saved game.  It should be placed in one of
+the folders in ~/.civctp/save/games.  For detailed information about
+scenarios and maps, check out the Scenario page on <A HREF="http://www.activision.com/games/civilization/">Activision's
+site</A>.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="PPCerror"></A><B>When I try to install the PPC patch, it doesn't work.  I get a bunch of 'file already modified' error messages.  What's wrong?</B><BR>
+The game files cannot be patched twice (if you have version 1.1, you can't 're-patch' the binaries),  and the PPC patch is a 1.1 patch.  If you have already applied the 1.1 patch, therefore, you will need to reinstall the game, and then apply the PPC patch.  Also, for European users, the game is being destributed already patched with 1.1.  Therefore, a PPC version will not be available in Europe until our 1.2 patch is released.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="SegFault"></A><B>After I install the game, it won't start, and gives me a 'Segmentation Fault' error.  I can't run the game at all.</B><BR>
+Chances are, you're running a Soundblaster Live! card with the beta drivers from Creative Labs.  See further down in the faq for a <A HREF="faq3-sound.php3.html#SBLive">workaround.</A>
+<?php echo $_text_normal ?>
+
+<?php echo $text_small ?>
+<A HREF="http://www.lokigames.com/support/civctp/faq3.php3#Installation">Back to Questions</A><?php echo $_text_small ?>
+

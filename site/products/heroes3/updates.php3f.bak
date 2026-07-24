@@ -1,0 +1,54 @@
+<? echo $text_normal ?>
+Want to keep your tactical skills in top condition? We thought so. Here is a list of updates for Heroes III for Linux -- download, update, and prepare for added glory.
+<? echo $_text_normal ?>
+
+<? echo $subhead ?>
+Updates and patches
+<? echo $_subhead ?>
+
+<? echo $text_small ?>
+<B>Heroes III Updates</B><BR>
+The mirrors below host several self-contained shell scripts to update your Linux binaries. Currently, an update is available for PowerPC with glibc 2.1 and Intel x86 with glibc 2.0 and glibc 2.1.
+<? echo $_text_small ?>
+
+<? echo $subhead ?>
+Mirror sites
+<? echo $_subhead ?>
+
+<? echo $table_cp4 ?>
+	<TR>
+		<? tabcell('dark') ?>
+<B>Alpha (Hungarian)</B><BR>
+<A HREF="ftp://alpha.sch.bme.hu/mirrors/ftp.lokigames.com/pub/patches/heroes3/">ftp://alpha.sch.bme.hu/mirrors/ftp.lokigames.com/pub/patches/heroes3/</a>
+                <? tabcell('end') ?>
+        </TR>
+	<TR>
+		<? tabcell('light') ?>
+<B>Sunsite (Denmark)</B><BR>
+<A HREF="ftp://sunsite.auc.dk/pub/os/linux/loki/patches/heroes3/">ftp://sunsite.auc.dk/pub/os/linux/loki/patches/heroes3/</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+<B>Tux.org</B><BR>
+<A HREF="ftp://boudicca.tux.org/misc/lokigames/patches/heroes3/">ftp://boudicca.tux.org/misc/lokigames/patches/heroes3/</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+<B>Ultimate Animanga</B><BR>
+<A HREF="ftp://snuffleupagus.animearchive.org/loki/">ftp://snuffleupagus.animearchive.org/loki/</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+<B>3D Downloads</B><BR>
+<A HREF="http://www.3ddownloads.com/index.php3?directory=%2Flinuxgames%2Floki%2Fpatches%2Fheroes3/">http://www.3ddownloads.com/index.php3?directory=%2Flinuxgames%2Floki%2Fpatches%2Fheroes3/</A>
+		<? tabcell('end') ?>
+	</TR>
+<? echo $_table_cp4 ?>
+
+<? echo $text_small ?>
+Many thanks to our mirror site providers! 
+<? echo $_text_small ?>
+

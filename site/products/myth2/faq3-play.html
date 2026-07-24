@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../">Products</a><a href="../../orders/">Orders</a><a href="../../support/">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content"><h2>
+Game Play
+</h2>
+
+<div class="normal">
+<A NAME="WinManager"></A><B>How do I keep Window Manager Task Bars from getting in my way when playing the game?</B><BR>
+The power and flexibility of the Linux window managers makes
+them very nice for the user. Unfortunately they make the user
+interface completely non-standard. There's no way to tell beforehand
+what keys are remapped, no way to tell whether or not your window
+has decorations, etc.
+</div>
+
+<div class="normal">
+Here are suggestions for some of the major window managers:
+</div>
+
+<UL>
+	<LI>In GNOME, set the panel to autohide.</LI>
+
+	<LI>In KDE, open the panel-setup with:<BR>
+	<TT>K -&gt; panel -&gt; configure</TT><BR>
+	then, select the panel tab, set taskbar to hidden, click ok. Now the taskbar is gone, only the panel is on top of the game. It can be minimized, by clicking on the small black triangle on the left (or top) side of the
+panel. You can also open the configuration screen by right-clicking
+the panel bar and selecting 'configure' from the pop-up menu.</LI>
+
+	<LI>If you're running an FVWM based window manager and running the game at your full screen size, but the title bars don't disappear, add the line <TT>MWMDecorHints</TT> to your window manager
+initialization file. This is known to work with AfterStep and
+FVWM.</LI>
+
+	<LI>With some distributions, you can also start X with 'xinit' rather than 'startx', so that you're not using a window manager
+at all. Or you can run the game in a different resolution that
+won't run full screen.</LI>
+
+</UL>
+
+<div class="normal">
+<A NAME="Gnome"></A><B>Does the game have GNOME or KDE support
+(adding itself to task bars, etc)?</B><BR>
+It doesn't have special GNOME/KDE support, but works as any other
+X11 application under those environments. If you are having trouble
+with the taskbar in your window manager, you can change the CivCTP
+window size by going to the game options menu and selecting the
+screen size menu in the graphics options. For some distributions,
+there is a fix to make the game appear on the GNOME menu.
+</div>
+
+<div class="normal">
+<A NAME="MouseBind"></A><B>Is there a way to bind the mouse
+into the game window to make scrolling easier?</B><BR>
+Hitting Caps Lock will bind the mouse, and hitting it again will
+release the mouse so that you can use it for other applications
+if desired.
+</div>
+
+<div class="normal">
+<A NAME="Iconify"></A><B>How can I iconify the game and have it run in the background?</B><BR>
+Typing CNTL-z or hitting the Pause key iconifies the game. When
+the game is iconified, it is paused and uses very little CPU time.
+</div>
+
+<div class="normal">
+<A NAME="Path"></A><B>How do I set my path so that it can access the game directory?</B><BR>
+<TT>export PATH=$PATH:[installation directory]</TT>
+</div>
+
+<div class="normal">
+<A NAME="Screen"></A><B>How can I change my screen size?</B><BR>
+Currently the game is only supported in the X11 environment.
+By default, the program will run fullscreen. If you wish to change
+the screensize, access the Options menu (hit ESC from the game
+screen), click on the Graphics button, then access the Screen
+Size submenu. Choose a resolution (smaller resolution for a smaller
+screen), then restart the game for the change to take effect.
+</div>
+
+<div class="normal">
+<A NAME="Speed"></A><B>How can I maximize graphics speed when
+running the game?</B><BR>
+There are a couple of tricks that will speed things up for you:
+</div>
+
+<div class="normal">
+ X should be run in 16-bit color for those who wish to speed
+ up graphics. Using 24- or 32-bit color forces X to convert 16-bit
+ images to 32-bit before it displays them -- a severe penalty
+ for MHz challenged machines. You can make sure you're running
+ in 16-bit color by starting x with &quot;startx -- -bpp 16&quot;.
+ Run it without a window manager or desktop environment (if
+ you aren't already). Basically replace what is in your .xinitrc
+ with this one line: /usr/local/games/CivCTP/civctp
+ (or whatever path you put civctp in). You might want to back
+ up your old .xinitrc just in case.
+ Later on in the game it helps a lot to turn off trade and
+ unit animations. Running the game in full screen mode (only possible on Xfree86) will reduce cpu usage by few percent.
+</div>
+
+<div class="normal">
+<A NAME="Editor"></A><B>Does the Linux version have a map/scenario editor?</B><BR>
+Activision is releasing a map/scenario editor with their 1.1
+patch. This is included in the Linux 1.1 version of Civ:CTP.
+</div>
+
+<div class="normal">
+<A NAME="Space"></A><B>How do I load units onto space planes?</B><BR>
+To load units onto Space Planes, sleep them in a city or Air
+Base and have the Space Plane drop by and pick them up. Alternatively,
+if the Space Plane is already at an Air Base, moving another
+unit to the Air Base will load that unit onto the Space Plane.
+This same process will allow you to load Nukes onto Bombers.
+</div>
+
+<div class="normal">
+<A NAME="Marines"></A><B>How do I attack a city that's on a small (one square) island?</B><BR>
+Only marine units can do amphibious assaults (directly from a ship to the point of attack).  You can bombard the city down with ships or planes, but to actually walk in and take it, you'll need marines (yes, this does mean that these cities are basically invincible early in the game).  There was a bug in 1.0 which caused the game to crash on amphibious assaults, so if the game crashes when you try to do this, make sure you <A HREF="../civctp/updates.html"> get </A> and install the 1.1 patch.
+</div>
+
+<div class="normal">
+<A NAME="Paratroop"></A><B>Why does the game crash when I try to attack a city with a paratrooper?</B><BR>
+This is a known bug, and we are working on a fix.  In the meanwhile, just drop paratroopers next to the city to attack and have them walk in (or for cities built on small islands, you'll have to use marines to take the city).
+</div>
+
+<div class="normal">
+<A NAME="other_tips"></A><B>Where can I get more game tips?</B>
+<BR>
+Have a look at the <A HREF="tips.html">game tips</A> page for more information about getting the most out of Civilization: Call to Power for Linux.
+</div>
+
+
+<div class="small">
+<A HREF="faq3.html#Play">Back to Questions</A></div>
+
+</main>
+  <footer><a href="../">Products</a> | <a href="../../orders/">Order</a> | <a href="../../support/">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

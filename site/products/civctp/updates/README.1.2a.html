@@ -1,0 +1,64 @@
+
+                        Civilization: Call To Power
+                               1.2a Update
+                            November 30, 2000
+
+
+This update for Civilization: Call To Power for Linux contains the following
+improvements upon version 1.2 of the game:
+
+ - Fixed loading play-by-email games containing spaces.
+ - Fixed crash on start when playing on an 8-bit X11 display.
+ - Fixed crash playing some of the movies.
+ - Fixed game hang when switching desktops with XFree86 4.0
+ - Scrolling works now after toggling fullscreen mode.
+ - Fixed diplomacy crash in German language version.
+ - Networking is now built in, solving LC_ALL problem.
+ - civctp -s no longer signals the name of a scenario to load.
+ - Fixed 1.1 save game compatibility
+ - Fixed Play-By-Email games with Windows players (save game compatibility)
+ - Fixed assertion failure when loading scenario icons
+
+
+INSTALLING THIS PATCH
+
+Either use the Loki Update Tool, or manually install the patch by
+typing "sh <patchfile>" at the command line:
+
+        $ sh civctp-1.2a-x86.run
+
+
+IMPORTANT NOTES FOR PC PLAYERS
+
+The save game format has been changed to retain compatibility with 
+CivCTP 1.1 and the Windows version of the game, for play by e-mail.
+This means that before you load games saved by Linux CivCTP 1.2, you will
+need to run a utility to convert your old save games to the compatible
+format.  The tool is called "fixsaves-12", and is installed in the
+main game directory.  You can easily fix all your save games at once:
+
+    [install_path]/fixsaves-12 `find ~/.loki/civctp/save/games -type f`
+
+This is done automatically by the patch, but if you have old 1.2 save
+games, and are not the one who installed the patch, you will need to
+run this command manually.
+
+Non-x86 versions of CivCTP are not save-game compatible with any other
+version, so for them this step is not necessary.
+
+
+CONTACTING LOKI SOFTWARE, INC.
+
+For information about this and other products, visit our website at:
+/
+
+Technical support is available from Loki Software, Inc. at:
+
+    FAQ:      /legacy-services.html#faqs/
+    Website:  /legacy-services.html#fenris/
+    Email:    support@lokigames.com
+    Phone:    1-714-508-2140
+              Telephone support is available between 9 A.M. and 5 P.M. PST
+
+You can also communicate with other Civilization: Call To Power enthusiasts at:
+Usenet: /legacy-services.html#news/loki.games.civctp

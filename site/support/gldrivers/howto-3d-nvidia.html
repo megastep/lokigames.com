@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<header>
+<title>Loki GL driver support pages/nVidia</title>
+</header>
+<body bgcolor="#000000"
+ text="#FFFFFF"
+ link="#B08F6F"
+ vlink="#B08F6F" alink="#3366CC">
+
+<H1>Step by Step installation guide for nVidia (pre-DRI)</H2>
+
+<p>
+Please note that, at the current point,
+the nVidia drivers are <b>unsupported</b> for some of our
+games, like Quake3, for performance reasons. If you want to try 
+despite the lack of performance, we hope that the following instructions will
+offer some help.
+<p>
+<ul>
+<li><a href="howto-3d-nvidia.html#step1">Step 1: Obtain X/GLX/GL</a>
+<li><a href="howto-3d-nvidia.html#step2">Step 2: Prepare your system</a>
+<li><a href="howto-3d-nvidia.html#step1">Step 3: Install X/GLX/GL</a>
+<li><a href="howto-3d-nvidia.html#step4">Step 4: Checking X/GLX/GL</a>
+<li><a href="howto-3d-nvidia.html#step5">Step 5: Testing Games</a>
+<li><a href="howto-3d-nvidia.html#step6">Step 6: Alternatives</a>
+<li><a href="howto-3d-nvidia.html#step7">Step 7: Troubleshooting</a>
+</ul>
+</p>
+
+<H2><a name="step1">Step 1: Obtain X/GLX/GL</a></H2>
+
+<p>
+Firstly, the drivers we are currently recommended are not the most
+current ones. nVidia has recently released un updated version,
+available from their website at
+<a href="http://www.nvidia.com/Products.nsf/htmlmedia/software_drivers.html">
+http://www.nvidia.com/Products.nsf/htmlmedia/software_drivers.html</a>,
+in particular
+<a href="http://www.nvidia.com/Marketing/Developer/OpenDrvDwn.nsf/linux">
+http://www.nvidia.com/Marketing/Developer/OpenDrvDwn.nsf/linux</a>.
+These drivers are meant to be used with XFree86 3.3.5, and (as their
+precessor) are based on Mesa 3.0. Some of our customers have reported
+success, however, in our tests the drivers were not completely stable
+with Quake3, and offered no performance gain. There are some bug fixes,
+and support for 32bpp rendering.
+<p>
+If you are playing Linux HereticII (or Quake1, Quake2), the new drivers
+will break the game. The upcoming HereticII patch will address this (Linux
+Quake1 and Quake2 are handled by id Software). We hope that nVidia will
+update their drivers and support the ARB multitexture extension, which
+should improve Quake3 performance and fix the problems with the other
+games. in the meantime, we recommend using the statically linked version
+of the earlier release. 
+<p>
+You will have to download the
+<a href="download/RIVA-X-GLX-1.0-glibc-i386.tar.gz">
+RIVA-X-GLX-1.0-glibc-i386.tar.gz</a> file (1.7M). The
+original <a href="download/riva-x-glx.faq.html">nVidia FAQ</a>
+is provided for your reference.
+</p>
+
+
+
+<H2><a name="step2">Step 2: Prepare your system</a></H2>
+<p>
+You have to be root to execute this. Please exit X, and do
+<pre>
+/bin/su root
+cd /usr/X11R6/bin
+cp XF86_SVGA XF86_SVGA.no_glx
+</pre>
+Please proceed to <tt>/etc/X11/</tt> and/or <tt>/usr/X11R6/lib/X11/</tt>
+and make backup copies of the XF86Config files. Make sure that you
+have proper 640x480 and 800x600 modelines in this file. 
+If you try to use 532x384 or below, you also need those
+lines. If you get a message like
+<pre>
+Couldn't get a visual
+...WARNING: could not set the given mode (3)
+</pre>
+then your 640x480 (default mode for e.g. Quake3) could be missing
+or broken. Below a sample. Do not copy this line, as the values depend on
+your monitor.
+<pre>
+# 640x400 @ 70 Hz, 31.5 kHz hsync
+Modeline "640x400"     25.175 640  664  760  800   400  409  411  450
+</pre>
+<P>
+It is also possible that you have a modeline, but have not listed
+it in the SubSection "Display":
+<pre>
+# The Colour SVGA server
+Section "Screen"
+    Driver      "svga"
+    Device      "nVidia"
+    Monitor     "SomeMonitor"
+    Subsection "Display"
+        Depth       16
+        Modes       "640x480" "800x600" "1024x768"
+        ViewPort    0 0
+    EndSubsection
+EndSection
+</pre>
+<p>
+</p>
+
+<H2><a name="step1">Step 3: Install X/GLX/GL</a></H2>
+<p>
+Once the preparations are done, unpack the 
+<tt>RIVA-X-GLX-1.0-glibc-i386.tar.gz</tt> tarball.
+In the <tt>X-GLX-glibc-i386</tt> directory, you will find
+a <tt>riva_install</tt> script. Please execute this as
+root. It will perform the installation. If there are any
+errors reported, the installation will have failed even if
+the script continues. The installation will install an
+new XF86_SVGA binary that has the GLX module statically linked,
+and a <tt>/usr/X11R6/libGL.so.1.0</tt>.
+<p>
+Finally, you should copy <tt>libGL.so.1.0</tt> from the
+install driectory to your game directoy. For some games
+(HereticII) the libary was offered for installation from
+the CD.
+<pre>
+cp libGL.so.1.0 /usr/local/games/HereticII/gl_drivers/libMesa30tnt.so
+cp libGL.so.1.0 /usr/local/games/quake3/libMesaNVidia.so.3.0
+</pre>
+</p>
+
+
+<H2><a name="step4">Step 4: Checking X/GLX/GL</a></H2>
+<p>
+<b>Important</b>: if you have installed an nVidia driver
+release before, especially if you have used the dynamic linked
+version, there might be a section
+<pre>
+Section "Module"
+  Load "glx.so"
+EndSection
+</pre>
+in your <tt>XF86Config</tt>. You have to remove this, or you
+will experience texturing artifacts and significant slowdowns
+using the statically linked version.
+<p>
+You should also make sure that there is no other libGL.so in
+your system. Please do
+<pre>
+/sbin/ldconfig -v | grep GL
+/sbin/ldconfig -v | more
+</pre>
+and check for libGL.so and Mesa libraries in 
+<tt>/usr/lib</tt>, <tt>/usr/local/lib</tt>, and other
+locations listed in <tt>/etc/ld.so.conf</tt>. Quake3 might
+fall back to one of these depeding on the order in which
+they are found.
+<p>
+Next, please start your X server. This early release of the nVidia
+drivers did not support 32bpp modes, so you have to start X
+in 16bpp mode, e.g. by <tt>startx -bpp 16</tt>. Once X is running,
+please do the following in an xterm:
+<pre>
+xdpyinfo | grep -i glx
+xdpyinfo |more
+</pre>
+If there is no <tt>GLX</tt> mentioned, then something went wrong
+and you are running the wrong X server (or you are running the
+dynamically linked server but it can't find glx.so). If you try a
+game with this configuration, you will get (with Quake3)
+<pre>
+Couldn't get a visual
+...WARNING: could not set the given mode (3)
+</pre>
+</p>
+
+<H2><a name="step5">Step 5: Testing Games</a></H2>
+<p>
+Once you have complete the installation and have copied the GL
+library accordingly, you can try the games:
+<pre>
+cd /usr/local/games/quake3/
+./quake3 +set r_gldriver libMesaNvidia.so.3.0 +set in_dgamouse 1
+
+cd /usr/local/games/HereticII/
+./heretic2 +set vid_ref glx +set gl_driver libMesa30tnt.so
+</pre>
+If you are running <tt>timedemo 1</tt> in Quake3 (commandline
+or console) and the demo0001 recording with "Normal" settings
+and r_mode 3 (640x480), you should get about 17fps with a TNT2
+and a PIII/300 CPU.
+</p>
+
+
+<H2><a name="step6">Step 6: Alternatives</a></H2>
+<p>
+We have also used the dynamically linked X server which requires
+the glx.so module to be loaded at startup. However, this versions
+seems to cause problems in some configurations, and does not seem
+to offer performance advantages. The 
+<a href="download/&#32;RIVA-X-GLX-1.0-glibc-i386-dyn.tar.gz">
+RIVA-X-GLX-1.0-glibc-i386-dyn.tar.gz</a> file (1.6M) is available.
+<p>
+There is also some preliminary support for nVidia chipsets in
+the Utah GLX located at
+<a href="http://glx.on.openprojects.net/">
+http://glx.on.openprojects.net/
+</a>
+but it is incomplete. Please see the mailing list archives at the
+GLX site for updates on this.
+
+
+<H2><a name="step7">Step 7: Troubleshooting</a></H2>
+
+<p>
+If by any means possible, please check the game output to the console. 
+Please look for the output of GL_VERSION, GL_RENDERER and GL_VENDOR
+on the console. You could also try the 
+<tt>/legacy-services.html#news/loki.games.*</tt> newsgroups for advice. 
+</body>
+</html>
+

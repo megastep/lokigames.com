@@ -1,0 +1,26 @@
+
+			LokiHack '99 Patch
+
+Patch Title:  GGI Port
+Author: Jon Taylor
+E-mail: jtaylor@creaf.com
+
+Short Description:  Port of CivCTP to GGI
+
+Long Description:
+
+CivCTP uses the Simple DirectMedia Layer library for graphics, input, sound,
+and CD-ROM handling.  This hack was a port of SDL to GGI, so that new output
+drivers could be used.. Civ on a cube!
+
+Documentation:
+
+You need to have GGI 2.0 beta installed, and unpack the shared libraries
+included in the patch directory (they should be automatically installed
+with the patch application process).
+
+GGI is available at: http://www.ggi-project.org/
+
+Known Bugs:
+
+---

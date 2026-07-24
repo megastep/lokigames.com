@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../">Products</a><a href="../../orders/">Orders</a><a href="../../support/">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Network Game Play
+
+
+<div class="normal">
+<A NAME="Chat"></A><B>How do I chat in a network game?</B><BR>
+Hit the TAB key and a type what you want to say. The text should appear along the bottom of the screen as you type it, and disappear when you hit Enter.
+</div>
+
+<div class="normal">
+<A NAME="Indiv"></A><B>How do I individualize my character in the game?</B><BR>
+In the initial TCP/IP dialogue, where you select or create a server, click 'Change' to modify characteristics of your player. (name, picture, description, etc.)
+</div>
+
+<div class="normal">
+<A NAME="Masq"></A><B>How do I play a network/internet game
+through a Linux Masquerading firewall?</B><BR>
+RT2 does not support playing through a firewall at this time.
+</div>
+
+<div class="normal">
+<A NAME="Subnet"></A><B>Do the computers have to be on the same subnet to play networked games of RT2?</B><BR>
+No. All players just need to know the IP address of the server machine.  The game doesn't rely on broadcasts, so machines needn't be on the same subnet to play.
+</div>
+
+<div class="normal">
+Unfortunately, there is a bug in both 1.54 and 1.54a that prevents connections from outside the same subnet from working.  This will be fixed in a later update.
+</div>
+
+<div class="normal">
+<A NAME="IntServ"></A><B>Are there no internet servers to connect to?  How are connections made?</B><BR>
+There are no public internet servers to connect to for RT2.  Basically, you will
+just have to set up times with friends to start games, and agree on one machine to host.  One machine acts as server, and all of the other machines enter its IP address to connect.
+</div> 
+
+<div class="normal">
+<A NAME="InProg"></A><B>Can you join a game once it's in progress?</B><BR>
+No.  Games are closed once they're started.  All players start off in a lobby, have a chance to approve/disapprove of settings, and then once all have approved and the game is launched, no new players can join.
+</div>
+
+<div class="normal">
+<A NAME="MultHom"></A><B>On a multihomed host, how do I tell the game which interface to use?</B><BR>
+Edit the file ~/.loki/rt2/userprofile.txt and add the line "ipaddress = X.X.X.X", where X.X.X.X is the IP address of the interface you want to use.
+</div>
+
+<div class="small">
+<A HREF="faq3.html#NetPlay">Back to Questions</A>
+</div>
+
+</main>
+  <footer><a href="../">Products</a> | <a href="../../orders/">Order</a> | <a href="../../support/">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?php echo $text_normal ?>
+Our second Open Source project is the Fenris Online Bugtracking System. Be sure to return to this site for news and updates as the project progresses.
+<?php echo $_text_normal ?>
+
+<?php echo $text_small ?>
+Fenris (which you can see in action at <A HREF="http://fenris.lokigames.com/" TARGET="_blank">http://fenris.lokigames.com/</A>) is a database-linked, website-oriented bugtracking system that serves users by allowing them to submit bugs found in software directly to developers while also tracking the status of the work on those bugs. Developers also benefit by having an organized system for getting input from users and having a large pool of feedback for quality assurance. Fenris is based on the <A HREF="http://www.mozilla.org/bugs/">Bugzilla project</A> from the Mozilla codebase. For more information, look at the <A HREF="http://fenris.lokigames.com/" TARGET="_blank">Fenris page</A>.
+<?php echo $_text_small ?>
+
+<?php echo $text_small ?>
+Fenris differs from Bugzilla in several ways:
+<?php echo $_text_small ?>
+
+<UL>
+	<LI><?php echo $text_small_nop ?>Individual comments are not appended onto a string blob, they are stored as a record in a separate table. This allows you to, for instance, separate comments out according to privilege levels in case
+your bug database could contain sensitive information not for public
+eyes.<?php echo $_text_small_nop ?></LI>
+	<LI><?php echo $text_small_nop ?>Email hiding to protect user's privacy.<?php echo $_text_small_nop ?></LI>
+	<LI><?php echo $text_small_nop ?>Additional fields such as 'user_affected' in case someone enters someone else's bug.<?php echo $_text_small_nop ?></LI>
+	<LI><?php echo $text_small_nop ?>Comment editing and deletion.<?php echo $_text_small_nop ?></LI>
+	<LI><?php echo $text_small_nop ?>More conditional system variables than Bugzilla does (turn off attachments, qacontact, etc.).<?php echo $_text_small_nop ?></LI>
+</UL>
+
+<?php echo $subhead ?>
+<B>Download Fenris</B> 
+<?php echo $_subhead ?>
+
+<?php echo $text_small ?>
+You can download a tarball archive of the source code for Fenris at <A HREF="http://fenris.lokigames.com/fenris-code.tar.gz">http://fenris.lokigames.com/fenris-code.tar.gz</A>.
+<?php echo $_text_small ?>
+
+<?php echo $text_small ?>
+Send comments or questions to <A HREF="mailto:fenris@lokigames.com">fenris@lokigames.com</A>.
+<?php echo $_text_small ?>
+
+<?php require "projects.php3f" ?>

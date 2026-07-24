@@ -1,0 +1,80 @@
+
+                                Descent 3
+                              Patch  1.4.0a
+                              Sept 26, 2000
+
+
+This patch for Descent 3 for Linux contains the following
+improvements upon version 1.4.0 of the game:
+
+  - If the default libGL or user-specified libGL fails to load, 1.4.0a will
+    try libGL.so.1 as a last resort...
+  - Other minor GL tweaks.
+  - The tech support number listed with --help has changed.
+  - Added Jeff Slutter (Outrage) and Mark Bainter (beta tester) to the
+    in-game credits.
+  - Fix to allow Mercenary movies to play.
+  - Multitexture fix: Whether the user requested multitexture extensions or
+    not, and whether the game expected to find them or not, Descent 3 would
+    try to load them, and would abort when it couldn't. Now Descent 3 only
+    attempts to find the extension's symbols if needed.
+  - Support for the COBRA chair. (--cobra on the command line).
+  - Support for foreign keyboards. There are some 90+ keys (the SDL
+    "world" keys) that are now available for use in Descent3.
+  - The game now makes idle calls while waiting for a new CD to be inserted,
+    so it won't eat up all available processor time.
+  - Added "--timetest" and "--fastdemo" options for benchmarking.
+  - Added "--tempdir" option for a few odd cases.
+  - Newer SDL used, which fixes some various issues.
+  - DRI-based systems no longer automatically crash.
+  - Gamma support. Systems with xgamma support can change the game's
+    brightness in the video options section off the main menu.
+  - Added option to play at 1152x864 resolution. (You're welcome, Metz.)
+  - Startup menu checks the rendering speed, and if it's too slow, the game
+    aborts with a polite message explaining what's up.
+  - Missions can now be placed in $HOME/.loki/descent3/missions/, and they
+    will be detected with the other missions, and can be loaded.
+  - Some people had problems with CD-ROM drives and strange directories
+    being created. This is fixed.
+  - Other minor fixes and tweaks.
+
+
+IMPORTANT NOTES
+
+This version should NOT break compatibility with the Windows clients and
+servers. Save game, demo, and other file formats have not changed, either.
+
+
+INSTALLING THIS PATCH
+
+Either use the Loki Update Tool, or manually install the patch by
+typing "sh <patchfile>" at the command line:
+
+        $ sh descent3-1.4.0a-x86.run
+
+
+CONTACTING LOKI SOFTWARE, INC.
+
+For information about this and other products, visit our website at:
+/
+
+Technical support is available from Loki Software, Inc. at:
+
+    FAQ:      /legacy-services.html#faqs/
+    Website:  /legacy-services.html#fenris/
+    Email:    support@lokigames.com
+    Phone:    1-714-508-2140
+              Telephone support is available between 9 A.M. and 5 P.M. PST
+
+You can also communicate with other Descent 3 enthusiasts at:
+Usenet: /legacy-services.html#news/loki.games.descent3
+
+
+SPECIAL THANKS
+
+- the beta crew
+- andy mecham, finder of my printf debugging artifacts
+- mike phillips, frenetic cyborg techie
+- matt matthews, for unwitting patch testing under the mask of benchmarking
+
+// end of README-1.4.0a ...

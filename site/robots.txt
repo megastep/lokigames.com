@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /i-am+so+british-like-ck/

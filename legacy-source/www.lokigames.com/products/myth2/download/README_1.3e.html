@@ -1,0 +1,93 @@
+                        Myth II: Soulblighter for Linux
+                        ===============================
+                                 Patch 1.3e
+
+This fifth patch for Myth II: Soulblighter for Linux addresses
+the following problems in version 1.3d of the game.
+
+    - Added an OpenGL driver, which complements the existing X11 driver.
+      Please note that some OpenGL implementations (i.e. Utah-GLX) don't
+      support fog correctly, in which case it can just be disabled in the
+      preferences dialog.
+    - Added complementary support for the Chimera plugin credits.
+    - Fixed 32 bpp problems.
+    - Added support for gamma correction in non-Glide drivers.
+    - Memory allocation fixes.
+    - Cheat codes should be working again.
+    - Fullscreen/windowed modes have been cleaned up ; they are now consistent
+      and the last setting is saved for further sessions.
+    - The AAlib driver for SDL is no longer included in the official binaries.
+      If you want to use it, you will have to install the dynamic version of
+      this patch and compile in support for AAlib in your SDL library.
+
+The problems that were fixed in 1.3d are the following :
+
+    - Fixed corrupted dialog boxes in software 32 bit modes
+    - The game should now start if no sound card is configured on the system.
+    - The game has been changed internally to link with the newest SDL and SMPEG
+      libraries. This provides overall better performance.
+    - Framebuffer console target on Intel systems (not on PPC).
+    - AAlib target (play Myth II in ASCII art!). Use it on the console, or
+      enable it explicitly by setting the SDL_VIDEODRIVER environment variable
+      to 'aalib'.
+    - Proper CDROM detection on systems using supermount (Mandrake)
+    - Much better X11 fullscreen support, and fullscreen is now enabled by default.
+      You can switch at any time between fullscreen and windowed mode by using
+      the Alt-Enter hotkey.
+    - Support for DMA sound for cards that support it, and better ESD support.
+      To enable DMA sound, type the following command in your shell:
+
+      export SDL_AUDIODRIVER=dma
+
+    - If you own a 3Dfx card, we strongly recommend you to upgrade your Glide driver
+      to the latest version, especially for Voodoo3 users. A bug present in older
+      Glide versions was causing Myth II to crash on the second level played with
+      the Glide driver enabled. You can get the latest Glide releases for Linux
+      at http://linux.3dfx.com/open_source/drivers.htm
+
+The problems that were fixed in 1.3c are the following :
+
+    - The Glide version works now with X servers set to a bit depth different
+      than 16 bit.
+    - Restarting a game in Glide mode no longer crashes.
+    - The -f command-line option now works and enables fullscreen thru the
+      XFree86 VidMode extension, which does not require root privileges. For
+      this to work correctly, you need to have the 640x480 mode set up in your
+      XF86Config file. DGA is not required anymore (but should still work).
+    - Y2K bugfix.
+
+The problems that were fixed in 1.3b are the following :
+
+    - Making the executable setuid-root now works correctly.
+    - Workaround for compatibility with the SB!Live drivers.
+      To enable this workaround, you need to set the SDL_SBLIVE_HACK
+      environment variable to 1 (i.e. "export SDL_SBLIVE_HACK=1").
+    - Fear bugfixes.
+
+The problems that were fixed in 1.3a are the following :
+
+    - Fixed linking problem that prevented the Glide binary from running 
+      on SuSE 6.2 and Debian (Slink).
+    - Many compatibility fixes for various window managers
+    - Various networking / Bungie.net fixes.
+    - Keyboard bugfixes. The correct key names now appear in the 
+      keybindings configuration panel.
+    - Improved cut and paste support with other X11 applications.
+
+------------------------------
+CONTACTING LOKI SOFTWARE, INC.
+------------------------------
+
+For information about this and other products, visit our website at:
+http://www.lokigames.com/
+
+Technical support is available from Loki Software, Inc. at:
+
+    FAQ:      http://faqs.lokigames.com/
+    Website:  http://fenris.lokigames.com/
+    Email:    support@lokigames.com
+    Phone:    1-714-508-2140
+              Telephone support is available between 9 A.M. and 5 P.M. PST
+
+You can also communicate with other Myth II enthusiasts at:
+Usenet:   news://news.lokigames.com/loki.games.myth2

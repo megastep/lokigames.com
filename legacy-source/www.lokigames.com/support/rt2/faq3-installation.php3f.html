@@ -1,0 +1,65 @@
+<?php echo $headline ?>
+Installation
+<?php echo $_headline ?>
+
+<?php echo $text_normal ?>
+<A NAME="howto"></A><B>How do I install the game?</B><BR>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<OL>
+<LI>  <?php echo $text_normal_nop ?> Mount the CD-ROM using the "mount" command. If you are unsure how 
+this works, please check the documentation for your Linux distribution. 
+Generally, the format for mounting a CD-ROM under Linux is similar to:
+<CODE><BLOCKQUOTE>mount -t iso9660 -r /dev/cdrom /mnt/cdrom</BLOCKQUOTE></CODE><?php echo $_text_normal_nop ?></LI>
+
+<LI>  <?php echo $text_normal_nop ?>Under X11, enter the command "sh [Mounted CD-ROM Path]/setup.sh". 
+Be sure to replace the [Mounted CD-ROM Path] portion of this command with 
+the correct path for the mounted CD-ROM. In the example above, the 
+command would be:
+ <TT><BLOCKQUOTE>sh /mnt/cdrom/setup.sh</BLOCKQUOTE></TT><?php echo $_text_normal_nop ?></LI>
+
+<LI>  <?php echo $text_normal_nop ?>Under 'Global Options':<?php echo $_text_normal_nop ?>
+
+<UL>
+<LI> <?php echo $text_normal_nop ?>  Enter the directory into which the game should be installed in the Install path: box.  In the box labeled Binary directory, enter a directory in your $PATH where a symbolic link for the binary should be set up.  Make sure you have write permissions in both of these directories.<?php echo $_text_normal_nop ?></LI> 
+</UL></LI>
+
+<LI>   <?php echo $text_normal_nop ?>Under 'Install Options':<?php echo $_text_normal_nop ?>
+
+<UL>
+ <LI> <?php echo $text_normal_nop ?>You must install 'Base Install' (the basic game files).  You may choose to leave the Campaigns and the corresponding 
+movie files on the CD.  If you wish to write these files to your hard drive, 
+click in the corresponding boxes.<?php echo $_text_normal_nop ?></LI>
+
+<LI><?php echo $text_normal_nop ?>Below the Install Options, the installer
+will display how much space is left on your partition, and how much the game
+will use per the options selected (181 MB just for the base install).<?php echo $_text_normal_nop ?></LI>
+
+<LI> <?php echo $text_normal_nop ?> Check in the box for KDE/Gnome menu items if you would like them installed.<?php echo $_text_normal_nop ?></LI>
+</UL></LI>
+
+<LI> <?php echo $text_normal_nop ?>You may view the game README at this point if you wish, by clicking on 'View Readme'.  Otherwise, click on 'Begin Install' to begin the copying of files.<?php echo $_text_normal_nop ?></LI>
+
+
+<LI><?php echo $text_normal_nop ?> When the game has finished installing, you may choose either to launch it directly (click on 'Play!') or to simply exit and run the game from the console.<?php echo $_text_normal_nop ?></LI>
+
+<LI><?php echo $text_normal_nop ?> To run the game generally, just type 'rt2' from the console (you shouldn't have to enter the complete path).<?php echo $_text_normal_nop ?></LI>
+</OL>
+<?php echo $_text_normal ?>
+
+
+<?php echo $text_normal ?>
+<A NAME="Root"></A><B>Do I have to be logged in as root to install the game?</B><BR>
+No, but you do have to have write privileges to /usr/local/games (or wherever you install the game).
+<?php echo $_text_normal ?>
+
+
+<?php echo $text_normal ?>
+<A NAME="SegFault"></A><B>After I install the game, it won't start, and gives me a 'Segmentation Fault' error.  I can't run the game at all.</B><BR>
+Chances are, you're running a Soundblaster Live! card with the beta drivers from Creative Labs.  See further down in the faq for a <A HREF="faq3-sound.php3.html#SBLive">workaround.</A>
+<?php echo $_text_normal ?>
+
+<?php echo $text_small ?>
+<A HREF="http://www.lokigames.com/support/rt2/faq3.php3#Installation">Back to Questions</A><?php echo $_text_small ?>
+

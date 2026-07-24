@@ -1,0 +1,34 @@
+<?php echo $headline ?>
+Game Updates
+<?php echo $_headline ?>
+
+<?php echo $text_normal ?>
+<A NAME="Update"></A><B>Any updates to RT2?  If so, where can I download the patch(es)?</B><BR>
+We have released a  1.54a patch which addresses a few small issues in the release version.  
+The patch is available <A HREF="../../products/rt2/updates.php3.html"> here </A> on our website for x86 architecture only.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="fixes"></A><B>What problems are addressed in this update?</B><BR>
+<P>This update provides the following improvements:</P>
+
+<UL>
+	<LI>Fixed splash screen appearing over main menu in fullscreen mode</LI>
+	<LI>Fixed 32-bit fullscreen blitting crash (new optimized C blitters)</LI>
+	<LI>Now clears screen during campaign videos</LI>
+	<LI>Fixes campaign map corruption for maps 08 through 15</LI>
+	<LI>Fixed X shutdown when the game crashes and is started from menu</LI>
+	<LI>Also contains some other minor fixes and is updated for SDL 1.0</LI>
+</UL>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="howto"></A><B>How do I apply the 1.54a update?</B><BR>
+<P> Just run the script.  It will autodetect your installation, and modify/add the files it needs to. It doesn't matter where the script is in your filesystem when you run it.  It doesn't have to be in the game directory.</P>
+	<BLOCKQUOTE>sh rt2-1.54a-x86.sh</BLOCKQUOTE>
+NOTE: You don't have to be logged in as root to run the upgrade, but you do need to have write permissions to the game directory and files. (It's a good idea to run the upgrade script logged in as the same user under which you installed the game.)
+<?php echo $_text_normal ?>
+
+
+<?php echo $text_small ?>
+<A HREF="http://www.lokigames.com/support/rt2/faq3.php3#Updates">Back to Questions</A><?php echo $_text_small ?>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content"><h2>
+Installation
+</h2>
+
+<div class="normal">
+<A NAME="Root"></A><B>Do I have to be logged in as root to install the game?</B><BR>
+No, but you do have to have write privileges to /usr/local/games (or wherever you install the game). If you want the installer to place a link in /usr/bin to make startup easier, you'll need write permissions to that directory as well.
+</div>
+
+<div class="normal">
+<A NAME="install_maps"></A><B>How do I install custom maps?</B><BR>
+A good example of a custom map is the <a href="http://www.clanplaid.net/misc/recon/">WWII Recon</a> plugin from <a href="mailto:SantasHead@yahoo.com">Santa's Head</a>.
+<ol>
+<li>Download the zip file
+<li>Extract it using the `unzip` command 
+<li>Place the map file (not the copyright message) in:
+<ul>
+<li>/usr/local/games/myth2/plugins (if you want anyone on the machine to be able to use it)
+<li>~/.loki/myth2/plugins (if you will be the only person using it)
+</ul>
+<li>Fire up Myth II and select Multi-Player Game
+<li>Host a game and select options to change maps
+<li>Select one of the WWII Recon maps at the top of your map list, and off you go
+</ol>
+</div>
+
+<div class="normal">
+<A NAME="SegFault"></A><B>After I install the game, it won't start, and gives me a 'Segmentation Fault' error.  I can't run the game at all.</B><BR>
+Chances are, you're running a Soundblaster Live! card with the beta drivers from Creative Labs.  See further down in the faq for a <A HREF="faq3-sound.html#SBLive">workaround.</A>
+</div>
+
+<div class="normal">
+<A NAME="InstallScript"></A><B>The install script gives me an error that it can't find the executables.</B><BR>
+There is a slight bug in the install script that only affects systems using a SuSE distribution.  The bug causes the script to miscalculate the path to the files when using the GUI installer.  To correct this, use the text-based installer with the following:
+<ul>
+<li>Open an X terminal.
+<li>Unset your DISPLAY environment variable. In bash, this is done with `unset DISPLAY`.
+<li>Launch the installer with `sh setup`.
+</ul>
+Once the installer finishes, if the link to Myth II was placed in a directory that is in your path, you can start Myth II with the command `myth2`. Otherwise you'll need to specify the location of the link.
+</div>
+
+<div class="normal">
+<A NAME="InstallScript"></A><B>What is the difference between the three install sizes?</B><BR>
+<DL>
+	<DT>Minimal Install:  10MB</DT>
+	<DD>This installs only the executables allowing you to play the game from the CD.  NOTE: This may cause lag in the game on machines with slow CD drives.</DD>
+	<DT>Large Install</DT>
+	<DD>This install includes everything that is necessary to play the game but does not include the movies.</DD>
+	<DT>Full Install</DT>
+	<DD>This install is the whole shebang.</DD>
+</DL>
+</div>
+
+<div class="small">
+<A HREF="mythfaq.html#Installation">Back to Questions</A></div>
+
+
+
+
+
+
+
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

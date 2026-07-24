@@ -1,0 +1,79 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Multifractal Penguins and Porcupines
+Author: Joshua Shagam
+E-mail: joshagam@trikuare.cx
+
+Short Description:  Mapgen, Splashscreen, Porcupines
+
+Long Description:   
+	One main hack and two mini-hacks.  The main hack is a complete
+	rewrite of the map generation, giving it 1000 total discrete
+	combinations of algorithms for terrain, vegetation, and climate,
+	using yummy quasi-multifractals.  The first mini-hack is a new,
+	better-looking splashscreen which replaces the "Linux port by Loki"
+	screen.  The second mini-hack is the addition of a new civilization,
+	which has a backstory behind it (read below for it).
+
+Documentation:
+	These patches are all simple drop-ins which require no additional
+	user knowledge or interaction.  However, the porcupine civilization
+	makes a little more sense if you read the backstory, which follows:
+	(Note that this was written in an extreme case of sleep deprivation :)
+
+		-=-=- Begin dramatic voiceover -=-=-
+
+	Deep in the heart of the forest, there lived a colony of porcupines.
+	These porcupines weren't just any porcupines, however... they had once
+	been, aeons ago, super-intelligent porcupines, who had evolved and
+	gone far beyond where humanity is today.  They had even developed
+	nanotechnology, which allowed them to explore transcending the
+	limitations of their flesh.  A favorite activity of theirs was to
+	change their colors.  Over time the lines between their technology
+	and themselves were blurred, and they slowly began to take it for
+	granted, until one day when the nanorobots which helped them shape
+	their world malfunctioned.  Before the nanorobots could wreak havoc
+	upon an unspoiled world, the porcupines acted quickly to control the
+	problem, and resolved to forget that their technology ever existed,
+	doing whatever they could to return the world to the way it was.
+
+	Over time, they did forget, and although they still thirst for
+	knowledge of science and technology, all that physically remains of
+	their previous technological splendor is their ability to, through 
+	vestigal genetics installed by the nanorobots long ago, choose and 
+	change the coloration of the pigments which are deposited into their
+	fur, skin and quills.
+
+	One rarely sees one of these porcupines directly, however.  They
+	coexist happily with humans who have lived symbiotically for a long
+	time, though they are the ruling class and are never seen, save for
+	when one sends a diplomat (usually identified with lavender skin and
+	fur and cyan quills) for negotiation purposes with other governments.
+	They are otherwise happy to live in peaceful covertness.
+
+		-=-=- End dramatic voiceover -=-=-
+	
+	Note that the mapgen patch will work perfectly-well with any other
+	hack which happens, as it doesn't affect any of the main Civ:CTP code
+	at all.  Likewise, the other patches will work just fine with
+	everything else that can be thrown at them (since they're just data
+	hacks), except that in the case of other civilizations being added in,
+	the two gamedata files which are modified will have to be rolled
+	together manually.  Incremental patches should work fine in that
+	case, but care must be taken to update the number of civilizations
+	at the top of default/gamedata/civilisation.txt.
+
+
+Known Bugs:
+	In certain circumstances, the map generator can cause the game to hang
+	upon trying to start up, depending on what particular circumstances
+	happen.  There is no way to avoid this, however, as the multifractals
+	are based on statistical models, rather than deterministic procedural
+	mechanisms, so sometimes, for example, it may generate a landscape
+	which is too flat to have any real differentiation, which CTP's map
+	tiling engine (which is separate from the mapgen) interprets as all
+	water; thus, it can't find starting locations for the settlers, and
+	the game hangs indefinitely.  The only recourse is to kill the process.
+
+---

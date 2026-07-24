@@ -1,0 +1,25 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Multihomed networking / Multi-instance civ patch
+Author: San Mehat
+E-mail: nettwerk@valinux.com
+
+Short Description:  (one line)
+Allows proper functionality on multi-homed systems and allows multi instances on a single box (you didnt specify how *long* the one line could be) ;)
+Long Description:   (short paragraph)
+See above
+Documentation:      (how does it work, special features, instructions, etc.)
+Patched uudps code. Sockets were bound to INETADDR_ANY. Changed gethostaddr
+code (and moved it up in commInit()), so that the UUDP_HOSTNAME env variable
+was used as the binding address for the uudps socket. Also added a
+uudps_bcast_sock entry to the uudps context structure which serves as the
+socket by which broadcasts are sent and received.
+
+Known Bugs:
+
+  Possibly exposes some problems in the packet 'accept' code where packets
+that should be dumped are not.. (could cause issues with older non-patched
+civs)
+
+---

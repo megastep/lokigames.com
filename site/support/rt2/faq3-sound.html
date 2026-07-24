@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loki Entertainment Software</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Music and Sound
+
+
+<div class="normal">
+<A NAME="CD-Permissions"></A><B>The sound effects work, but why won't the music play from the CD?</B><BR>
+You need read permissions for the CD-ROM drive. Usually this is /dev/hdc, but it may be different on your machine. If you aren't sure, look at the link for /dev/cdrom (ls -l /dev/cdrom). Then run the command chmod o+r /dev/hdc (using your device for /dev/hdc).  
+</div>
+
+<div class="normal">
+Also, make sure that your cdrom device is listed in /etc/fstab as an iso9660 device.  You should see a line something like this when you 'cat /etc/fstab':
+</div>
+
+<div class="normal">
+<BLOCKQUOTE>/dev/cdrom	/mnt/cdrom	iso9660	user,ro		0 0</BLOCKQUOTE>
+</div>
+
+<div class="normal">
+If you have more than one CDROM device, check <A HREF="faq3-sound.html#Set_CD-ROM"> here </A> to see how to tell the game which one to use.
+</div>
+
+<div class="normal">
+<A NAME="CD"></A><B>If I have a music CD in when I start the game, the music CD will start to play. If I pull up a CD player app and stop it, it keeps restarting. How do I stop this?</B><BR>
+You need to turn off music from within the game -- this can be done from the control panel (just set the music volume to &quot;0&quot;. Also, if you don't want the game accessing your CD-ROM, you can use the command line option --nocdrom when running the game.
+</div>
+
+<div class="normal">
+<A NAME="Sound"></A><B>Why I don't hear any sound?</B><BR>
+First be sure that you have sound support compiled into your
+kernel and that you have installed an OSS supported sound card.
+Next, make sure that you have read/write permissions to /dev/dsp
+(chmod a+rw /dev/dsp). If sound still doesn't
+work, contact your Linux distributor for more assistance. Once
+sound is properly installed on your system RT2 will use it
+automatically. There is no need to do any sound configuration
+within the game itself.
+</div>
+
+<div class="normal">
+<A NAME="Set_CD-ROM"></A><B>I have multiple CD-ROMs. How do I tell the game which one to use?</B><BR>
+You can set the evironment variable SDL_CDROM to the full
+pathname of the CD device you want the game to use. ('export SDL_CDROM=/dev/hdc', for example)
+</div>
+
+<div class="normal">
+<A NAME="SBLive"></A><B>Is there a workaround for the SoundBlaster Live!
+crashes?</B><BR>
+The game should work just fine with the most recent drivers from <A HREF="http://opensource.creative.com/snapshot.html">Creative's open source page.</A>
+</div>
+
+<div class="normal">
+Here's the old workaround for historical value:
+</div>
+
+<div class="normal">
+Many thanks to Wintermute for finding the solution:
+</div>
+
+<OL>
+	<LI><span class="small">Obtain and install <A HREF="http://www.tux.org/~ricdude/download.html"> Esound </A> (The Enlightened Sound Daemon)</span></LI>
+	<LI><span class="small">Make sure that only ONE of the /dev/dspX devices is writable by your user profile (otherwise the game will attempt to scan the rest during
+startup to find a free device other than the one that Esound will be
+using and this will cause the game to again crash out.)</span></LI>
+	<LI><span class="small">Run Esound with the following command line:<BR>
+	<TT>esd -d /dev/dsp -tcp -port 5001 &</TT></span></LI>
+	<LI><span class="small">If you hear several tones as esd loads you're ready to go.  Now simply run "rt2" at the command line and finally enjoy the glory of RT2
+with sound!</span></LI>
+</OL>
+
+
+<div class="small">
+<A HREF="faq3.html#Sound">Back to Questions</A></div>
+
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

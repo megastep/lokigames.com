@@ -1,0 +1,1219 @@
+Index: src/config.h
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/config.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- config.h	1999/02/05 00:05:38	1.1.1.1
++++ config.h	1999/04/16 19:36:09	1.2
+@@ -23,6 +23,9 @@
+ 
+ /*
+  * $Log$
++ * Revision 1.2  1999/04/16 19:36:09  cvs
++ * Slight performance improvement
++ *
+  * Revision 1.1.1.1  1999/02/05 00:05:38  cvs
+  * Initial checkin
+  *
+@@ -197,7 +200,7 @@
+ /*
+  * Vertex buffer size.  Must be a multiple of 12.
+  */
+-#if defined(FX) && !defined(MITS)
++#if (defined(NVIDIA) && !defined(MITS)) || (defined(FX) && !defined(MITS))
+ #  define VB_MAX 72   /* better performance */
+ #else
+ #  define VB_MAX 480
+Index: src/copypix.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/copypix.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- copypix.c	1999/02/05 00:05:38	1.1.1.1
++++ copypix.c	1999/04/10 02:03:11	1.2
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:38  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:11  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.9  1998/09/25 03:03:01  brianp
++ * fixed front/back alpha copy bug per Sam Jordan
+  *
+  * Revision 3.8  1998/07/17 03:24:16  brianp
+  * added Pixel.ScaleOrBiasRGBA field
+@@ -74,9 +77,10 @@
+ 
+ 
+ 
+-static void copy_rgb_pixels( GLcontext* ctx,
+-                             GLint srcx, GLint srcy, GLint width, GLint height,
+-                             GLint destx, GLint desty )
++static void copy_rgba_pixels( GLcontext* ctx,
++                              GLint srcx, GLint srcy,
++                              GLint width, GLint height,
++                              GLint destx, GLint desty )
+ {
+    GLdepth zspan[MAX_WIDTH];
+    GLubyte rgba[MAX_WIDTH][4];
+@@ -84,6 +88,7 @@
+    GLint sy, dy, stepy;
+    GLint i, j;
+    GLboolean setbuffer;
++   GLubyte *saveAlpha;
+    const GLboolean zoom = ctx->Pixel.ZoomX!=1.0F || ctx->Pixel.ZoomY!=1.0F;
+ 
+    /* Determine if copy should be done bottom-to-top or top-to-bottom */
+@@ -117,36 +122,46 @@
+    }
+ 
+    /* If read and draw buffer are different we must do buffer switching */
+-   setbuffer = ctx->Pixel.ReadBuffer!=ctx->Color.DrawBuffer;
+-
++   saveAlpha = ctx->Buffer->Alpha;
++   setbuffer = ctx->Pixel.ReadBuffer != ctx->Color.DrawBuffer;
+    for (j=0; j<height; j++, sy+=stepy, dy+=stepy) {
+       if (setbuffer) {
+          (*ctx->Driver.SetBuffer)( ctx, ctx->Pixel.ReadBuffer );
++         if (ctx->Pixel.ReadBuffer == GL_FRONT)
++            ctx->Buffer->Alpha = ctx->Buffer->FrontAlpha;
++         else
++            ctx->Buffer->Alpha = ctx->Buffer->BackAlpha;
+       }
+       gl_read_rgba_span( ctx, width, srcx, sy, rgba );
+-
+       if (ctx->Pixel.ScaleOrBiasRGBA) {
+          gl_scale_and_bias_rgba( ctx, width, rgba );
+       }
+       if (ctx->Pixel.MapColorFlag) {
+          gl_map_rgba( ctx, width, rgba );
+       }
+-
+       if (setbuffer) {
+          (*ctx->Driver.SetBuffer)( ctx, ctx->Color.DrawBuffer );
++         if (ctx->Color.DrawBuffer == GL_FRONT)
++            ctx->Buffer->Alpha = ctx->Buffer->FrontAlpha;
++         else
++            ctx->Buffer->Alpha = ctx->Buffer->BackAlpha;
+       }
+       if (quick_draw && dy>=0 && dy<ctx->Buffer->Height) {
+          (*ctx->Driver.WriteRGBASpan)( ctx, width, destx, dy, rgba, NULL );
++
+       }
+       else if (zoom) {
+          gl_write_zoomed_rgba_span( ctx, width, destx, dy, zspan, rgba, desty);
+       }
+       else {
+-         gl_write_rgba_span( ctx, width, destx, dy, zspan, rgba, GL_BITMAP );
++         gl_write_rgba_span( ctx, width, destx, dy, zspan, rgba, GL_BITMAP 
++);
+       }
+    }
+-}
+ 
++   /* Restore current alpha buffer pointer */
++   ctx->Buffer->Alpha = saveAlpha;
++}
+ 
+ 
+ static void copy_ci_pixels( GLcontext* ctx,
+@@ -371,7 +386,7 @@
+       desty = (GLint) (ctx->Current.RasterPos[1] + 0.5F);
+ 
+       if (type==GL_COLOR && ctx->Visual->RGBAflag) {
+-         copy_rgb_pixels( ctx, srcx, srcy, width, height, destx, desty );
++         copy_rgba_pixels( ctx, srcx, srcy, width, height, destx, desty );
+       }
+       else if (type==GL_COLOR && !ctx->Visual->RGBAflag) {
+          copy_ci_pixels( ctx, srcx, srcy, width, height, destx, desty );
+Index: src/get.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/get.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- get.c	1999/02/05 00:05:39	1.1.1.1
++++ get.c	1999/04/10 02:03:12	1.2
+@@ -2,7 +2,7 @@
+ 
+ /*
+  * Mesa 3-D graphics library
+- * Version:  3.0
++ * Version:  3.1
+  * Copyright (C) 1995-1998  Brian Paul
+  *
+  * This library is free software; you can redistribute it and/or
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:39  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:12  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.16  1998/10/01 02:51:39  brianp
++ * added GL_MAX_3D_TEXTURE_SIZE support to glGet*()
+  *
+  * Revision 3.15  1998/07/29 04:09:33  brianp
+  * getting polygon stipple on/off state was broken
+@@ -591,6 +594,7 @@
+ 	 *params = INT_TO_BOOL(MAX_PROJECTION_STACK_DEPTH);
+ 	 break;
+       case GL_MAX_TEXTURE_SIZE:
++      case GL_MAX_3D_TEXTURE_SIZE:
+          *params = INT_TO_BOOL(max_texture_size(ctx));
+ 	 break;
+       case GL_MAX_TEXTURE_STACK_DEPTH:
+@@ -1450,6 +1454,7 @@
+ 	 *params = (GLdouble) MAX_PROJECTION_STACK_DEPTH;
+ 	 break;
+       case GL_MAX_TEXTURE_SIZE:
++      case GL_MAX_3D_TEXTURE_SIZE:
+          *params = (GLdouble) max_texture_size(ctx);
+ 	 break;
+       case GL_MAX_TEXTURE_STACK_DEPTH:
+@@ -2306,6 +2311,7 @@
+ 	 *params = (GLfloat) MAX_PROJECTION_STACK_DEPTH;
+ 	 break;
+       case GL_MAX_TEXTURE_SIZE:
++      case GL_MAX_3D_TEXTURE_SIZE:
+          *params = (GLfloat) max_texture_size(ctx);
+ 	 break;
+       case GL_MAX_TEXTURE_STACK_DEPTH:
+@@ -3163,6 +3169,7 @@
+          *params = (GLint) MAX_PROJECTION_STACK_DEPTH;
+          break;
+       case GL_MAX_TEXTURE_SIZE:
++      case GL_MAX_3D_TEXTURE_SIZE:
+          *params = max_texture_size(ctx);
+ 	 break;
+       case GL_MAX_TEXTURE_STACK_DEPTH:
+Index: src/image.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/image.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- image.c	1999/02/05 00:05:39	1.1.1.1
++++ image.c	1999/04/10 02:03:13	1.2
+@@ -2,8 +2,8 @@
+ 
+ /*
+  * Mesa 3-D graphics library
+- * Version:  3.0
+- * Copyright (C) 1995-1998  Brian Paul
++ * Version:  3.1
++ * Copyright (C) 1995-1999  Brian Paul
+  *
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Library General Public
+@@ -23,8 +23,14 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:39  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:13  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.17  1999/01/17 21:30:48  brianp
++ * fixed bugs related to packed pixel formats
++ *
++ * Revision 3.16  1998/10/29 02:14:50  brianp
++ * replaced assertion with out of memory check (Randy Frank)
+  *
+  * Revision 3.15  1998/08/21 02:41:39  brianp
+  * added gl_pack/unpack_polygon_stipple()
+@@ -266,20 +272,64 @@
+ 	 return 4;
+       case GL_ABGR_EXT:
+          return 4;
+-      /* SPECIAL CASES: */
++      default:
++         return -1;
++   }
++}
++
++
++/*
++ * Return bytes per pixel for given format and type
++ * Return -1 if bad format or type.
++ */
++GLint gl_bytes_per_pixel( GLenum format, GLenum type )
++{
++   GLint comps = gl_components_in_format( format );
++   if (comps < 0)
++      return -1;
++
++   switch (type) {
++      case GL_BITMAP:
++         return 0;  /* special case */
++      case GL_BYTE:
++      case GL_UNSIGNED_BYTE:
++         return comps * sizeof(GLubyte);
++      case GL_SHORT:
++      case GL_UNSIGNED_SHORT:
++         return comps * sizeof(GLshort);
++      case GL_INT:
++      case GL_UNSIGNED_INT:
++         return comps * sizeof(GLint);
++      case GL_FLOAT:
++         return comps * sizeof(GLfloat);
+       case GL_UNSIGNED_BYTE_3_3_2:
+       case GL_UNSIGNED_BYTE_2_3_3_REV:
++         if (format == GL_RGB || format == GL_BGR)
++            return sizeof(GLubyte);
++         else
++            return -1;  /* error */
+       case GL_UNSIGNED_SHORT_5_6_5:
+       case GL_UNSIGNED_SHORT_5_6_5_REV:
++         if (format == GL_RGB || format == GL_BGR)
++            return sizeof(GLshort);
++         else
++            return -1;  /* error */
+       case GL_UNSIGNED_SHORT_4_4_4_4:
+       case GL_UNSIGNED_SHORT_4_4_4_4_REV:
+       case GL_UNSIGNED_SHORT_5_5_5_1:
+       case GL_UNSIGNED_SHORT_1_5_5_5_REV:
++         if (format == GL_RGBA || format == GL_BGRA || format == GL_ABGR_EXT)
++            return sizeof(GLushort);
++         else
++            return -1;
+       case GL_UNSIGNED_INT_8_8_8_8:
+       case GL_UNSIGNED_INT_8_8_8_8_REV:
+       case GL_UNSIGNED_INT_10_10_10_2:
+       case GL_UNSIGNED_INT_2_10_10_10_REV:
+-         return 1;
++         if (format == GL_RGBA || format == GL_BGRA || format == GL_ABGR_EXT)
++            return sizeof(GLuint);
++         else
++            return -1;
+       default:
+          return -1;
+    }
+@@ -287,15 +337,108 @@
+ 
+ 
+ /*
++ * Test if the given pixel format and type are legal.
++ * Return GL_TRUE for legal, GL_FALSE for illegal.
++ */
++GLboolean gl_is_legal_format_and_type( GLenum format, GLenum type )
++{
++   switch (format) {
++      case GL_COLOR_INDEX:
++      case GL_STENCIL_INDEX:
++         switch (type) {
++            case GL_BITMAP:
++            case GL_BYTE:
++            case GL_UNSIGNED_BYTE:
++            case GL_SHORT:
++            case GL_UNSIGNED_SHORT:
++            case GL_INT:
++            case GL_UNSIGNED_INT:
++            case GL_FLOAT:
++               return GL_TRUE;
++            default:
++               return GL_FALSE;
++         }
++         break;
++      case GL_RED:
++      case GL_GREEN:
++      case GL_BLUE:
++      case GL_ALPHA:
++      case GL_LUMINANCE:
++      case GL_LUMINANCE_ALPHA:
++      case GL_DEPTH_COMPONENT:
++      case GL_BGR:
++      case GL_ABGR_EXT:
++         switch (type) {
++            case GL_BYTE:
++            case GL_UNSIGNED_BYTE:
++            case GL_SHORT:
++            case GL_UNSIGNED_SHORT:
++            case GL_INT:
++            case GL_UNSIGNED_INT:
++            case GL_FLOAT:
++               return GL_TRUE;
++            default:
++               return GL_FALSE;
++         }
++         break;
++      case GL_RGB:
++         switch (type) {
++            case GL_BYTE:
++            case GL_UNSIGNED_BYTE:
++            case GL_SHORT:
++            case GL_UNSIGNED_SHORT:
++            case GL_INT:
++            case GL_UNSIGNED_INT:
++            case GL_FLOAT:
++            case GL_UNSIGNED_BYTE_3_3_2:
++            case GL_UNSIGNED_BYTE_2_3_3_REV:
++            case GL_UNSIGNED_SHORT_5_6_5:
++            case GL_UNSIGNED_SHORT_5_6_5_REV:
++               return GL_TRUE;
++            default:
++               return GL_FALSE;
++         }
++         break;
++      case GL_RGBA:
++      case GL_BGRA:
++         switch (type) {
++            case GL_BYTE:
++            case GL_UNSIGNED_BYTE:
++            case GL_SHORT:
++            case GL_UNSIGNED_SHORT:
++            case GL_INT:
++            case GL_UNSIGNED_INT:
++            case GL_FLOAT:
++            case GL_UNSIGNED_SHORT_4_4_4_4:
++            case GL_UNSIGNED_SHORT_4_4_4_4_REV:
++            case GL_UNSIGNED_SHORT_5_5_5_1:
++            case GL_UNSIGNED_SHORT_1_5_5_5_REV:
++            case GL_UNSIGNED_INT_8_8_8_8:
++            case GL_UNSIGNED_INT_8_8_8_8_REV:
++            case GL_UNSIGNED_INT_10_10_10_2:
++            case GL_UNSIGNED_INT_2_10_10_10_REV:
++               return GL_TRUE;
++            default:
++               return GL_FALSE;
++         }
++         break;
++      default:
++         return GL_FALSE;
++   }
++   return GL_FALSE;
++}
++
++
++
++/*
+  * Return the address of a pixel in an image (actually a volume).
+  * Pixel unpacking/packing parameters are observed according to 'packing'.
+  * Input:  image - start of image data
+  *         width, height - size of image
+  *         format - image format
+  *         type - pixel component type
+- *         packing - GL_TRUE = use packing params
+- *                   GL_FALSE = use unpacking params.
+- *         img - which image in the volume (0 for 2-D images)
++ *         packing - the pixelstore attributes
++ *         img - which image in the volume (0 for 1D or 2D images)
+  *         row, column - location of pixel in the image
+  * Return:  address of pixel at (image,row,column) in image or NULL if error.
+  */
+@@ -304,30 +447,14 @@
+                                 GLsizei height, GLenum format, GLenum type,
+                                 GLint img, GLint row, GLint column )
+ {
+-   GLint bytes_per_comp;   /* bytes per component */
+-   GLint comp_per_pixel;   /* components per pixel */
+-   GLint comps_per_row;    /* components per row */
+-   GLint pixels_per_row;   /* pixels per row */
+-   GLint bytes_per_image;
+-   GLint rows_per_image;
+    GLint alignment;        /* 1, 2 or 4 */
++   GLint pixels_per_row;
++   GLint rows_per_image;
+    GLint skiprows;
+    GLint skippixels;
+-   GLint skipimages;       /* for 3-D */
++   GLint skipimages;       /* for 3-D volume images */
+    GLubyte *pixel_addr;
+ 
+-   /* Compute bytes per component */
+-   bytes_per_comp = gl_sizeof_packed_type( type );
+-   if (bytes_per_comp<0) {
+-      return NULL;
+-   }
+-
+-   /* Compute number of components per pixel */
+-   comp_per_pixel = gl_components_in_format( format );
+-   if (comp_per_pixel<0 && type != GL_BITMAP) {
+-      return NULL;
+-   }
+-
+    alignment = packing->Alignment;
+    if (packing->RowLength > 0) {
+       pixels_per_row = packing->RowLength;
+@@ -335,7 +462,7 @@
+    else {
+       pixels_per_row = width;
+    }
+-   if (packing->ImageHeight>0) {
++   if (packing->ImageHeight > 0) {
+       rows_per_image = packing->ImageHeight;
+    }
+    else {
+@@ -347,7 +474,22 @@
+ 
+    if (type==GL_BITMAP) {
+       /* BITMAP data */
++      GLint comp_per_pixel;   /* components per pixel */
++      GLint bytes_per_comp;   /* bytes per component */
+       GLint bytes_per_row;
++      GLint bytes_per_image;
++
++      /* Compute bytes per component */
++      bytes_per_comp = gl_sizeof_packed_type( type );
++      if (bytes_per_comp<0) {
++         return NULL;
++      }
++
++      /* Compute number of components per pixel */
++      comp_per_pixel = gl_components_in_format( format );
++      if (comp_per_pixel<0 && type != GL_BITMAP) {
++         return NULL;
++      }
+ 
+       bytes_per_row = alignment
+                     * CEILING( comp_per_pixel*pixels_per_row, 8*alignment );
+@@ -361,25 +503,27 @@
+    }
+    else {
+       /* Non-BITMAP data */
++      GLint bytes_per_pixel, bytes_per_row, remainder, bytes_per_image;
+ 
+-      if (bytes_per_comp>=alignment) {
+-	 comps_per_row = comp_per_pixel * pixels_per_row;
+-      }
+-      else {
+-         GLint bytes_per_row = bytes_per_comp * comp_per_pixel
+-                             * pixels_per_row;
++      bytes_per_pixel = gl_bytes_per_pixel( format, type );
+ 
+-	 comps_per_row = alignment / bytes_per_comp
+-                       * CEILING( bytes_per_row, alignment );
+-      }
++      /* The pixel type and format should have been error checked earlier */
++      assert(bytes_per_pixel > 0);
+ 
+-      bytes_per_image = bytes_per_comp * comps_per_row * rows_per_image;
++      bytes_per_row = pixels_per_row * bytes_per_pixel;
++      remainder = bytes_per_row % alignment;
++      if (remainder > 0)
++         bytes_per_row += (alignment - remainder);
+ 
+-      /* Copy/unpack pixel data to buffer */
++      ASSERT(bytes_per_row % alignment == 0);
++
++      bytes_per_image = bytes_per_row * rows_per_image;
++
++      /* compute final pixel address */
+       pixel_addr = (GLubyte *) image
+                  + (skipimages + img) * bytes_per_image
+-                 + (skiprows + row) * bytes_per_comp * comps_per_row
+-                 + (skippixels + column) * bytes_per_comp * comp_per_pixel;
++                 + (skiprows + row) * bytes_per_row
++                 + (skippixels + column) * bytes_per_pixel;
+    }
+ 
+    return (GLvoid *) pixel_addr;
+@@ -438,7 +582,10 @@
+ GLboolean gl_image_error_test( GLcontext *ctx, const struct gl_image *image,
+                                const char *msg )
+ {
+-   assert(image);
++   if (!image) {
++      gl_error( ctx, GL_OUT_OF_MEMORY, msg );        
++      return GL_TRUE;
++   }
+    if (image->Width <= 0 || image->Height <= 0 || image->Depth <= 0) {
+       gl_error( ctx, GL_INVALID_VALUE, msg );
+       return GL_TRUE;
+@@ -928,7 +1075,7 @@
+ 
+ 
+ /*
+- * Unpack an RGBA image storing image as GLfloats
++ * Unpack a color image storing image as GLfloats
+  */
+ static struct gl_image *unpack_float_image( GLcontext *ctx,
+                                             GLint width, GLint height,
+@@ -945,7 +1092,24 @@
+ 
+    assert(type != GL_BITMAP);
+ 
++   if (!gl_is_legal_format_and_type( format, type )) {
++      /* bad pixel type for format, make dummy image */
++      image = alloc_image();
++      if (image) {
++         image->Width = width;
++         image->Height = height;
++         image->Depth = depth;
++         image->Components = components;
++         image->Format = format;
++         image->Type = type;
++         image->Data = NULL;
++         image->RefCount = 0;
++      }
++      return image;
++   }
++
+    components = gl_components_in_format( format );
++   assert(components > 0);  /* should have been caught earlier */
+ 
+    elems_per_row = width * components;
+ 
+@@ -1147,7 +1311,7 @@
+             case GL_UNSIGNED_BYTE_3_3_2:
+                {
+                   GLubyte *ubsrc = (GLubyte *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLubyte p = ubsrc[j];
+                      *dst++ = ((p >> 5)      ) * (1.0F / 7.0F); /* red */
+                      *dst++ = ((p >> 2) & 0x7) * (1.0F / 7.0F); /* green */
+@@ -1158,7 +1322,7 @@
+             case GL_UNSIGNED_BYTE_2_3_3_REV:
+                {
+                   GLubyte *ubsrc = (GLubyte *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLubyte p = ubsrc[j];
+                      *dst++ = ((p     ) & 0x7) * (1.0F / 7.0F); /* red */
+                      *dst++ = ((p >> 3) & 0x7) * (1.0F / 7.0F); /* green */
+@@ -1169,7 +1333,7 @@
+             case GL_UNSIGNED_SHORT_5_6_5:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p >> 11)       ) * (1.0F / 31.0F); /* red */
+                      *dst++ = ((p >>  5) & 0x3f) * (1.0F / 63.0F); /* green */
+@@ -1180,7 +1344,7 @@
+             case GL_UNSIGNED_SHORT_5_6_5_REV:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p      ) & 0x1f) * (1.0F / 31.0F); /* red */
+                      *dst++ = ((p >>  5) & 0x3f) * (1.0F / 63.0F); /* green */
+@@ -1191,7 +1355,7 @@
+ 	    case GL_UNSIGNED_SHORT_4_4_4_4:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p >> 12)      ) * (1.0F / 15.0F); /* red */
+                      *dst++ = ((p >>  8) & 0xf) * (1.0F / 15.0F); /* green */
+@@ -1203,7 +1367,7 @@
+ 	    case GL_UNSIGNED_SHORT_4_4_4_4_REV:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p      ) & 0xf) * (1.0F / 15.0F); /* red */
+                      *dst++ = ((p >>  4) & 0xf) * (1.0F / 15.0F); /* green */
+@@ -1215,7 +1379,7 @@
+ 	    case GL_UNSIGNED_SHORT_5_5_5_1:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p >> 11)       ) * (1.0F / 31.0F); /* red */
+                      *dst++ = ((p >>  6) & 0x1f) * (1.0F / 31.0F); /* green */
+@@ -1227,7 +1391,7 @@
+ 	    case GL_UNSIGNED_SHORT_1_5_5_5_REV:
+                {
+                   GLushort *ussrc = (GLushort *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLushort p = ussrc[j];
+                      *dst++ = ((p      ) & 0x1f) * (1.0F / 31.0F); /* red */
+                      *dst++ = ((p >>  5) & 0x1f) * (1.0F / 31.0F); /* green */
+@@ -1239,21 +1403,21 @@
+ 	    case GL_UNSIGNED_INT_8_8_8_8:
+                {
+                   GLuint *uisrc = (GLuint *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLuint p = uisrc[j];
+                      *dst++ = ((p >> 24)       ) * (1.0F / 255.0F); /* red */
+                      *dst++ = ((p >> 16) & 0xff) * (1.0F / 255.0F); /* green */
+                      *dst++ = ((p >>  8) & 0xff) * (1.0F / 255.0F); /* blue */
+-                     *dst++ = ((p      ) & 0xff) * (1.0F /   1.0F); /* alpha */
++                     *dst++ = ((p      ) & 0xff) * (1.0F / 255.0F); /* alpha */
+                   }
+                }
+                break;
+ 	    case GL_UNSIGNED_INT_8_8_8_8_REV:
+                {
+                   GLuint *uisrc = (GLuint *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLuint p = uisrc[j];
+-                     *dst++ = ((p      ) & 0xff) * (1.0F /   1.0F); /* red */
++                     *dst++ = ((p      ) & 0xff) * (1.0F / 255.0F); /* red */
+                      *dst++ = ((p >>  8) & 0xff) * (1.0F / 255.0F); /* green */
+                      *dst++ = ((p >> 16) & 0xff) * (1.0F / 255.0F); /* blue */
+                      *dst++ = ((p >> 24)       ) * (1.0F / 255.0F); /* alpha */
+@@ -1263,7 +1427,7 @@
+ 	    case GL_UNSIGNED_INT_10_10_10_2:
+                {
+                   GLuint *uisrc = (GLuint *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLuint p = uisrc[j];
+                      *dst++ = ((p >> 22)        ) * (1.0F / 1023.0F); /* red */
+                      *dst++ = ((p >> 12) & 0x3ff) * (1.0F / 1023.0F); /* green */
+@@ -1275,7 +1439,7 @@
+ 	    case GL_UNSIGNED_INT_2_10_10_10_REV:
+                {
+                   GLuint *uisrc = (GLuint *) src;
+-                  for (j=0;j<elems_per_row;j++) {
++                  for (j=0;j<width;j++) {
+                      GLuint p = uisrc[j];
+                      *dst++ = ((p      ) & 0x3ff) * (1.0F / 1023.0F); /* red */
+                      *dst++ = ((p >> 10) & 0x3ff) * (1.0F / 1023.0F); /* green */
+@@ -1332,7 +1496,8 @@
+ 
+ 
+ /*
+- * Unpack a bitmap image, making a new gl_image.
++ * Unpack a bitmap image, using current glPixelStore parameters,
++ * making a new gl_image.
+  */
+ struct gl_image *gl_unpack_bitmap( GLcontext *ctx,
+                                    GLsizei width, GLsizei height,
+@@ -1345,14 +1510,13 @@
+ 
+ 
+ /*
+- * Unpack a 2-D image from user-supplied address, returning a pointer to
+- * a new gl_image struct.
++ * Unpack a 2-D image from user's buffer.  Return pointer to new
++ * gl_image struct.
+  *
+  * Input:  width, height - size in pixels
+- *         format - format of incoming pixel data, ignored if
+- *                     srcType BITMAP.
+- *         type - GL_UNSIGNED_BYTE .. GL_FLOAT
+- *         pixels - pointer to unpacked image in client memory space.
++ *         format - format of incoming pixel data
++ *         type - datatype of incoming pixel data
++ *         pixels - pointer to unpacked image in user buffer
+  */
+ struct gl_image *gl_unpack_image( GLcontext *ctx,
+                                   GLint width, GLint height,
+@@ -1373,7 +1537,7 @@
+  *
+  * Input:  width, height, depth - size in pixels
+  *         format - format of incoming pixel data
+- *         type - GL_UNSIGNED_BYTE .. GL_FLOAT
++ *         type - datatype of incoming pixel data
+  *         pixels - pointer to unpacked image.
+  */
+ struct gl_image *gl_unpack_image3D( GLcontext *ctx,
+Index: src/image.h
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/image.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- image.h	1999/02/05 00:05:39	1.1.1.1
++++ image.h	1999/04/10 02:03:13	1.2
+@@ -2,8 +2,8 @@
+ 
+ /*
+  * Mesa 3-D graphics library
+- * Version:  3.0
+- * Copyright (C) 1995-1998  Brian Paul
++ * Version:  3.1
++ * Copyright (C) 1995-1999  Brian Paul
+  *
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Library General Public
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:39  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:13  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.5  1999/01/17 21:30:48  brianp
++ * fixed bugs related to packed pixel formats
+  *
+  * Revision 3.4  1998/08/21 02:41:39  brianp
+  * added gl_pack/unpack_polygon_stipple()
+@@ -61,8 +64,13 @@
+ 
+ extern GLint gl_sizeof_type( GLenum type );
+ 
++extern GLint gl_sizeof_packed_type( GLenum type );
+ 
+ extern GLint gl_components_in_format( GLenum format );
++
++extern GLint gl_bytes_per_pixel( GLenum format, GLenum type );
++
++extern GLboolean gl_is_legal_format_and_type( GLenum format, GLenum type );
+ 
+ 
+ extern GLvoid *gl_pixel_addr_in_image(
+Index: src/misc.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/misc.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- misc.c	1999/02/05 00:05:40	1.1.1.1
++++ misc.c	1999/04/10 02:03:13	1.2
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:40  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:13  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.14.1  1999/02/17 22:00:00  brianp
++ * fixed bug when clearing color buffer with RGBA or index masking
+  *
+  * Revision 3.14  1998/09/18 02:32:02  brianp
+  * fixed alpha clear problem reported by Sam Jordan
+@@ -263,8 +266,17 @@
+       width  = ctx->Buffer->Xmax - ctx->Buffer->Xmin + 1;
+ 
+       /* let device driver try to clear the buffers */
+-      newMask = (*ctx->Driver.Clear)( ctx, mask, !ctx->Scissor.Enabled,
++      if ((mask & GL_COLOR_BUFFER_BIT) != 0 && ctx->Color.SWmasking) {
++         /* driver can't clear color buffer with color/index masking */
++         GLbitfield mask2 = mask & (~GL_COLOR_BUFFER_BIT);
++         newMask = (*ctx->Driver.Clear)( ctx, mask2, !ctx->Scissor.Enabled,
+                                       x, y, width, height );
++         newMask |= GL_COLOR_BUFFER_BIT;
++      }
++      else {
++         newMask = (*ctx->Driver.Clear)( ctx, mask, !ctx->Scissor.Enabled,
++                                         x, y, width, height );
++      }
+ 
+       /* check if only clearing of alpha buffer needed */
+       if ( (mask & GL_COLOR_BUFFER_BIT) &&
+Index: src/pixel.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/pixel.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- pixel.c	1999/02/05 00:05:40	1.1.1.1
++++ pixel.c	1999/04/10 02:03:13	1.2
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:40  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:13  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.7  1998/09/29 01:35:41  brianp
++ * glPixelStore() now handles GL_PACK/UNPACK_IMAGE_HEIGHT
+  *
+  * Revision 3.6  1998/07/17 03:23:47  brianp
+  * added a bunch of const's
+@@ -116,6 +119,12 @@
+ 	    ctx->Pack.RowLength = param;
+ 	 }
+ 	 break;
++      case GL_PACK_IMAGE_HEIGHT:
++         if (param<0)
++            gl_error( ctx, GL_INVALID_VALUE, "glPixelStore(param)" );
++         else
++            ctx->Pack.ImageHeight = param;
++         break;
+       case GL_PACK_SKIP_PIXELS:
+ 	 if (param<0) {
+ 	    gl_error( ctx, GL_INVALID_VALUE, "glPixelStore(param)" );
+@@ -154,6 +163,12 @@
+ 	    ctx->Unpack.RowLength = param;
+ 	 }
+ 	 break;
++      case GL_UNPACK_IMAGE_HEIGHT:
++         if (param<0)
++            gl_error( ctx, GL_INVALID_VALUE, "glPixelStore(param)" );
++         else
++            ctx->Unpack.ImageHeight = param;
++         break;
+       case GL_UNPACK_SKIP_PIXELS:
+ 	 if (param<0) {
+ 	    gl_error( ctx, GL_INVALID_VALUE, "glPixelStore(param)" );
+Index: src/teximage.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/teximage.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- teximage.c	1999/02/05 00:05:40	1.1.1.1
++++ teximage.c	1999/04/10 02:03:13	1.2
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:40  cvs
+- * Initial checkin
++ * Revision 1.2  1999/04/10 02:03:13  cvs
++ * Add Mesa 3.0 patches
++ *
++ * Revision 3.13  1998/09/25 03:07:34  brianp
++ * fixed out-of-bounds memory access on X86 (Sven Panne)
+  *
+  * Revision 3.12  1998/09/18 02:32:40  brianp
+  * fixed proxy texture internal format bug reported by Sam Jordon
+@@ -282,6 +285,16 @@
+ 
+ 
+ 
++/* Need this to prevent an out-of-bounds memory access when using
++ * X86 optimized code.
++ */
++#ifdef USE_X86_ASM
++#  define EXTRA_BYTE 1
++#else
++#  define EXTRA_BYTE 0
++#endif
++
++
+ /*
+  * Given a gl_image, apply the pixel transfer scale, bias, and mapping
+  * to produce a gl_texture_image.  Convert image data to GLubytes.
+@@ -331,7 +344,7 @@
+    texImage->Height2 = 1 << texImage->HeightLog2;
+    texImage->Depth2 = 1 << texImage->DepthLog2;
+    texImage->MaxLog2 = MAX2( texImage->WidthLog2, texImage->HeightLog2 );
+-   texImage->Data = (GLubyte *) malloc( numPixels * components );
++   texImage->Data = (GLubyte *) malloc( numPixels * components + EXTRA_BYTE );
+ 
+    if (!texImage->Data) {
+       /* out of memory */
+@@ -778,7 +791,7 @@
+    /* XXX should we really allocate memory for the image or let it be NULL? */
+    /*texImage->Data = NULL;*/
+ 
+-   texImage->Data = (GLubyte *) malloc( numPixels * components );
++   texImage->Data = (GLubyte *) malloc( numPixels * components + EXTRA_BYTE );
+ 
+    /*
+     * Let's see if anyone finds this.  If glTexImage2D() is called with
+Index: src/types.h
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/types.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- types.h	1999/02/05 00:05:40	1.1.1.1
++++ types.h	1999/03/23 20:46:47	1.2
+@@ -23,6 +23,9 @@
+ 
+ /*
+  * $Log$
++ * Revision 1.2  1999/03/23 20:46:47  cvs
++ * Change define for wInv mod and add it to 3.0
++ *
+  * Revision 1.1.1.1  1999/02/05 00:05:40  cvs
+  * Initial checkin
+  *
+@@ -122,6 +125,7 @@
+ #include "macros.h"
+ #include "fixed.h"
+ 
++#define MESA_INVW
+ 
+ #define GL_MAX_TEXTURES GL_MAX_TEXTURES_SGIS
+ 
+Index: src/vb.h
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/vb.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.4
+diff -u -r1.1.1.1 -r1.4
+--- vb.h	1999/02/05 00:05:40	1.1.1.1
++++ vb.h	1999/03/23 20:46:47	1.4
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:40  cvs
+- * Initial checkin
++ * Revision 1.4  1999/03/23 20:46:47  cvs
++ * Change define for wInv mod and add it to 3.0
++ *
++ * Revision 1.3  1999/02/09 02:20:42  cvs
++ * Backed out Riva hack
+  *
+  * Revision 3.4  1998/06/22 03:16:00  brianp
+  * moved VB_MAX definition to config.h
+@@ -84,7 +87,7 @@
+    GLfloat Obj[VB_SIZE][4];	/* Object coords */
+    GLfloat Eye[VB_SIZE][4];	/* Eye coords */
+    GLfloat Clip[VB_SIZE][4];	/* Clip coords */
+-   GLfloat Win[VB_SIZE][3];	/* Window coords */
++   GLfloat Win[VB_SIZE][4];	/* Window coords */
+ 
+    GLfloat Normal[VB_SIZE][3];	/* Normal vectors */
+ 
+Index: src/vbrender.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/vbrender.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.4
+diff -u -r1.1.1.1 -r1.4
+--- vbrender.c	1999/02/05 00:05:41	1.1.1.1
++++ vbrender.c	1999/03/23 20:46:48	1.4
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:41  cvs
+- * Initial checkin
++ * Revision 1.4  1999/03/23 20:46:48  cvs
++ * Change define for wInv mod and add it to 3.0
++ *
++ * Revision 1.3  1999/02/09 02:22:10  cvs
++ * Backed out Riva hack
+  *
+  * Revision 3.6  1998/08/06 01:36:38  brianp
+  * if polygon area is zero and using GL_LINE or GL_POINT mode don't cull it
+@@ -134,7 +137,7 @@
+  */
+ static void render_clipped_line( GLcontext *ctx, GLuint v1, GLuint v2 )
+ {
+-   GLfloat ndc_x, ndc_y, ndc_z;
++   GLfloat ndc_x, ndc_y, ndc_z, wInv;
+    GLuint provoking_vertex;
+    struct vertex_buffer *VB = ctx->VB;
+ 
+@@ -168,7 +171,7 @@
+ 
+    /* Transform from clip coords to ndc:  ndc = clip / W */
+    if (VB->Clip[v1][3] != 0.0F) {
+-      GLfloat wInv = 1.0F / VB->Clip[v1][3];
++      wInv = 1.0F / VB->Clip[v1][3];
+       ndc_x = VB->Clip[v1][0] * wInv;
+       ndc_y = VB->Clip[v1][1] * wInv;
+       ndc_z = VB->Clip[v1][2] * wInv;
+@@ -176,16 +179,18 @@
+    else {
+       /* Can't divide by zero, so... */
+       ndc_x = ndc_y = ndc_z = 0.0F;
++      wInv = 1.0F;
+    }
+ 
+    /* Map ndc coord to window coords. */
+    VB->Win[v1][0] = ndc_x * ctx->Viewport.Sx + ctx->Viewport.Tx;
+    VB->Win[v1][1] = ndc_y * ctx->Viewport.Sy + ctx->Viewport.Ty;
+    VB->Win[v1][2] = ndc_z * ctx->Viewport.Sz + ctx->Viewport.Tz;
++   VB->Win[v1][3] = wInv;
+ 
+    /* Transform from clip coords to ndc:  ndc = clip / W */
+    if (VB->Clip[v2][3] != 0.0F) {
+-      GLfloat wInv = 1.0F / VB->Clip[v2][3];
++      wInv = 1.0F / VB->Clip[v2][3];
+       ndc_x = VB->Clip[v2][0] * wInv;
+       ndc_y = VB->Clip[v2][1] * wInv;
+       ndc_z = VB->Clip[v2][2] * wInv;
+@@ -193,12 +198,14 @@
+    else {
+       /* Can't divide by zero, so... */
+       ndc_x = ndc_y = ndc_z = 0.0F;
++      wInv = 1.0F;
+    }
+ 
+    /* Map ndc coord to window coords. */
+    VB->Win[v2][0] = ndc_x * ctx->Viewport.Sx + ctx->Viewport.Tx;
+    VB->Win[v2][1] = ndc_y * ctx->Viewport.Sy + ctx->Viewport.Ty;
+    VB->Win[v2][2] = ndc_z * ctx->Viewport.Sz + ctx->Viewport.Tz;
++   VB->Win[v2][3] = wInv;
+ 
+    if (ctx->Driver.RasterSetup) {
+       /* Device driver rasterization setup */
+@@ -451,8 +458,9 @@
+ static void render_clipped_polygon( GLcontext *ctx, GLuint n, GLuint vlist[] )
+ {
+    GLuint pv;
++   GLfloat wInv;
+    struct vertex_buffer *VB = ctx->VB;
+-   GLfloat (*win)[3] = VB->Win;
++   GLfloat (*win)[4] = VB->Win;
+ 
+    /* which vertex dictates the color when flat shading: */
+    pv = (ctx->Primitive==GL_POLYGON) ? vlist[0] : vlist[n-1];
+@@ -498,14 +506,16 @@
+       /* Only need to compute window coords for new vertices */
+       for (i=VB_MAX; i<VB->Free; i++) {
+          if (VB->Clip[i][3] != 0.0F) {
+-            GLfloat wInv = 1.0F / VB->Clip[i][3];
++            wInv = 1.0F / VB->Clip[i][3];
+             win[i][0] = VB->Clip[i][0] * wInv * sx + tx;
+             win[i][1] = VB->Clip[i][1] * wInv * sy + ty;
+             win[i][2] = VB->Clip[i][2] * wInv * sz + tz;
++            win[i][3] = wInv;
+          }
+          else {
+             /* Can't divide by zero, so... */
+             win[i][0] = win[i][1] = win[i][2] = 0.0F;
++            win[i][3] = 1.0F;
+          }
+       }
+       if (ctx->Driver.RasterSetup && (VB->Free > VB_MAX)) {
+@@ -616,9 +626,9 @@
+                              GLuint v0, GLuint v1, GLuint v2, GLuint pv )
+ {
+    struct vertex_buffer *VB = ctx->VB;
+-   GLfloat ex, ey, fx, fy, c;
++   GLfloat ex, ey, fx, fy, c, wInv;
+    GLuint facing;  /* 0=front, 1=back */
+-   GLfloat (*win)[3] = VB->Win;
++   GLfloat (*win)[4] = VB->Win;
+ 
+    /* Compute orientation of triangle */
+    ex = win[v1][0] - win[v0][0];
+@@ -692,7 +702,7 @@
+    struct vertex_buffer *VB = ctx->VB;
+    GLfloat ex, ey, fx, fy, c;
+    GLuint facing;  /* 0=front, 1=back */
+-   GLfloat (*win)[3] = VB->Win;
++   GLfloat (*win)[4] = VB->Win;
+ 
+    /* Compute polygon orientation */
+    ex = win[v2][0] - win[v0][0];
+@@ -764,7 +774,7 @@
+ {
+    COPY_4V( vb->Clip[dst], vb->Clip[src] );
+    COPY_4V( vb->Eye[dst], vb->Eye[src] );
+-   COPY_3V( vb->Win[dst], vb->Win[src] );
++   COPY_4V( vb->Win[dst], vb->Win[src] );
+    COPY_4V( vb->Fcolor[dst], vb->Fcolor[src] );
+    COPY_4V( vb->Bcolor[dst], vb->Bcolor[src] );
+    /* XXX Specular */
+Index: src/vbxform.c
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/vbxform.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.4
+diff -u -r1.1.1.1 -r1.4
+--- vbxform.c	1999/02/05 00:05:41	1.1.1.1
++++ vbxform.c	1999/03/23 20:46:48	1.4
+@@ -23,8 +23,11 @@
+ 
+ /*
+  * $Log$
+- * Revision 1.1.1.1  1999/02/05 00:05:41  cvs
+- * Initial checkin
++ * Revision 1.4  1999/03/23 20:46:48  cvs
++ * Change define for wInv mod and add it to 3.0
++ *
++ * Revision 1.3  1999/02/09 02:22:10  cvs
++ * Backed out Riva hack
+  *
+  * Revision 3.10  1998/08/23 22:19:30  brianp
+  * added DoViewportMapping to context struct
+@@ -777,9 +780,9 @@
+  */
+ static void viewport_map_vertices( GLcontext *ctx,
+                                    GLuint n, CONST GLfloat vClip[][4],
+-                                   const GLubyte clipMask[], GLfloat vWin[][3])
++                                   const GLubyte clipMask[], GLfloat vWin[][4])
+ {
+-
++   GLfloat wInv;
+    GLfloat sx = ctx->Viewport.Sx;
+    GLfloat tx = ctx->Viewport.Tx;
+    GLfloat sy = ctx->Viewport.Sy;
+@@ -803,6 +806,7 @@
+                vWin[i][0] = vClip[i][0] * sx + tx;
+                vWin[i][1] = vClip[i][1] * sy + ty;
+                vWin[i][2] = vClip[i][2] * sz + tz;
++               vWin[i][3] = 1.0F;
+             }
+          }
+       }
+@@ -813,6 +817,7 @@
+             vWin[i][0] = vClip[i][0] * sx + tx;
+             vWin[i][1] = vClip[i][1] * sy + ty;
+             vWin[i][2] = vClip[i][2] * sz + tz;
++            vWin[i][3] = 1.0F;
+          }
+       }
+    }
+@@ -824,16 +829,18 @@
+          for (i=0;i<n;i++) {
+             if (clipMask[i] == 0) {
+                if (vClip[i][3] != 0.0F) {
+-                  GLfloat wInv = 1.0F / vClip[i][3];
++                  wInv = 1.0F / vClip[i][3];
+                   vWin[i][0] = vClip[i][0] * wInv * sx + tx;
+                   vWin[i][1] = vClip[i][1] * wInv * sy + ty;
+                   vWin[i][2] = vClip[i][2] * wInv * sz + tz;
++                  vWin[i][3] = wInv;
+                }
+                else {
+                   /* Div by zero!  Can't set window coords to infinity, so...*/
+                   vWin[i][0] = 0.0F;
+                   vWin[i][1] = 0.0F;
+                   vWin[i][2] = 0.0F;
++                  vWin[i][3] = 1.0F;
+                }
+             }
+          }
+@@ -843,16 +850,18 @@
+          GLuint i;
+          for (i=0;i<n;i++) {
+             if (vClip[i][3] != 0.0F) {
+-               GLfloat wInv = 1.0F / vClip[i][3];
++               wInv = 1.0F / vClip[i][3];
+                vWin[i][0] = vClip[i][0] * wInv * sx + tx;
+                vWin[i][1] = vClip[i][1] * wInv * sy + ty;
+                vWin[i][2] = vClip[i][2] * wInv * sz + tz;
++               vWin[i][3] = wInv;
+             }
+             else {
+                /* Divide by zero!  Can't set window coords to infinity, so...*/
+                vWin[i][0] = 0.0F;
+                vWin[i][1] = 0.0F;
+                vWin[i][2] = 0.0F;
++               vWin[i][3] = 1.0F;
+             }
+          }
+       }
+Index: src/xform.h
+===================================================================
+RCS file: /home/cvs/Mesa/Mesa-3.0/src/xform.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- xform.h	1999/02/05 00:05:41	1.1.1.1
++++ xform.h	1999/03/23 20:46:48	1.2
+@@ -23,6 +23,9 @@
+ 
+ /*
+  * $Log$
++ * Revision 1.2  1999/03/23 20:46:48  cvs
++ * Change define for wInv mod and add it to 3.0
++ *
+  * Revision 1.1.1.1  1999/02/05 00:05:41  cvs
+  * Initial checkin
+  *
+@@ -37,7 +40,6 @@
+ 
+ #ifndef XFORM_H
+ #define XFORM_H
+-
+ 
+ #include "types.h"
+ 

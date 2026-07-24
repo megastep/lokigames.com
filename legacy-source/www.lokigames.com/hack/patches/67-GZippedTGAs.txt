@@ -1,0 +1,43 @@
+
+			LokiHack '99 Patch
+
+Patch Title: enabling of gziped TGA file reads
+Author: Roberto J Peon
+E-mail: fenix@cc.gatech.edu
+
+Short Description: Modifications allow code to read both *.tga and *.tga.gz
+
+Long Description:  MOdified the TGA utils code to use zlib's gzopen, etc
+		   tools. Modified various other parts of the code pertaining
+		   to searching for files, allowing the code to look for
+                   a *.gz when none of the default extensions were found,
+                   and then strip off the .gz, and verify that the file is 
+                   a known type. (and read it, of course! but only for tgas
+		   until the fopens are converted to gzopens. See Bugs below.)
+
+                   if it is a known type, it is reported as found in that dir,
+		   but the name is unchanged. Hacks exist in the TGA utils to
+                   automaticaly look for tga.gz when attempting to open .tga
+                   fails. (or vice versa, I don't remember which. Gist is that
+                   it will handle either.)
+
+Documentation:     see above and below.
+
+Known Bugs:        rest of fopens in rest of code needs to be changed to use
+                   zlibs gzopen (etc) so that the hacked framework can be used t
+		   load a compressed version of any of the known file formats.
+		
+		   There is some "useless" code in radarmap.cpp and
+                   in turncount.cpp, which will not affect anything, but I 
+		   didn't have time to remove. You are welcome to remove it.
+
+		   additional: the rotate_bitmap function that I added
+                   to radarmap should work, but is untested. 
+
+		   I was unable to "turn on" that code because Buffer()
+                   apparently returned a non-valid pointer (null) and the surf
+		   should have held a valid value (it is used for blitting 
+                   later!!)
+
+
+---

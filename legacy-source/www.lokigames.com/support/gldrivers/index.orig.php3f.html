@@ -1,0 +1,116 @@
+<?php echo $text_normal ?>
+
+
+<p>
+<H2>Introduction</H2>
+<p>
+This is the OpenGL drivers section on the Loki Support pages.
+On these pages you will find references, hints, and FAQs
+based on feedback and support request we get from our
+customers. Linux 3D graphics in general, and hardware
+accelerated graphics integrated with XFree86 in particular,
+are moving very fast. We expect things to settle down a
+bit by the end of 2000, following the adoption of XFree86 v4
+into major distributions.
+In the meantime, we hope that the information provided here
+will give both the casual Linux user and the adventurous
+some help in getting the most out of their system. Right now,
+we are lacking a bit on the information for the casual
+user, but we hope to have step by step instructions up soon.
+<p>
+You will find some introductory information on drivers for
+the following vendors' cards below:
+<ul>
+<li><a href="index.orig.php3f.html#tdfx">3dfx Voodoo</a>
+<li><a href="index.orig.php3f.html#matrox">Matrox G200/G400</a>
+<li><a href="index.orig.php3f.html#nvidia">NVIDIA TNT/TNT2/GeForce</a>
+<li><a href="index.orig.php3f.html#others">Others</a>
+</ul>
+<p>
+Please recognize that OpenGL in general, and GLX and the
+X server integration of GLX, are Linux system components,
+and are supposed to be part of the distribution you use.
+We can't take responsibility for installations and changes
+that include kernel modules, device drivers, and other
+sensitive parts of your Linux. We will do our best to
+provide you all information necessary to make educated
+decisions if you do not want to wait for your distribution
+to provide the necessary support, and, whenever possible,
+will respond to problems that come to our attention on
+these pages, but ultimately, OpenGL support will have to be
+a stable part of your Debian, RedHat, SuSE, and Caldera
+installation. 
+<p>
+
+<H2><a name="tdfx">3dfx</a></H2>
+<p>
+Currently, there are two different driver families available
+for 3dfx cards. We suggest that you visit the drivers
+section on
+<a href="http://linux.3dfx.com">http://linux.3dfx.com</a> 
+for news and latest driver releases.
+<p>
+
+<p>
+<h4>Mesa/FX and Glide2</h4>
+<p>
+The tried and true way to use 3dfx cards under Linux is
+using the binary releases of Glide2, combined with the
+Mesa/FX support in the Mesa implementation of the
+OpenGL API. Please refer to
+<a href="http://linux.3dfx.com/">http://linux.3dfx.com</a>
+for more information, and take a look at our
+<a href="howto-3d-3dfx.html">step by step guide</a>.
+<p>
+
+<p>
+<h4>XFree86 4.0, DRI and Glide3</h4>
+<p>
+On the 3dfx site listed above you will also find information
+about accelerated OpenGL using XFree86 4 with the
+DRI for direct rendering, and a revised Glide3
+library. We do not recommend using this unless you are
+adventurous. Firstly, applications and libraries compiled against
+Glide2 will not work with Glide3. Secondly, XFree86 version 4
+differs significantly from XFree86 3 releases, and upgrading
+might affect a lot more X applications than just your games.
+<p>
+
+<p>
+<H2><a name="matrox">Matrox</a></H2>
+<p>
+The Utah-GLX implementation of the GLX protocol is available at
+<a href="http://utah-glx.sourceforge.net/">http://utah-glx.sourceforge.net</a>.
+It supports Matrox G200 and G400, based on the register
+specifications Matrox provided. This GLX requires use of the
+3.3.6 version of the XFree86 SVGA server, earlier versions do not
+offer all features and bug fixes required. It is recommended
+to build Utah GLX with the Mesa 3.2 stable sources. See our
+<a href="howto-3d-mesa.html">documentation</a> on how to obtain Mesa.
+<p>
+
+<H2><a name="nvidia">NVIDIA</a></H2>
+<p>
+NVIDIA has released a binary-only OpenGL driver for XFree86 4.0. It is
+available from
+<a href="http://www.nvidia.com/Products/Drivers.nsf">http://www.nvidia.com/Products/Drivers.nsf</a>.
+Follow the links to the latest Linux drivers and instructions for
+installing them.
+<p>
+There is also an NVIDIA driver available from the Utah-GLX project at
+<a href="http://utah-glx.sourceforge.net">http://utah-glx.sourceforge.net</a>.
+It is based on the obfuscated source code released by NVIDIA. It
+offers lower performance compared to the binary-only driver released
+by NVIDIA themselves.
+<p>
+
+<H2><a name="others">Other Vendors</a></H2>
+<p>
+There are efforts under way for a number of other cards. For instance,
+the Utah-GLX project offers support for the ATI Rage Pro card at
+present. We will update this page each time a working
+combination of hardware and driver comes to our attention.
+<p>
+
+
+<?php echo $_text_normal ?>

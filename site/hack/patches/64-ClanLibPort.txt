@@ -1,0 +1,22 @@
+
+			LokiHack '99 Patch
+
+Patch Title: there is no SDL (what a lie ;)
+Author: Daniel Vogel
+E-mail: 666@grafzahl.de
+
+Short Description:  (one line)
+
+useless proof of concept :--)
+
+Long Description:   (short paragraph)
+
+port from using the SDL video part to using the ClanLib video routines (note that this is a _hack_ and that it does require _both_ SDL and ClanLib to work!!!
+
+Documentation:      (how does it work, special features, instructions, etc.)
+
+Known Bugs:
+
+input handling doesn't work correct and you maybe have to use --noinitvideo, yet the video stuff might get fixed as I want to port SMPEG to solely using ClanLib.
+
+---

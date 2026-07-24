@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../../" aria-label="Loki home"><img src="../../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../">Products</a><a href="../../../orders/">Orders</a><a href="../../../support/">Support</a><a href="../../../development/">Development</a><a href="../../../press/">Press</a><a href="../../../news/">News</a><a href="../../../about/">About Loki</a></nav>
+  </header>
+  <main class="content"><h2>
+System and Software Requirements
+</h2>
+
+<div class="normal">
+<A NAME="glibc20"></A>Is glibc-2.0 supported?<B></B><BR>
+Quake III will run on a glibc-2.0 based system if you have a 3D card 
+based on a 3Dfx chipset. Matrox G200/G400 users must install Quake III on 
+a glibc-2.1 based system.
+<P>
+Please remember that you should upgrade your glibc-2.0 system to XFree86 
+SVGA 3.3.5 and the latest matching Glide2. You should really upgrade to 
+glibc-2.1 as soon as feasible.
+</div>
+
+<div class="normal">
+<A NAME="tnt"></A><B>Are TNT or TNT2 cards supported?</B><BR>
+At the time of this writing, the GL available from www.nvidia.com is 
+based on Mesa-3.0 and XFree86 SVGA 3.3.3. This combination does work 
+correctly with Quake III (apart from a few visual artifacts) but the 
+framerate performance is poor -- approximately 15-20 frames per second on 
+the fastest systems. Because nVidia has not released register 
+specifications yet, the efforts to add TNT support to the "Utah" 
+Accelerated GLX have not progressed to the point where we could 
+reasonably support them. We have successfully tested nVidia's early 
+release during QA, and you will find information on how to use it on 
+/support/gldrivers/. nVidia has announced a new 
+Linux OpenGL release for "First Quarter, 2000," and we will test this as 
+soon as released.
+</div>
+
+<div class="normal">
+<A NAME="ati"></A><B>Are ATI Rage/Rage Pro/128/Fury cards supported?</B><BR>
+At the time of this writing, we are testing an ATI driver for Quake 
+III. We hope to release this Real Soon Now.
+<P>
+ATI has made the necessary hardware and programming information available 
+to Linux developers for Rage Pro and Rage 128 2D, 3D and video capture 
+development. To help ensure support is made available ATI has engaged 
+Precision Insight to write 2D and 3D drivers for the ATI Rage 128 product 
+family. These drivers will be released open source when completed.
+<P>
+This is a XFree86-4/DRI release, presumably.
+</div>
+
+<div class="normal">
+<A NAME="mesa"></A><B>What version of Mesa can I use, and how do I get it?</B><BR>
+The latest official release is Mesa 3.1, available from 
+www.mesa3d.org. Bug fixes and patches have been, and will be, applied to 
+Mesa 3.2., the mesa_3_2_dev branch. If you have problems with Mesa 3.1, 
+you should try 3.2 from the CVS. Mesa 3.2 is the current stable release, 
+freezing Mesa 3.1. It is not recommended to use 3.3, which is an unstable 
+pre-release, and is subject to major architectural changes in connection 
+to the XFree86-4 release.
+<PRE>
+   cvs -d :pserver:anonymous@cvs.mesa3d.org:/cvs/mesa3d login
+   cvs -d :pserver:anonymous@cvs.mesa3d.org:/cvs/mesa3d co -r mesa_3_2_dev Mesa
+</PRE>
+</div>
+
+<div class="small">
+<A HREF="quake3faq.html#Sysreq">Back to Questions</A></div>
+
+
+
+
+
+
+</main>
+  <footer><a href="../../">Products</a> | <a href="../../../orders/">Order</a> | <a href="../../../support/">Support</a> | <a href="../../../development/">Development</a> | <a href="../../../press/">Press</a> | <a href="../../../news/">News</a> | <a href="../../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

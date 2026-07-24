@@ -1,0 +1,55 @@
+<?php echo $subhead ?>
+Platform Interoperability
+<?php echo $_subhead ?>
+
+<?php echo $text_normal ?>
+<A NAME="linux_cd"></A><B>Can I use the Linux CD to run Quake III under Windows and/or the Mac OS?</B><BR>
+Yes. To do this, simply install the Windows/Mac point release and copy the pak0.pk3 file from the CD's baseq3 directory into the baseq3 directory of your Quake III installation.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="win32_cd"></A><B>Can I use the Windows/Mac CD to run Quake III under Linux?</B><BR>
+You can indeed get the Linux binaries and use them with your Windows or Mac CD.
+The Linux point release provides this capability. The following instructions 
+should get you up and running:
+<ol>
+  <li>Create directory /usr/local/games/quake3</li>
+  <li>Create directory /usr/local/games/quake3/baseq3</li>
+  <li>Copy file "pak0.pk3" from the CD to /usr/local/games/quake3/baseq3</li>
+  <li><a href="http://www.quake3arena.com/news/index.html">Download</a> and 
+	install the current Linux point release</li>
+  <li>Put the following into a file and save it as
+	/usr/local/games/quake3/quake3:
+
+<pre>        #!/bin/sh 
+        # Needed to make symlinks/shortcuts work.
+        cd "/usr/local/games/quake3"
+        quake="./quake3.x86"
+        "$quake" $* exit $?</pre></li>
+        
+  <li>Create a symlink to the shell script in /usr/bin or /usr/local/bin:
+
+<pre>        ln -s /usr/local/games/quake3/quake3 /usr/bin/quake3</pre></li>
+  <li>Type quake3 at the command line, and enjoy.</li></ol>
+Note that Loki provides technical support only to the customers of the 
+Linux version of Quake 3 Arena. We receive no funds from the sales of the 
+Windows or Mac versions, and Linux games won't succeed if Linux users buy Windows 
+products.
+ 
+<?php echo $_text_normal ?>
+
+
+<?php echo $text_normal ?>
+<A NAME="free_bsd"></A><B>Will the Linux version of Quake III run on FreeBSD?</B><BR>
+We have had one successful report of the Quake III dedicated server running on FreeBSD. Thanks to Keith Pitcher for a <a href="http://deadofquake3.deadofnight.com/serverinfo.html">description</a> of how it was done. If anyone has success running the game client on FreeBSD, please let us know, and we will post it here as well.
+<?php echo $_text_normal ?>
+
+
+<?php echo $text_small ?>
+<A HREF="quake3faq.php3.html#Windows">Back to Questions</A><?php echo $_text_small ?>
+
+
+
+
+
+

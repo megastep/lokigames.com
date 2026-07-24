@@ -1,0 +1,34 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Nuke Lawyers
+Author: Thomas Hudson
+E-mail: thudson@cygnus.com
+
+Short Description:  Nuke Lawyers is a new wonder.
+
+Long Description:  Nuke Lawyers is a new wonder that upon completion will
+ nuke all lawyers of all civilizations (including your own).
+
+Documentation:  You will see the wonder appear after achieving the democracy 
+advance
+
+Known Bugs: The code loop for selecting units and calling GetNuked is 
+      incomplete. The current binary seems to have problems unless
+      run with -nointromovie, (and turn off wonder movies)
+
+---
+Note:
+The code is incomplete, but all that is left to be touched is the crufty
+code in gs/gameobjs/bldque.cpp. After the wonder movie is played,
+determine the type of wonder. If the wonder is WONDER_FLAG_EXPLODE_LAWYERS,
+iterate all the units of every player. If the Unit::CanSue method returns
+true, call Unit::GetNuked() on this unit. There seems to be something
+in this method that checks for city data, I'm not sure if this
+method call is only for cities, since you can nuke most mobile units.
+
+If you want to play with making lawyers obsolete by this wonder, just
+edit the first entry in run/ctp_data/default/gamedata/wonders.txt.
+
+Also, I just selected the movie and icon for one of the other wonders.
+

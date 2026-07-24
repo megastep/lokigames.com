@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Network Game Play
+
+
+<div class="normal">
+<A NAME="Chat"></A><B>How do I chat in a network game?</B><BR>
+Hit the ' key and a chat window appears.
+</div>
+
+<div class="normal">
+<A NAME="Masq"></A><B>How do I play a network/internet game
+through a Linux Masquerading firewall?</B><BR>
+If you would like to connect to the Civ:CTP Internet servers
+from behind Linux masquerading, and you have kernel version 2.0.x,
+you need a kernel patch: <A HREF="ftp://ftp.netcom.com/pub/mu/mumford/loose-udp-2.0.36.patch.gz">ftp://ftp.netcom.com/pub/mu/mumford/loose-udp-2.0.36.patch.gz</A>
+This has already been fixed in the Linux 2.2.x kernels. Information
+on why this is necessary can be found at: <A HREF="http://www.alumni.caltech.edu/~dank/peer-nat.html">http://www.alumni.caltech.edu/~dank/peer-nat.html</A>
+</div>
+
+<div class="normal">
+Apply the patch to your 2.0.x kernel and recompile. That should do
+it! If you DON'T install that patch, Civ:CTP will not be able to play through your IP masqerading host, <I>and</I> it will not exit gracefully -- it will hang in the &quot;Leaving Lobby&quot; phase.
+</div>
+
+<div class="normal">
+<A NAME="Subnet"></A><B>Do the computers have to be on the same subnet to play networked games of CivCTP?</B><BR>
+No.  Any two computers with internet connections can connect via the internet option.  To play without outside interruptions, simply password protect your game.
+</div>
+
+<div class="normal">
+<A NAME="IPAd"></A><B>Is there a way to tell the game a specific IP address to connect to?  How are the connections made?</B><BR>
+The way networking options are designed in CivCTP, games played on a local subnet use UDP broadcasts to find other machines, and once another machine running Civ is found, direct UDP packets to that machine.  There is no way to tell the game to use a specific IP address, but any two computers can connect via the internet servers.
+</div>
+
+<div class="normal">
+<A NAME="Ports"></A><B>If I'm blocking UDP traffic, what ports do I need to open up to play Civ:CTP over my lan?</B><BR>
+If you are blocking UDP traffic, you need to open the ports in the range 21100 - 21300 to have it function properly.
+</div>
+
+<div class="normal">
+<A NAME="MultHom"></A><B>On a multihomed host, how do I tell the game which interface to use?</B><BR>
+Set the environment variable UUDP_HOSTNAME to the IP address of the interface that you want to use:
+</div>
+
+<div class="normal">
+export UUDP_HOSTNAME=[ip of desired interface]
+</div>
+
+<div class="normal">
+<A NAME="Server"></A><B>Is there a way that I can run my own game server, or do I have to use the established Activision Internet servers?</B><BR>
+The game servers are closely held by Activision, and only their sites, or sites approved by them, run Civ:CTP game servers.
+</div>
+
+<div class="normal">
+<A NAME="Delay"></A><B>If I use an internet server to connect two machines that are pretty close together (say on different subnets of the same network), won't that cause a lot of delay?</B><BR>
+The internet servers are only used as a forum to set up games.  If two machines on the same subnet used an internet server to connect, almost all game traffic would still be going over the local network.  The internet server serves the same function as the UDP broadcasts on the lan: it just helps the machines to find one another.
+</div>
+<div class="small">
+<A HREF="faq3.html#NetPlay">Back to Questions</A></div>
+
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

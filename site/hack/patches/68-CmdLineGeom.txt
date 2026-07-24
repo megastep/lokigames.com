@@ -1,0 +1,17 @@
+
+			LokiHack '99 Patch
+
+Patch Title:  Geometry patch
+Author: Brenden Tuck
+E-mail:
+
+Short Description:  Added -geometry command line option
+
+Documentation:
+Run civctp with the -geometry <width> <height> command line option, to
+specify an arbitrary width and height for your window.  The minimum width
+and height available is 640x480.
+
+Known Bugs:
+
+---

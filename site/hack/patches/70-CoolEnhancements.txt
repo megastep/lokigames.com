@@ -1,0 +1,163 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Miscellaneous unit and visual enhancements
+Author: Christopher Yeoh
+E-mail: yeoh@home.com
+
+Short Description:  (one line)
+Adds Extra abilities for spies, combat city units content indicator, capitol city capture, land based carrier units and cows.
+
+Long Description:   (short paragraph)
+
+See documentation. The non-code change patches (4/5) can be
+split off separately from the code ones by extracting the info
+from the data files in ctp_data.
+
+Documentation:      (how does it work, special features, instructions, etc.)
+
+======================================================================
+1. Extra abilities for spying type units
+-------------------------------------
+Description:
+Spy type units have `infiltrate city'. Costs money, probability of sucess is
+lower than for investigating a city. If sucessful you can view the
+state of the city at any time, however they espionage unit is
+disbanded.
+
+Cost: 1000 Gold, 1 Movement point, unit automatically disbanded (permanently)
+
+The icon used looks like something a cow getting lasooed. I can't
+draw :-)
+
+Files modified:
+
+Notes:
+This hack will be incompatible with old save games
+
+
+======================================================================
+2. City combat units content indicator
+---------------------
+Description:
+Displays number of combat units in a city. Only indicates for own
+cities. One empty shield (in player's color) indicates one combat
+unit. Otherwise the number present is displayed in the shield itself.
+
+Files modified:
+tiledmap.h
+tiledraw.cpp
+
+======================================================================
+3. Capitol city capture option
+-------------------
+Description:
+When turned on, capturing the capitol city results in all
+the cities owned by that civilisation being captured. Hopefully
+will make blood lust games less tedious to finish off.
+
+File modified:
+Lots (see below)
+
+Notes:
+This hack will be incompatible with old save games
+
+======================================================================
+4. Land based carrier units
+------------------------
+Description:
+Adds land based troop carriers
+
+Wagons - Can carry 2 units 
+       - 0/10/3 (Attack/Defence/Movement points)
+       - Normal visiblity
+       - Looks like Troop ship, sounds like a chariot
+       - Can't travel through mountains
+       - Prerequisite Advance: Stirrup
+       - Obsoletion Advance: Tank warfare
+
+APC   - Can carry 3 units
+      - 10/10/6 (Attack/Defence/Movement points)
+      - Normal visiblity
+      - Looks like trireme, sounds like a tank
+      - Can't travel through mountains
+      - Prerequisite Advance: Tank warfare
+      - Obsoletion Advance: Intelligent Materials
+
+Stealth APC
+      - Can carry 3 units
+      - 10/10/8
+      - Invisible, but not special ability to see other invisible units
+      - Looks like a ship of the line, sounds like a tank
+      - Can't travel through mountains
+      - Prerequisite Advance: Intelligent Materials
+      - Obsoletion Advance: Never 
+
+Files modified:
+/devel/CTP/run/ctp_data/default/gamedata/units.txt
+/devel/CTP/run/ctp_data/english/gamedata/gl_str.txt
+
+======================================================================
+5. Cows
+-------
+Description:
+Adds cow units to code:
+
+Normal cow - doesn't do much but eat and can wander around (and moo!)
+      - 0/1/1 (Attack/Defence/Movement points)
+Armed Cow
+      - Prerequisite advance: Ecotopia
+      - 5/5/1 (Attack/Defence/Movement points)
+      - looks and sounds just like a normal cow (but that's
+        what makes them so dangerous)
+         
+(mostly) complete list of changed files with some reasons 
+(at least this are the ones I managed to keep track of):
+
+global_enums.h
+controlpanelwindow.cpp
+controlpanelwindow.h
+buttonbank.ldl
+buttonbank.cpp - enable rustle button
+ldl_str.txt
+selitem.cpp - enable looking at remote cities
+              (adds ce_disp stuff)
+unitdata.h - InvestigateAndStayInCity
+unitdata.cpp - InvestigateAndStayInCity
+              
+army.h,army.cpp - Added CanInvestigateCityAndStay
+                - Added InvestigateCityAndStay
+armydata.h,armydata.cpp - Added CanInvestigateCityAndStay
+unitrec.h, unitrec.cpp - Added InvestigateCityAndStay
+selitem.h - Added InvestigateCityAndStay
+diplomacy_log.cpp - Added UNIT_ORDER_INVESTIGATE_CITY_AND_STAY
+                    to have same effect as UNIT_ORDER_INVESTIGATE_CITY
+order.cpp - adds UNIT_ORDER_INVESTIGATE_CITY_AND_STAY to array struct
+order.txt - add data for order UNIT_ORDER_INVESTIGATE_CITY_AND_STAY
+	    1000gold, 1 movement point.
+unit.h/cpp     - AddPermanentSpy/PlayerHasPermanentSpy/ClearPermanentSpies
+unitdata.h/cpp - AddPermanentSpy/PlayerHasPermanentSpy/ClearPermanentSpies
+--------------------
+citydata.h/cpp - Adds HasAtLeastOnePermanentSpy
+unseencell.h - Adds support for permanent spy storage state
+tiledmap.h - adds unknown8 icon (little man) for visualisation of cities
+             with permanent spies
+tiledraw.cpp
+
+---------------------------------
+tiledmap.h  - changes to display extra icons for num units in city 
+tiledraw.cpp
+
+----------------------------------------------------------------------
+armydata.cpp - changes for capturing all cities when capitol is captured
+allinonewindow.cpp/h
+ns_gamesetup.h - adds Get/SetCaptureAll
+ns_gamesetup.cpp - increments version number because of above changes
+profiledb.cpp - adds IsCaptureAll,SetCaptureAll
+ldl_str.txt - misc strings
+ns_launch.ldl, ns_strings.ldl
+help_str.txt
+
+Known Bugs:
+
+---

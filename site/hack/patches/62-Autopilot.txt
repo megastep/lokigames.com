@@ -1,0 +1,18 @@
+
+			LokiHack '99 Patch
+
+Patch Title:  Autopilot, by Ian!
+Author: Ian S. Nelson
+E-mail: Nelson_@ibm.net
+
+Short Description:  When you click on the auto button I added to the main screen, the computer will play for you until you click that button again.  I also add special Boulder names for some of the American cities, essentially I added the cities closest to the center of the universe to the name list, for one reason or another they weren't there initially..
+
+Long Description:   See above, or the IAN_README.DAMNIT file included in the patch for a poetic, yet technical and entertaining view of the process.
+
+Documentation:      (how does it work, special features, instructions, etc.)
+		    Click auto to make it work, click end over and over to watch it work.. If if doesn't kick over then select an army unit and press auto.
+
+
+Known Bugs:
+
+---

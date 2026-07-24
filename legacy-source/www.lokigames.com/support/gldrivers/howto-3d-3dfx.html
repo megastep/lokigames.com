@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Loki OpenGL driver support pages / 3dfx</title>
+</head>
+<body>
+
+<H1>Step by step installation guide for 3dfx (pre-DRI)</H2>
+
+<p>
+This is a step by step installation guide provided to help you
+in updating/upgrading your Linux system for using 3dfx hardware. 
+Please check first whether updates to your distribution
+are available from the provider. It presumes that you are using
+a glibc-2.1 system, and that you have some version of X11R6 already
+installed. The example instructions are given for RedHat 6.1.
+If you are not using a Redhat system, please check
+<a href="http://www.lokigames.com/support/no_rpm.html">
+http://www.lokigames.com/support/no_rpm.html</a> for explanations
+and suggestions.
+<p>
+This document is meant to be used in connection with the official
+3dfx driver pages found at 
+<a href="http://linux.3dfx.com/open_source/drivers.htm">
+http://linux.3dfx.com/open_source/drivers.htm</a>.
+Please read the document corresponding to your card there first,
+especially if you are using a glibc-2.0 installation.
+If you are using a Voodoo Rush, please ignore this document and
+move on to
+<a href="http://linux.3dfx.com/open_source/download/voodoo_rush.htm">
+http://linux.3dfx.com/open_source/download/voodoo_rush.htm</a>.
+The drivers listed on 
+<a href="http://linux.3dfx.com/">linux.3dfx.com</a>
+replace the older ones on <em>www.3dfx.com</em>, 
+<em>www.3dfxgamers.com</em> or <em>glide.xxedgexx.com</em>,
+so pelase do not try to use files from these other locations.
+<p>
+If you intend to use the XFree86-4/DRI, please ignore this document,
+and rely on the documentation provided by 3dfx. Currently, our games
+are not tested against DRI drivers.
+<P>
+<ul>
+<li><a href="howto-3d-3dfx.html#step1">Step 1: Get X server</a>        
+<li><a href="howto-3d-3dfx.html#step2">Step 2: Install X server</a>  
+<li><a href="howto-3d-3dfx.html#step3">Step 3: Get Glide</a>          
+<li><a href="howto-3d-3dfx.html#step4">Step 4: Install Glide</a>      
+<li><a href="howto-3d-3dfx.html#step5">Step 5: Test OpenGL install</a>   
+<li><a href="howto-3d-3dfx.html#step6">Step 6: Install Mesa</a>        
+<li><a href="howto-3d-3dfx.html#step7">Step 7: Alternatives</a>     
+<li><a href="howto-3d-3dfx.html#step8">Step 8: Troubleshooting</a> 
+</ul>
+
+
+
+
+<H2><a name="step1">Step 1: Get X server</a></H2>
+<p>
+If you are using a Voodoo Graphics or Voodoo2, please skip this step,
+as your current X server will do just fine. You will have to have
+your distribution's XFree86/X11 packages installed though, as our
+games as well as the Mesa versions we test require X11.
+<p>
+Please check what version of XFree86_SVGA you are using. On a RedHat
+system, you can do something like
+<pre>
+rpm -q -a | grep XFree86_SVGA
+</pre>
+If you are not using XFree86 3.3.5 yet, or if you are using an early version 
+of XFree86 3.3.5, please check 
+<a href="http://linux.3dfx.com/open_source/download/voodoo3_banshee.htm">
+http://linux.3dfx.com/open_source/download/voodoo3_banshee.htm</a>
+and (for glibc-2.1) obtain the files 
+<pre>
+XFree86-SVGA-3.3.5-4.i386.rpm
+XFree86-XF86Setup-3.3.5-4.i386.rpm
+</pre>
+Please ignore the XFree86_SVGA-3.3.3 distributions also available there.
+You might want to check for more recent releases for your distribution,
+but you have to make sure that 3dfx related bug fixes have been included
+there. Users have reported that some distribution's XFree86-3.3.5 and
+XFree86-3.3.6 binaries do not work correctly with certain games. If
+you are in doubt, inquire with the provider of your distribution.
+
+
+
+
+
+<H2><a name="step2">Step 2: Install X server</a></H2>
+<p>
+If you are using a Voodoo Graphics or Voodoo2, please skip this step,
+as your current X server will do just fine.
+<p>
+It is possible that there is a more recent X server for your system. It is also
+possible that the version numbering on your system is not compatible with
+the version number used in the RPM file. For example, if you use
+<pre>
+rpm -Uvh XFree86-SVGA-3.3.5-4.i386.rpm
+</pre>
+on a RedHat 6.1 system, it will report that the new server is older than the
+one already installed. You will have to install the new server using
+<pre>
+rpm -Uvh --force  XFree86-SVGA-3.3.5-4.i386.rpm
+</pre>
+Next, please install the other RPM file. If you do not want to change
+your general X11 configuration, you may wish to omit it.
+<pre>
+rpm -Uvh XFree86-XF86Setup-3.3.5-4.i386.rpm
+</pre>
+
+You should ensure that your X11 configuration contains mode lines for
+the resolution you wish to run your game at. It is <b>always</b>
+recommended that you include at least 640x480, as this is a common
+default for many games. 
+
+
+
+
+
+
+<H2><a name="step3">Step 3: Get Glide</a></H2>
+<p>
+Please check whether there is a Glide already installed on your system.
+You could use e.g.
+<pre>
+rpm -q -a | grep Glide
+/sbin/ldconfig -v | grep glide
+</pre>
+<p>
+Next, please proceed to 
+<a href="http://linux.3dfx.com/open_source/drivers.htm">
+http://linux.3dfx.com/open_source/drivers.htm</a>
+and move to the proper page for your graphics card. If you are using
+a Voodoo3 or Banshee (all these for glibc-2.1), get the
+<pre>
+Glide_V3-2.60-16.i386.rpm
+Device3Dfx-2.3-5.src.rpm
+Glide_SDK-2.2-16.i386.rpm
+</pre>
+files. For a Voodoo2, get
+<pre>
+Glide_V2-2.53-6.i386.rpm
+Device3Dfx-2.3-5.src.rpm
+Glide_SDK-2.2-16.i386.rpm
+</pre>
+and for a Voodoo Graphics, get
+<pre>
+Glide_VG-2.46-5.i386.rpm
+Device3Dfx-2.3-5.src.rpm
+Glide_SDK-2.2-16.i386.rpm
+</pre>
+The SDK is optional, but will be required if you want to 
+compile a new Mesa library. Please ignore the Glide3
+distribution, as we do not test our games against Glide3/DRI
+drivers yet.
+
+
+
+<H2><a name="step4">Step 4: Install Glide</a></H2>
+<p>
+First, please install the support for <tt>/dev/3dfx</tt>
+on your system. Without this device, you will have to be
+root to access your 3dfx hardware. You can (as root) 
+compile and install the necessary files using
+<pre>
+rpm --rebuild Device3Dfx-2.3-5.src.rpm 
+/sbin/insmod 3dfx
+/sbin/lsmod | grep 3dfx
+ls -l /dev/3dfx
+</pre>
+The second and third command make sure that the module is
+loaded by the kernel. The last command should give you something like
+<pre>
+crw-rw-rw-   1 root     root     107,   0 Oct  7 01:36 /dev/3dfx
+</pre>
+Please make sure to check the owner and permissions. You might
+also want to check your /etc/conf.modules file for a line like:
+<pre>
+alias char-major-107 3dfx
+</pre>
+Now that you have the 3dfx device, you can move on to installing
+Glide itself. Please use
+<pre>
+rpm -Uvh Glide_V3-2.60-16.i386.rpm
+rpm -Uvh Glide_V2-2.53-6.i386.rpm
+rpm -Uvh Glide_VG-2.46-5.i386.rpm
+</pre>
+depending on which version of Glide you downloaded. If you
+had other versions of Glide installed (e.g. when upgrading
+from a Voodoo2 to a Voodoo3), please make sure to remove
+them first (using e.g <tt>rpm -e Glide_V2</tt>) before
+installing a different set of Glide binaries.
+<p>
+If you had an older version of Glide and/or /dev/3dfx installed,
+you might want to shutdown and reboot your system now.
+Once your system is updated, please use
+<pre>
+/sbin/ldconfig -v | grep glide
+/usr/local/glide/bin/test3Dfx
+</pre>
+to check. The latter will give you a blue test screen if your
+Glide installation worked. If this test fails, then your system
+is not properly installed. If this test only works for you
+as root, then chances are your permissions on /dev/3dfx are
+wrong, or /dev/3dfx does not exist. It is also possible that
+the system can't find the Glide libaries.
+
+
+
+<H2><a name="step5">Step 5: Test OpenGL install</a></H2>
+<p>
+Most if not all games do not use Glide directly. One exception
+is the current version of Linux Myth II (if you are only
+interested in this game, you can ignore the rest of this document).
+Usually, Loki games use a version of Mesa compiled for use with
+Glide, which offers us the OpenGL API and maps it to Glide function
+calls. Some games come with a local copy of the Mesa DLL for some
+cards, others rely on your system to provide a recent GL
+library. Unfortunately many distributions do not come with
+a recent Mesa library, and most do not install hardware
+support.
+<p>
+Please do the following
+<pre>
+rpm -q -a | grep GL
+rpm -q -a | grep Mesa
+ldconfig -v | grep GL
+</pre>
+to find out whether there is an OpenGL library on your system. Unless
+you are using a program that requires an older version of GL,
+it is best to remove any Mesa 2.6, 3.0 or 3.1beta releases 
+from your system, and update (see below).
+<p>
+For some games, you can specify the OpenGL library directly.
+In some cases (Quake3), this is not possible if you are
+running as root. Please try:
+<pre>
+quake3 +set r_glDriver &lt;DLL name&gt;
+heretic2 +set vid_ref glx +set gldriver &lt;DLL name&gt;
+hg2 -o &lt;DLL name&gt;
+sof +set gl_driver &lt;DLL name&gt;
+</pre>
+with the chosen DLL being in the appropriate place (in the same
+directory as the <tt>quake3</tt> binary, in <tt>./gl_drivers/</tt>
+relative to the <tt>heretic2</tt> binary, or specified with an
+absolute path in the case of <tt>hg2</tt> and <tt>sof</tt>).
+<p>
+If the game works for you, the following steps are optional.
+Unless you are having problems with your current install, you 
+should not proceed.
+However, given the speed at which Mesa for Linux currently 
+changes, you might have a good reason to upgrade your 
+installation with a more recent version of Mesa (see next step).
+
+
+
+<H2><a name="step6">Step 6: Installing Mesa</a></H2>
+<p>
+Mesa depends on Glide, and it also offers optimizations for
+various CPU types. We do not provide binary packages
+of Mesa, as this is better left to the provider of your
+distribution. See <a href="howto-3d-mesa.html">
+http://www.lokigames.com/support/gldrivers/howto-mesa-3d.html</a>
+for information on obtaining Mesa.
+<p>
+First, you need to install the Glide SDK, as Mesa requires the proper
+headers for compilation. 
+<pre>
+rpm -Uvh Glide_SDK-2.2-16.i386.rpm 
+</pre>
+<p>
+Next, go into the directory in which you unpacked Mesa, and do
+<pre>
+more docs/INSTALL
+make -f Makefile.X11 linux-386-opt-glide
+</pre>
+If you have a Voodoo 2 or newer card, you may use a target of
+<tt>linux-386-opt-V2-glide</tt> instead.
+<p>
+Assuming the build completes, you will have a set of new
+libraries in <tt>lib/</tt>.
+<p>
+You can also test the library by using one of the demos, e.g.
+<pre>
+cd demos
+export MESA_GLX_FX=fullscreen
+./gears
+</pre>
+(or use <tt>setenv MESA_GLX_FX fullscreen</tt> if you are not
+using <tt>bash</tt>). This should give you a fullscreen demo
+of rotating gears in three colors, and some console output 
+like
+<pre>
+174 frames in 5.012 seconds = 34.7167 FPS
+....
+</pre>
+If you want to try the new library with the game, you can go up
+into the Mesa directory and copy the new library, and then try
+it directly (e.g. for Quake3, Heretic2, or SoF):
+<pre>
+cp lib/libGL.so.1 /usr/local/games/quake3/libMesaGlide2.so
+quake3 +set r_glDriver libMesaGlide2.so
+
+cp lib/libGL.so.1 /usr/local/games/HereticII/gl_drivers/libMesaGlide2.so
+heretic2 +set vid_ref glx +set gldriver libMesaGlide2.so
+
+cp lib/libGL.so.1 /usr/local/games/hg2
+hg2 -o /usr/local/games/hg2/libGL.so.1
+
+cp lib/libGL.so.1 /usr/local/games/SoF/libGL.so.1
+sof +set gl_driver /usr/local/games/SoF/libGL.so.1
+</pre>
+<p>
+To install the new Mesa as library as your system-wide GL, you should remove
+all Mesa libraries installed by your Linux distribution first. Then, in the
+Mesa directory do (as root):
+<pre>
+cd lib
+cp -a * /usr/local/lib
+/sbin/ldconfig
+ldconfig -v | grep GL
+</pre>
+<p>
+You may also choose to install the Mesa headers. Consult the INSTALL
+documentation for information on how to do this.
+<p>
+
+
+<H2><a name="step7">Step 7: Alternatives</a></H2>
+<p>
+For the Voodoo3 and Banshee (but not for the Voodoo Graphics, Voodoo2,
+or Voodoo Rush), the current drivers will eventully become obsolete,
+to be replaced by XFree86 v4 DRI support. DRI packages are
+available from
+<a href="http://linux.3dfx.com/open_source/download/voodoo3_banshee_dri.htm">
+http://linux.3dfx.com/open_source/download/voodoo3_banshee_dri.htm</a>.
+<p>
+If you want to try the DRI, the latest code is always available from
+<a href="http://dri.sourceforge.net/">
+http://dri.sourceforge.net/</a>. This is in source form only. You have to
+check it out and build it yourself.
+
+
+<H2><a name="step8">Step 8: Troubleshooting</a></H2>
+
+<p>
+If by any means possible, please check the game output to the console
+for messages like <tt>Can't find or access Banshee/V3 board</tt>. If
+your game runs at only a few frames per second, or even slower, then
+you might be using a software-only Mesa, or Mesa can't access your
+hardware. If you are experiencing trouble, please retry as root. If
+you are running the game as root, please try as regular user. If a
+game locks up on you and you only get a black screen, please consult
+the FAQ for this game at
+<a href="../index.html">
+http://www.lokigames.com/support/</a>
+as others problems (e.g. use of the audio device) might actually
+cause this problem. Please look for the output of
+GL_VERSION, GL_RENDERER and GL_VENDOR on the console. Our games
+usually tell you which path the library was loaded from.
+<p>
+If all fails, please contact support@lokigames.com and provide
+details. 
+</body>
+</html>
+

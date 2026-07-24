@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loki Entertainment Software</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Game Interface and Display
+
+
+<div class="normal">
+<A NAME="WinManager"></A><B>How do I keep Window Manager Task Bars from getting in my way when playing the game?</B><BR>
+The power and flexibility of the Linux window managers makes
+them very nice for the user. Unfortunately they make the user
+interface completely non-standard. There's no way to tell beforehand
+what keys are remapped, no way to tell whether or not your window
+has decorations, etc.
+</div>
+
+<div class="normal">
+Here are suggestions for some of the major window managers:
+</div>
+<UL>
+	<LI>In KDE, open the panel-setup with:<BR>
+	<TT>K -&gt; panel -&gt; configure</TT><BR>
+	then, select the panel tab, set taskbar to hidden, click ok. Now the taskbar is gone, only the panel is on top of the game. It can be minimized, by clicking on the small black triangle on the left (or top) side of the
+panel. You can also open the configuration screen by right-clicking
+the panel bar and selecting 'configure' from the pop-up menu.</LI>
+
+	<LI>If you're running an FVWM based window manager and running the game at your full screen size, but the title bars don't disappear, add the line <TT>MWMDecorHints</TT> to your window manager
+initialization file. This is known to work with AfterStep and
+FVWM.</LI>
+
+	<LI>In GNOME, set the panel to autohide.</LI>
+	<LI>With some distributions, you can also start X with 'xinit' rather than 'startx', so that you're not using a window manager
+at all. Or you can run the X server in a different resolution so that the game
+won't run full screen. (See <A HREF="faq3-interfc.html#Screen"> below.</A>)</LI>
+
+</UL>
+
+<div class="normal">
+<A NAME="Gnome"></A><B>Does the game have GNOME or KDE support
+(adding itself to task bars, etc)?</B><BR>
+Just make sure the box next to "Desktop menu items (KDE/Gnome)" in the setup screen is selected, and the game will add itself to the KDE/Gnome menu.
+</div>
+
+<div class="normal">
+<A NAME="Iconify"></A><B>How can I iconify the game and have it run in the background?</B><BR>
+Typing CNTL-z iconifies the game. When
+the game is iconified, it is paused and uses very little CPU time.
+</div>
+
+<div class="normal">
+<A NAME="Path"></A><B>How do I set my path so that it can access the game directory?</B><BR>
+<TT>export PATH=$PATH:[installation directory]</TT>
+</div>
+
+<div class="normal">
+<A NAME="Screen"></A><B>How can I change my screen size? Is it possible to run RT2 in a window rather than at full screen size?</B><BR>
+RT2 always runs in 1024x768 resolution.  So if you want to run the game in a window, you could start your X server in 1152x864, 1280x860 or 1600x1200 resolution. 
+</div>
+
+<div class="normal">
+<A NAME="fullscreen_not_root"></A><B>How can I get the game to play fullscreen if I'm not logged in as root?</B><BR>
+If you're running in 1024x768 resolution, the game will use the whole screen.  If you want the game to use the DGA extensions to switch to fullscreen, run the game as root.  DGA fullscreen allows slightly better performance by writing to /dev/mem directly, rather than going through X buffers.  To allow
+non-root access to this, you need to put yourself in a trusted group and
+give the group access to /dev/mem. <B>NOTE:</B> This is a
+security risk and should not be used on machines where security is
+important.
+</div>
+
+<div class="normal">
+<A NAME="Scrolling"></A><B>When I try to scroll with the mouse, I have a hard time scrolling up and down, as my hidden task bars keep getting in the way.  What can I do?</B><BR>
+In addition to scrolling with the mouse, you can also scroll with the arrow keys.  Also, with a three button mouse, pressing the middle button and dragging will scroll the screen around.
+</div>
+
+<div class="normal">
+<A NAME="Speed"></A><B>How can I maximize graphics speed when
+running the game?</B><BR>
+There are a couple of tricks that will speed things up for you:
+
+<UL>
+<LI> X should be run in 16-bit color for those who wish to speed
+ up graphics. Using 24- or 32-bit color forces X to convert 16-bit
+ images to 32-bit before it displays them -- a severe penalty
+ for MHz challenged machines. You can make sure you're running
+ in 16-bit color by starting x with &quot;startx -- -bpp 16&quot;.</LI>
+
+ <LI>Run it without a window manager or desktop environment (if
+ you aren't already). Basically replace what is in your .xinitrc
+ with this one line: /usr/local/games/RT2/rt2
+ (or whatever path you put rt2 in). You might want to back
+ up your old .xinitrc just in case.</LI>
+
+ <LI>Later on in the game it can help a lot to play with some of the game settings.
+Click on the 'Control Panel' icon on the left side of the screen, then click 'Graphics', and turn some of the settings down.  It will also help to make sure that 'Color Mouse Cursor' and 'Grid Lines' are turned off on the main control panel screen.</LI>
+
+<LI> Running the game in<A HREF="faq3-interfc.html#fullscreen_not_root">DGA full screen mode</A> (only possible on Xfree86) will reduce cpu usage by few percent.</LI>
+</UL>
+</div>
+
+<div class="small">
+<A HREF="faq3.html#Interface">Back to Questions</A>
+</div>
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

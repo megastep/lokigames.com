@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<header>
+<title>Loki Support Pages/No RPMs</title>
+</header>
+<body bgcolor="#000000"
+ text="#FFFFFF"
+ link="#B08F6F"
+ vlink="#B08F6F" alink="#3366CC">
+
+<H1>Installing RPM's on non-RedHat systems</H2>
+
+<p>
+Some vendors, like 3dfx, have chosen RPM as their distribution format
+because many distributions support RPM, or can at least convert RPM
+to their native package format. Loki uses self-extracting archives
+(usually with a GUI installer) and compressed tarfiles, but we do
+not repackage drivers and system conponents.
+<p>
+Installing a package without an installer is not a trivial task.
+Furthermore, installing a package from a hardware vendor might
+conflict with the version provided by your distributor (e.g. the 
+XF86_SVGA server from 3dfx conficts with RedHat).
+<p>
+There are several tools available to help you in handling RPM files
+on systems that do not have that ability.
+<ul>
+
+<LI>
+The simplest solution is probably to get <A HREF="http://kitenet.net/programs/alien">alien</A>,
+a program for converting between package formats. Debian uses <tt>alien</tt> to handle RPM,
+and you can onvert them to <tt>*.deb</tt> packages.</li>
+
+<LI>
+RPM files can also be converted to cpio archives, using e.g.
+a <A HREF="rpm2cpio.pl">rpm2cpio.pl</A> perl script (taken from Daryll Strauss'
+Linux Glide documentation). Use <tt>rpm2cpio.pl [whatever.rpm] | cpio -i --create-directories</tt>.
+It is recommended doing this in <tt>/tmp/</tt> or some other "sandbox" to check the destinations
+and then moving the files to an appropriate place.</LI>
+
+<LI>
+You can get RPM from <A HREF="http://www.rpm.org/">http://www.rpm.org/</A> and use it
+for just the driver packages. The site also offers other tools and documentation.</LI>
+</UL>
+
+The absence of a vendor-neutral version numering scheme and the lack of a standard
+installer and a standard interface with vendor-specific package management databases
+makes it very difficult for hardware vendors to provide drivers. The
+<a href="http://www.linuxbase.org/">Linux Standard Base</a> is adressing the first issue.
+
+
+
+</body>
+</html>
+

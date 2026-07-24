@@ -1,0 +1,57 @@
+<?php echo $headline ?>
+Network Game Play
+<?php echo $_headline ?>
+
+<?php echo $text_normal ?>
+<A NAME="Chat"></A><B>How do I chat in a network game?</B><BR>
+Hit the 's' key and type what you want to say.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="Masq"></A><B>How do I play a network/internet game
+through a Linux Masquerading firewall?</B><BR>
+If you would like to connect to Heretic II Internet servers
+from behind Linux masquerading, and you have kernel version 2.0.x,
+you need a kernel patch: <A HREF="ftp://ftp.netcom.com/pub/mu/mumford/loose-udp-2.0.36.patch.gz">ftp://ftp.netcom.com/pub/mu/mumford/loose-udp-2.0.36.patch.gz</A>
+This has already been fixed in the Linux 2.2.x kernels. Information
+on why this is necessary can be found at: <A HREF="http://www.alumni.caltech.edu/~dank/peer-nat.html">http://www.alumni.caltech.edu/~dank/peer-nat.html</A>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+Apply the patch to your 2.0.x kernel and recompile. That should do
+it! If you DON'T install that patch, Heretic II will not be able to play through your IP masqerading host, <I>and</I> it will not exit gracefully -- it will hang in the &quot;Leaving Lobby&quot; phase.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="Subnet"></A><B>Do the computers have to be on the same subnet to play networked games of CivCTP?</B><BR>
+No.  You simply need to know the IP address of the server that you want to connect to.  Once servers have been added to the Address Book, they will be automatically detected like servers on the local subnet.  
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="IPAd"></A><B>Is there a way to tell the game a specific IP address to connect to?</B><BR>
+Simply add the IP address to your Address Book, and if they're running a server, you should be able to connect to it.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="intserv"></A><B>How do I connect to an internet server?  Is there a list of active servers somewhere?</B><BR>
+<A HREF="http://www.gameaholic.com">Gameaholic.com</A> keeps a running list of active game servers <A HREF="http://www.gameaholic.com/servers/heretic2/">here.</A>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="Ports"></A><B>If I'm blocking UDP traffic, what ports do I need to open up to play Heretic II over my lan?</B><BR>
+If you are blocking UDP traffic, you need to open the ports in the range 28900 - 28910 to have the game function properly.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="MultHom"></A><B>On a multihomed host, how do I tell the game which interface to use?</B><BR>
+Set the environment variable UUDP_HOSTNAME to the IP address of the interface that you want to use:
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<CODE>export UUDP_HOSTNAME=[ip of desired interface]</CODE>
+<?php echo $_text_normal ?>
+
+<?php echo $text_small ?>
+<A HREF="http://www.lokigames.com/support/heretic2/faq3.php3#NetPlay">Back to Questions</A>
+<?php echo $_text_small ?>
+

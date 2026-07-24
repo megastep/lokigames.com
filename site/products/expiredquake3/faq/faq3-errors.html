@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../../" aria-label="Loki home"><img src="../../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../">Products</a><a href="../../../orders/">Orders</a><a href="../../../support/">Support</a><a href="../../../development/">Development</a><a href="../../../press/">Press</a><a href="../../../news/">News</a><a href="../../../about/">About Loki</a></nav>
+  </header>
+  <main class="content"><h2>
+Errors
+</h2>
+
+<div class="normal">
+<A NAME="restricted"></A><B>I get the message "Running in restricted mode", then the application fails to find default.cfg.</B><BR>
+Quake III can't find the baseq3/pak0.pk3 file. Quake will not give an 
+error message if the pack file is missing, it will just run in restricted 
+mode, and look for demoq3/pak0.pk3. If it can't find the demo pack, it 
+will again not complain, but just tell you that it could not find the 
+very first file it expected -- which happens to be default.cfg.
+<P>
+Make sure baseq3/pak0.pk3 still exists in your install directory and has 
+not been moved or renamed.
+<P>
+If this file is in place, the error is most likely caused by your Quake III wrapper script being overwritten. Your install directory should contain both a "quake3" file and a "quake3.bin" or "quake3.x86" file. The "quake3" file should be a small shell script and the other is the Quake III binary executable. If the script shows a size of 916340, the script has been overwritten with the binary. You'll need to mv
+<BLOCKQUOTE>
+   #!/bin/sh <BR>
+   # Needed to make symlinks/shortcuts work.<BR>
+   cd "/usr/local/games/quake3"<BR>
+   quake="./quake3.x86"<BR>
+   "$quake" $* 
+   exit $?<BR>
+</BLOCKQUOTE>
+</div>
+
+<div class="normal">
+<A NAME="fs_cdpath"></A><B>When I try to run the game from the CD, I get:<BR>No Quake3 binary for x86/glibc-2.1</B><BR>
+This is caused by the game not being able to determine the location of your CD. To fix this, set fs_cdpath to the mount point of your CD drive. On a Red Hat system, it looks like this:
+<PRE>
+   +set fs_cdpath /mnt/cdrom        <-- command line
+   seta fs_cdpath /mnt/cdrom        <-- config file
+</PRE>
+</div>
+
+<div class="normal">
+<A NAME="dga_mouse"></A><B>I can't set in_dgamouse to 1.</B><BR>
+Make sure you have a most recent XF86_SVGA 3.3.5 installed. If so, you 
+can edit the wrapper script and either remove the override for in_dgamouse or replace the 
+entire script with:
+<BLOCKQUOTE>
+   #!/bin/sh 
+   # Needed to make symlinks/shortcuts work.<BR>
+   cd "/usr/local/games/quake3"<BR>
+   quake="./quake3.x86"<BR>
+   "$quake" $* 
+   exit $?<BR>
+</BLOCKQUOTE>
+</div>
+
+<div class="normal">
+<A NAME="mwheel"></A><B>Quake III won't recognize my mouse wheel.</B><BR>
+The current version of Quake III does not support button 4 and 5 
+events. This support has been added in the current beta point release.
+</div>
+
+<div class="normal">
+<A NAME="cd_in_use"></A><B>When I try to play Quake III Arena on the internet, I get a message 
+that "Someone is using this CD key."</B><BR>
+This message can mean any one of the following:
+<OL>
+  <LI>You are behind a masquerading firewall and have recently disconnected 
+      from a server and are trying to reconnect, wait 4-5 minutes before 
+      reconnecting.</LI>
+  <LI>The CD key was improperly entered. Try re-entering the CD Key in the 
+      setup menu.</LI>
+  <LI>The CD key was entered in the text installer using uppercase letter. 
+      Open the q3config.cfg file and manually enter the CD Key there, as digits 
+      and lower case letters only.</LI>
+</OL>
+This problem is caused 99% of the time by the CD Key not being entered 
+properly.
+<CENTER><B>
+IMPORTANT!!!!!
+</B></CENTER>
+You MUST enter your CD key in lower case letters. If you do this through 
+the menu it's automatic, but if you set it from the console, upper case 
+letters will not work.
+</div>
+
+<div class="normal">
+<A NAME="3dfx"></A><B>How do I debug my 3dfx installation?</B><BR>
+Firstly, check for the installed packages and whether the files exist, 
+have proper permissions and are the correct version:
+<PRE>
+   ls -l /dev/3dfx
+   grep 3dfx /etc/conf.modules
+   ldconfig -v | grep glide
+   ldconfig -v | grep GL
+</PRE>
+Make sure that you have the proper version of the SDK installed. In the 
+/usr/local/glide/bin directory, use "detect" as normal user, and, if it 
+doesn't work, then try as root. If it works as root only, /dev/3dfx is 
+either missing or has wrong permissions. Next, use "test3Dfx" as a normal 
+user and then as root. If this does not work, your Glide library might 
+have the wrong version, wrong permission, can't be handled by ld, or may 
+not even be installed. Next, you might want to try a Mesa demo like 
+demos/gears. If this works with your 3dfx in fullscreen, then any 
+remaining problem will be Q3A specific. If Mesa renders in software mode 
+in a window, then Mesa is not compiled for Glide and 3dfx.
+</div>
+
+<div class="normal">
+<A NAME="screenshot"></A><B>Screenshots are broken.</B><BR>
+If you are using a 3dfx card, you may also be using an outdated 
+version of MESA, which switched the R and B color channel. This can fixed 
+by upgrading to MESA version xxxx. If you are using TNT, the glReadPixels 
+path in the nVidia June 1999 drivers is broken, and will probably not be 
+fixed prior to the XFree86-4/DRI release.
+</div>
+
+<div class="normal">
+<A NAME="masquerading"></A><B>I can't play an Internet game from behind a masquerading firewall.</B><BR>
+Sometimes this is caused by a misconfiguration of your /etc/hosts file that looks something like this:
+<PRE
+   127.0.0.1       franknputer1    localhost
+   10.1.1.2        franknputer2
+   10.1.1.3        franknputer3
+<PRE>
+Your machine name should be listed with its ethernet IP address instead of with the loopback address, like this:
+<PRE>
+127.0.0.1       localhost
+10.1.1.1        franknputer1
+10.1.1.2        franknputer2
+10.1.1.3        franknputer3
+</PRE>
+<I>Thanks to Craig Block for this information</I>
+</div>
+
+<div class="normal">
+<A NAME="mode"></A><B><PRE>Couldn't get a visual
+   ...WARNING: could not set the given mode (3)</PRE></B>
+You have to have a 640x480 modeline in e.g. your 
+/usr/X11R6/blib/X11/XF86Config. If you try to use 532x384 or below, you 
+also need those lines. You can try
+<PRE>
+   +set r_mode 4  (or 5 or above).
+</PRE>
+Below is a sample. Do not copy these, as they vary depending on your 
+monitor. Chances are you have a modeling, but have not listed it in the 
+SubSection "Display":modes
+<PRE>
+# 640x400 @ 70 Hz, 31.5 kHz hsync
+Modeline "640x400"     25.175 640  664  760  800   400  409  411  450
+
+# The Colour SVGA server
+Section "Screen"
+    Driver      "svga"
+    Device      "G400"
+    Monitor     "Optiquest V95"
+    Subsection "Display"
+        Depth       16
+        Modes       "640x480" "800x600" "1024x768" "1152x864"
+        ViewPort    0 0
+    EndSubsection
+EndSection
+</PRE>
+You also have to have the following if you are using GLX:
+<PRE>
+Section "Module"
+        Load "glx.so"
+EndSection</PRE>
+</div>
+
+<div class="small">
+<A HREF="quake3faq.html#Errors">Back to Questions</A></div>
+
+
+
+
+
+
+
+</main>
+  <footer><a href="../../">Products</a> | <a href="../../../orders/">Order</a> | <a href="../../../support/">Support</a> | <a href="../../../development/">Development</a> | <a href="../../../press/">Press</a> | <a href="../../../news/">News</a> | <a href="../../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

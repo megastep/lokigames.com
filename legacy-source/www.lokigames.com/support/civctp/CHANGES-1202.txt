@@ -1,0 +1,32 @@
+11/30/99
+
+Changes to the Civ:CTP FAQ:
+
+Added Table of Contents to main FAQ page.
+
+Clarified muddy wording about the alpha patch on the System Requirements page.
+
+Clarified wording on known problems w/ demo, also added file information
+to help clarify what file users should be using.
+
+Updated information on SBLive value driver.
+
+#Added installation instructions (repetetive from README, pretty much).
+
+Added instructions for applying 1.1 patch.
+
+Added instructions for starting games from pre-designed maps available from Loki website.
+
+Added comment about phantom space unit.
+
+Changed headings within sub-sections to $headline template from $subhead.
+  Since questions are normal text with <B>, $subhead was kind of getting lost.
+
+Added a link from the main page to a question in a subsection which had
+ been previously unlinked.
+
+Added a link from a mention of full screen mode to the section describing how
+to implement it (full-screen mode).
+
+Added info. on compatibility among platform versions.
+

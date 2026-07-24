@@ -1,0 +1,91 @@
+README for Stealth Factor and Water Terraforming Patch
+
+This patch for "Civilization: Call To Power" adds two
+new features to the game:
+
+1. Terraforming of the map now includes the option of
+adding squares of shallow water to the map.
+
+2. Units may now use terrain and their own ability to
+sneak around on the map and sneak away from enemies.
+
+1. Shallow Water Terraforming
+-----------------------------
+
+Under the "Terra" tab in the public works options (which
+are seen when the hammer icon is clicked), there is now
+an option to create squares of shallow water within the
+area of control of one of the player's cities. The icon
+for this option is blue, and is on the third row of
+icons (you'll have to scroll the window to see it).The
+water tiles created by the terraforming are considered
+shallow water, have a base cost of 800 PW, and take three
+turns to build.  The tiles also can only be built near an
+existing water source, so don't plan on having a moat
+around your city in the middle of the mountains ;> This
+new option does, however, allow cities inland to produce
+ocean units, as well as allow the opportunity for an
+inland city to use fisheries and nets to increase their
+food production.
+
+Quirks to this are very unclean terrain, since a water
+tile is plunked down on the map without it being lined by
+beaches. "Puddles" may occur, but they are still crossable
+by naval units.
+
+2. Unit/Terrain Stealth Factors
+-------------------------------
+
+A new attribute has been assigned to both terrain tiles
+and combat units: stealth.  Each tile has a stealth
+modifier that represents how much coverage the terrain
+would give to a unit passing through that terrain. Units
+have a stealth modifier that represents how stealthy they
+are.
+
+Typically, the more movement points it takes to move
+through the terrain, the higher the stealth rating of
+the tile.  Military units have a stealth rating based upon
+their real life counterparts.  Therefore, vehicles tend to
+have a lower stealth rating than units on foot. Stealth
+vehicles have a very high stealth rating, but any non-
+stealth aircraft have no stealth rating. Typically, units
+that have more movement points are typically more stealthy.
+
+Veteran units also have a higher stealth rating, as well
+as a better chance of spotting other units. Special units
+that are normally invisible (spy, lawyer, etc.) remain that
+way and have no stealth rating.
+
+The stealth rating in a situation can be calculated as
+follows:
+
+(Unit Stealth) + (Terrain Bonus) + (Veteran Bonus) = Stealth
+      ?	       	     0 - 30%             15%		      	
+
+Veterans have a 10% better chance of spotting other units,
+due to their experience.
+
+The resulting percentage is the chance that a unit will be
+"stealthed" when it moves on its next turn. When stealthed,
+it appears to enemy units on the map as if the player's unit
+just disappeared. This becomes very handy when making a hasty
+retreat.  When dealing with armies (units locked together as
+a group), a stealth check is performed on every unit in the
+army. Therefore, a bigger group has a larger chance of being
+spotted than a lone unit.
+
+Quirks such as "stealth cities" have popped up before, but
+have been (hopefully) ironed out. Due to the new data fields
+associated with the stealth attributes for each unit and tile
+type, saved games made without this patch installed WILL NOT
+work with this CivCTP patch.  Also, though it hasn't been
+tested, it is STRONGLY suggested that you only play a net game
+with another copy of CivCTP using this patch. Otherwise,
+mismatched network messages could occur.
+
+Have fun and be sure to save often. Anything could happen with
+code that was written in only 48 hours ;>
+
+Andrew Henderson
+hendersa@db.erau.edu

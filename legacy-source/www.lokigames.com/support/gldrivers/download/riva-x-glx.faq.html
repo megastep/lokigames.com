@@ -1,0 +1,372 @@
+                            RIVA X server FAQ
+			    =================
+
+This document is meant to describe the X server and GLX module being made
+available for NVIDIA RIVA graphics' processors. 
+
+=========================================================================
+
+The 3D support is for development on XFree86 3.3.3.1 only, and is not a
+high performance architecture.  The upcomingf XFree86 X server 4.0 will
+use the Direct Rendering Infrastructure required to take full advantage
+of the RIVA processors.  For more information look at:
+http://www.precisioninsight.com
+Suse also has done work toward a high performance interface.  Look at:
+http://www.suse.de/~sim
+
+=========================================================================
+
+There are source code and binaries available for download. The components
+being made available are:
+
+     1. XFree86 X Server for NVIDIA NV1, RIVA 128, RIVA 128ZX,
+          RIVA TNT, RIVA TNT2.
+
+     2. Development Mesa/GLX module for 3D graphics support for RIVA 128,
+          RIVA 128ZX, RIVA TNT, RIVA TNT2.
+
+
+
+
+Source Code files
+
+The source code is being released with two different license agreements.
+The GLX module and the RIVA source files have the same license as the
+XFree86 organization's license.  That is, you are free to include those
+files in a commercial product without having to redistribute the source.
+The Mesa 3.0 code is GPLed. Mesa 3.1 for the X window system will use the 
+XFree86 style license.  The GLX code has been compiled with the beta of 
+Mesa 3.1, however due to bugs and great changes in the future for 
+Mesa 3.1, this distribution is using Mesa 3.0.  The build processes for 
+the X server, GLX, and Mesa, are all very involved.  Please read all the
+documentation for each project.  The source files are provided as either
+gzipped diff files, or a tarred and gzipped directory structure.  The X
+server and Mesa files are patches for currently available source 
+distributions. http://www.xfree86.org and http://www.mesa3d.org have the
+full source for each project.  The source for the X server requires the
+tar files for version 3.3.3 plus the patch file for 3.3.3.1.  The source
+files are:
+
+     Mesa-3.0.diff        - Small mods to Mesa 3.0 to improve
+                            transformation efficiency.
+     XFree86-3.3.3.1.diff - Patch file to bring server source up to date.
+     riva_glx-0.99.tar.gz - GLX project source for libGL.so and glx.so.
+
+
+
+
+Binary files
+
+The binary files being released are compiled for Linux, both libc5 and
+glibc (libc6). These are the only libc5 binaries that will be posted.
+Future updates will only be glibc (upgrade now!).  Make sure you download
+the correct version for your Linux distribution (most current
+distributions are glibc, like RedHat 5.x, Suse 6.x). You must upgrade your
+X installation to at least XFree86 3.3.3.1.  No other version has been
+tested.  There are two or threee binary files. They are:
+
+     XF86_SVGA      - The X server. Includes the xfsft FreeType font
+                      rasterizer patches (version 1.03).
+                      See http://www.dcs.edu.ac.uk/home/jec/programs/xfsft
+                      and http://www.freetype.org for more details.
+                      A patch to DGA made available from VMWare is 
+                      included. 
+                      See  http://www.vmware.com for more details.
+                      GLX/Mesa is built-in in the RIVA-X-GLX-???-i386
+                      tarball.
+     glx.so         - GLX/Mesa loadable module, only in the
+                      RIVA-X-GLX-????-i386-dyn tarball.
+     libGL.so.1.0   - The client side library for GLX/Mesa.  This is
+                      basically a replacement for libMesaGL.so.3.0.
+                      Only in the RIVA-X-GLX-i386???? tarballs.
+                      See http://reality.sgi.com/ripperda_engr/glx
+                      for more GLX/Mesa details.
+
+Due to PIC, I've benchmarked the statically linked GLX X server
+to be slightly faster than the modular GLX X server (1-2%).  Not
+much, but if your looking for that last bit of performance.  The
+binaries were built using gcc on RH 5.2 using -O3 -m486 optimizations
+and on a cobbled together slackware distro using the same flags.  I
+tried egcs with -mpentiumpro just for fun.  It made a little
+difference, but not much.  If anyone tries other compilers/flags
+and get better results, please let me know. 
+
+
+
+Acknowledgements
+
+This distribution is a culmination of work done by many people over a
+long time.  It's nice to bring it all together in one neat package.  The
+XFree86 organization has many excellent developers, however Dave Dawes
+and Dirk Hohndel have been exceptionally helpful.  Dave McKay provided the
+support for the NV1 chip and the initial support for the RIVA 128 that I
+shamelessly pilfered.  Brian Paul wrote the Mesa code.  Wow, that had to
+be a *lot* of work.  Steve Parker wrote the initial GLX code to
+integrate Mesa and the X server.  Terence Ripperda has been diligent in
+its upkeep.  I'm indebted to him for his bug fixing and install scripts.
+
+
+Please, please read all the FAQs and available documentation before
+sending mail. 
+
+     Dave Schmenk
+     linux@nvidia.com
+
+OK, the good stuff.
+
+
+
+
+Q: How do I install the binaries?
+
+A: This is long so its broken up into sections.
+
+I. First, you must have XFree86 3.3.3.1 dated after Jan 7 1999.
+    If you run RedHat or another distro that uses RPMS, get the
+    RPMS from metalab.unc.edu instead of the binaries from XFree86.
+
+II. Downloads
+    ftp://ftp.xfree86.org (use a mirror site)
+        prebuilt: /pub/XFree86/3.3.3.1/binaries/*
+		  Read the RELNOTES file on how to install. Kind of
+		  tricky.
+        source:   /pub/XFree86/3.3.3.1/source/X333servonly.tgz
+                  /pub/XFree86/3.3.3.1/source/X333src-1.tgz
+                  /pub/XFree86/3.3.3.1/source/X333src-2.tgz
+                  /pub/XFree86/3.3.3.1/source/X333src-3.tgz
+                  /pub/XFree86/3.3.3.1/fixes/3.3.3-3.3.3.1.diff.gz
+        Must know what you are doing. This is a pretty big build.
+OR			
+    ftp://metalab.unc.edu
+        RPMS: /pub/Linux/distributions/redhat/redhat-5.2/updates/i386
+              You want to get the base XFree86-3.3.3.1-1.rpm and the 
+	      XFree86-Libs-3.3.3.1-1.rpm. Use glint or rpm to install
+	      the RPMs.
+AND			
+    http://www.nvidia.com
+        prebuilt: RIVA-X(-GLX)-glibc-i386(-dyn).tar.gz
+            OR
+                  RIVA-X(-GLX)-libc5-i386(-dyn).tar.gz
+        source:   Mesa-3.0.diff.gz
+                  X-3.3.3.1.diff.gz
+		  GLX-1.0.tgz
+
+    Download whichever binary package you want.  Uncompress with
+
+    tar xzf RIVA-X-GLX-1.0-glibc-i386.tar.gz  (or whichever binary you have)
+
+    then, as root, 'cd' into the new directory just created, and run the
+    'riva_install' script.
+    IMPORTANT: You must exit the X server before running the script.
+
+III. Setup 
+    If you don't already have your X server configured for your RIVA card:
+    I use xf86config to set up the cards, even though it is very low-level. 
+    I don't select an individual card. Just press enter at the prompt, and
+    select the XF86_SVGA server.  When it asks to make the symbolic link,
+    enter 'Y'. Enter whatever resolutions you want. The monitor timings need
+    to match your monitor or else you might not get a viewable display.
+    When prompted for the video card, just press  'Enter'. Select XF86_SVGA
+    as the server to use at the next question.
+
+
+
+
+Q.  So the X server supports the FreeType font rasterizer.  Where do I
+get TrueType fonts?
+
+A.  Check out http://fonts.themes.org for some cool fonts.  Check the
+link given at the top for the xfsft home page.  It has many other good
+links.  The FreeType page, http://www.freetype.org has all kinds of
+good stuff, including links to Web fonts (from that company in Redmond).
+
+
+
+
+Q.  What are the differences in the 2D portion of the X server from the
+3.3.3.1 version?
+
+A. More 2D acceleration has been added.  Specifically stippled pattern
+fills; the logout screen in KDE was driving me crazy!  The glyph
+rendering routines have all been hooked and accelerated at a high level.
+Some bugs in the video clock routines have been fixed (some people
+mentioned mode switches hanging - hopefully fixed).  The X server now
+recognizes all TNT and TNT2 variants.
+
+
+
+Q. How do I get applications to use the 3D hardware acceleration?
+
+A. If you have applications that were linked against Mesa, then you
+probably already have Mesa installed.  In the directory where the Mesa
+libraries are installed (I put mine in /usr/X11R6/lib), copy
+/usr/X11R6/libGL.so.1.0 on top of the libMesaGL.so.3.0 (or whatever
+version you have).  Alternatively, you can remove the libMesaGL.so.3.0
+and make a symbolic link to /usr/X11R6/lib/libGL.so.1.0.  All the
+applications linked with Mesa will now use the hardware accelerated
+version of Mesa inside the X server.
+
+If you don't have Mesa yet, check http://www.mesa3d.org for source
+tarballs, or check http://rufus.w3.org/linux/RPM/index.html for RPMs to
+install (get Mesa-3.0).
+
+!!! A note about color depth and resolution !!!
+
+Mesa/GLX is only accelerated in 15 and 16 bit color modes on RIVA.  If
+you are running in 8 BPP or 32 BPP, all the rendering will fall back to
+software.  Start X in 16 BPP mode like this
+    startx --  -bpp 16
+or 
+    startx --  -bpp 15
+for 15 BPP mode.
+
+Because 3D requires lots of framebuffer memory, your current virtual
+desktop resolution may consume too much memory to run 3D applications.
+They quit saying something to the effect of not being able to find the
+required visual.  With a 4 MB RIVA 128, the highest virtual screen size
+you can have and still run 3D applications that require a depth buffer
+and a back buffer is 800x600.  Applications that have lots of textures
+may not run well unless you reduce the virtual screen size to 640x480.
+Notice that it's the virtual screen, not just the screen scan-out
+resolution, that matters.  The virtual screen is the "slippery" scroll
+that happens when your mouse runs into the edge of the screen, not the
+virtual desktop managed by the window manager. The virtual screen size is
+set in the XF86Config file located either in /etc/X11 or /etc.  The
+Display Subsection in the Screen Section for the SVGA looks something
+like this:
+
+Section "Screen"
+    Driver      "svga"
+    DefaultColorDepth 16
+    Device      "TNT"
+    Monitor     "My Monitor"
+    Subsection "Display"
+        Depth       15
+        Modes       "1152x864" "1024x768" "800x600" "640x480"
+    EndSubsection
+
+The value of the highest resolution would be used as the virtual screen
+size,1152x864, in this case.  Although I could change the scan-out
+resolution to 640x480, the virtual screen size would still be 1152x864
+(given this example).  The only way to make it work is to remove all the
+higher resolutions, like this:
+
+    Subsection "Display"
+        Depth       15
+        Modes       "640x480"
+    EndSubsection
+
+Of course this puts a serious cramp on your visible desktop.  The best
+way around this I have found is to use 15 BPP mode for 3D programs
+running at a reduced desktop size, then use the 16 BPP mode for my high
+resolution desktop. My XF86Config file looks like:
+
+Section "Screen"
+    Driver      "svga"
+    DefaultColorDepth 16
+    # Use Device "Generic VGA" for Standard VGA 320x200x256
+    #Device      "Generic VGA"
+    Device      "TNT"
+    Monitor     "My Monitor"
+    Subsection "Display"
+        Depth       15
+        Modes       "640x480"
+    EndSubsection
+    Subsection "Display"
+        Depth       16
+        Modes       "1152x864" "1024x768" "800x600" "640x480"
+    EndSubsection
+
+I start one X server in 15 BPP mode, then switch to a new virtual
+terminal (CTRL-ALT-2 for instance) and start another X server like this:
+
+    startx -- :1 -bpp 16
+
+I can switch back and forth to my high res desktop and low res desktop by
+using CTRL-ALT-7 and CTRL-ALT-8 (your virtual terminal numbers may vary).
+Of course the more framebuffer memory you have, the less of a need there
+is for using these kind of tricks.  The RIVA 128 benefits, as does the
+RIVA 128ZX to some extent.  The TNT and TNT2 have enough memory that
+1024x768 (or even 1600x1200) doesn't impact their style too much.
+
+
+
+
+Q. How do I write OpenGL programs using GLX/Mesa?
+
+A. Easily.  You need to get the Mesa source tarballs from
+http://www.mesa3d.org.  Get MesaLib-3.0.tar.gz and MesaDemos- 3.0.tar.gz.
+Untar the files and build with
+
+    make linux-elf
+
+Make sure glut gets built also.  I copy the lib and include directories
+to /usr/X11R6/lib and /usr/X11R6/include.  That may not be the best place
+for them, but I don't have to change any include directories or library
+searches from regular X applications.  Take note of overwriting or
+symbolic linking libMesaGL.so.3.0 to libGL.so.1.0 from above.  You should
+be able to run all the demos and sample files included in the Mesa
+distribution.  Use those as starting points.  Also, make sure you have
+Mark Kilgard's most excellent book, "OpenGL Programming for the X Window
+System" (he made me say that). Check http://www.opengl.org for many other
+links to OpenGL programming.
+
+
+
+
+Q. How do I run Quake 2 accelerated?
+
+A. Follow the instructions in the Linux release from 
+
+ftp://ftp.idsoftware.com/idstuff/quake2/unix/quake2-3.20- xxx.tar.gz
+
+Use OpenGL glx as the renderer.  You may have to supply the name of the
+GL library, libGL.so in this case.  If performance is slow, try reducing
+texture quality.  This will reduce the framebuffer texture requirements
+(there is no AGP memory support yet) and reduce the amount of data being
+sent to the GLX module over the X protocol.  Also, see above for reducing
+the virtual screen resolution.  This, too, makes more memory available to
+textures.  Don't send me email if you can't get it to work.  I'm sorry,
+but I don't have the bandwidth to support Quake2 issues.  It does work,
+so a little diligence may be required.
+
+
+
+
+Q. How do I run Quake 3 accelerated?
+
+A. Due to the high demands Quake 3 puts on the client/server architecture
+of this implemetation, running Quake 3 is not recommended.  XFree86 4.0
+will have a direct rendering architecture needed to use the 3D hardware
+effectively with Quake 3.
+
+
+
+
+Q. OpenGL applications I have for both Windows and Linux run faster in
+Windows.  What gives?
+
+A. This 3D support is for development only.  It is not a high performance
+implementation, but meant to write and test OpenGL applications and 
+drivers under Linux.
+
+NVIDIA has well over 10 man years in our OpenGL driver for Windows.  Our
+Windows driver is also a direct-renderer.  This means the application goes
+straight through to the hardware for the best performance.  This requires lots
+of OpenGL driver work and kernel driver support.  The Mesa/GLX code runs in the
+context of the X server which means all the OpenGL commands and data have to
+be sent from the application to the X server through a "pipe".  Not very
+efficient, but robust and much easier to implement. You can also run an OpenGL
+application on one computer and have it display on another, just like
+regular X applications can (you can be running network Quake2 on one
+computer and displaying the output on another - even the one you're
+playing against, although I don't recommend it).
+
+Progress is being made to implement a more efficient transport for the
+next major release of the XFree86 server, version 4.0, which will include
+its own version of Mesa/GLX.  Check out http://www.precisioninsight.com
+for more details.  This distribution is meant to tide-us-over until that
+time, as well as provide source for other platforms that want RIVA
+support.  So, it may not be as fast as our Windows OpenGL driver, but it
+sure beats software rasterization!
+

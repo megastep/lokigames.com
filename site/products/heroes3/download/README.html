@@ -1,0 +1,69 @@
+           Heroes of Might & Magic III : The Restoration of Erathia
+           ========================================================
+
+                        Linux version  - Patch 1.3.1
+
+
+This is the first patch release for the Linux version of Heroes III. This
+brings the Linux version up to 1.3.1, which has the following features
+over the 1.2 version that shipped on the CD :
+
+    - Many game-related bugfixes from the Windows version
+    - Defaults to fullscreen by default; the new fullscreen code does
+      not require root privileges anymore, and should work on any
+      XFree86 and compatible X11 server with at least the 800x600 video
+      mode defined in the XF86Config file. Use the Alt-Enter hotkey at any
+      time to switch between fullscreen and windowed modes.
+	- Y2K bugfix
+	- Fixed minor bug in the tavern videos
+    - Proper CDROM detection on systems using supermount (Mandrake)
+    - New command-line option: -x. Enables the X11 mouse cursor in the
+      game, instead of the fancy colorful software cursor. This may improve
+      drastically the game performance on some systems, but it makes it look
+      much less pretty too.
+    - AAlib target (play Heroes III in ASCII art!). Use it on the console, or
+      enable it explicitly by setting the SDL_VIDEODRIVER environment variable
+      to 'aalib'.
+    - DMA sound from the latest SDL (better performance). If your card supports
+      this (most SB compatible cards do), you can enable it by setting the
+      SDL_AUDIODRIVER environment variable to 'dma', i.e. :
+
+      export SDL_AUDIODRIVER=dma
+    - Initial PPC port (available in a separate archive). This port does not
+      support network compatibility with other versions of the game, and saved
+      games are also incompatible.
+
+NETWORKING
+
+The 1.3.1 version of Heroes III is mostly compatible with the 1.2 version
+that shipped on the retail CD. However, due to fixes in the game logic
+in this patch, we strongly advise you to avoid mixing clients from different
+versions of the game, since some in-game glitches may occur.
+
+For playing network games, the best thing is to upgrade all Heroes III
+installations to version 1.3.1.
+
+INSTALLING THIS PATCH
+
+Just run the script by typing the following from the command line :
+
+     sh heroes3-1.3.1-x86.run
+
+It will prompt you for the installation path of the game. If different
+from the default (/usr/local/games/Heroes3), type the name of the
+directory where you installed the game.
+
+
+TECHNICAL SUPPORT
+
+Support for Heroes of Might & Magic III for Linux is available from
+Loki Entertainment Software at:
+
+    Bug Tracking System: /legacy-services.html#fenris/
+    Website:  /  Follow the links for support.
+    Email:    support@lokigames.com
+    Phone:    801-356-7629. Telephone support is available between the
+              hours of 9 A.M. and 5 P.M. Mountain Standard Time.
+
+    You can also communicate with other Heroes III enthusiasts at:
+    Usenet:   /legacy-services.html#news/loki.games.heroes3

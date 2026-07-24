@@ -1,0 +1,338 @@
+<? echo $text_normal ?>
+If you've found a bug in one of our products, we'd like to know so we can quash it mercilessly. Just let us know using our <A HREF="http://fenris.lokigames.com/">bug report and support form</A>.
+<? echo $_text_normal ?>
+
+<? echo $subhead ?>
+General support
+<? echo $_subhead ?>
+
+<? echo $text_small ?>
+For general support and troubleshooting questions, see the product and technical support FAQs. Please be sure to apply the latest patch for your software before requesting technical support.
+<? echo $_text_small ?>
+
+<? echo $table_cp4 ?>
+	<TR>
+		<? tabcell('light') ?>
+		<B>Civilization: Call to Power</B>
+		<? tabcell('end') ?>
+		<? tabcell('light') ?>
+		<A HREF="/products/civctp/updates.php3">Updates and Patches</A><BR>
+		<A HREF="/products/civctp/faq.php3">Frequently Asked Questions</A><BR>
+		<A HREF="/products/civctp/tips.php3">Tips and Tricks</A><BR>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+                <B>Eric's Ultimate Solitaire</B>
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="/products/eus/manual.php3">Manual Correction</A>
+                <? tabcell('end') ?>
+        </TR>
+	<TR>
+		<? tabcell('light') ?>
+                <B>Heavy Gear II</B>
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="/products/heavy-gear2/updates.php3">Updates and Patches</A>
+                <? tabcell('end') ?>
+        </TR>
+
+	<TR>
+		<? tabcell('dark') ?>
+		<B>Heretic II</B>
+		<? tabcell('end') ?>
+                <? tabcell('dark') ?>
+		<A HREF="/products/heretic2/updates.php3">Updates and Patches</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+		<B>Heroes Of Might and Magic III</B>
+		<? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="/products/heroes3/updates.php3">Updates and Patches</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+		<B>Myth II: Soulblighter</B>
+		<? tabcell('end') ?>
+		<? tabcell('dark') ?>
+		<A HREF="/products/myth2/updates.php3">Updates and Patches</A><BR>
+		<A HREF="/products/myth2/faq.php3">Frequently Asked Questions</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+		<B>Railroad Tycoon II</B>
+		<? tabcell('end') ?>
+		<? tabcell('light') ?>
+		<A HREF="/products/rt2/updates.php3">Updates and Patches</A><BR>
+		<A HREF="/products/rt2/faq3.php3">Frequently Asked Questions</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+		<B>Quake III Arena</B>
+		<? tabcell('end') ?>
+		<? tabcell('dark') ?>
+		<A HREF="http://www.quake3arena.com/news/">Updates and Patches</A><br>
+		<A HREF="/products/quake3/faq/">Frequently Asked Questions</A><BR>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+		<B>GL Drivers</B>
+		<? tabcell('end') ?>
+		<? tabcell('light') ?>
+		<A HREF="/support/gldrivers/">Support and
+information</A>
+		<? tabcell('end') ?>
+	</TR>
+<? echo $_table_cp4 ?>
+
+
+<P><? echo $blurline ?></P>
+
+<? echo $subhead ?>
+Direct Assistance
+<? echo $_subhead ?>
+
+<? echo $text_small ?>
+If you need direct assistance with the game, fill out the <A HREF="http://fenris.lokigames.com/">bug report form</A> or send an e-mail to <A HREF="mailto:support@lokigames.com?Subject=Game Technical Support">support@lokigames.com</A>. You can also phone our support center at ++1 (801) 356-7629 between the hours of 9:00 a.m. and 5:00 p.m. (U.S. Mountain Standard Time) Monday through Friday, except holidays. 
+<? echo $_text_small ?>
+
+<? echo $text_small ?>
+So we can better help you, please provide the following information:
+<OL>
+<LI> Complete product title and version (e.g. sof -v)
+<LI> Exact error message reported (if any) and a brief description of the problem ­ attach any .sav file if applicable
+<LI> Linux distribution and version
+<LI> Computer processor type and speed (e.g. AMD K6-300, Pentium II 233)
+<LI> RAM and hard disk space available
+<LI> Video and sound card make and model (e.g. Diamond Stealth 64 video, Sound Blaster 16 sound)
+</OL>
+<? echo $_text_small ?>
+
+<P><? echo $blurline ?></P>
+
+<? echo $subhead ?>
+Patches and Updates
+<? echo $_subhead ?>
+
+<? echo $text_small ?>
+If any patches or updates for your game are released, they will be posted to that product's page as soon as they are ready. Check back often on your product's page for more news and updates.
+<? echo $_text_small ?>
+
+<P><? echo $blurline ?></P>
+
+<? echo $subhead ?>
+Loki Newsgroups
+<? echo $_subhead ?>
+
+<? echo $text_small ?>
+If you'd like to discuss the games or open source projects with other users--be it for tips, support, or troubleshooting--we've set up news servers just for you. Please note that the official channels for receiving technical support from Loki are through <a href="http://fenris.lokigames.com">Fenris</a> and email to <a href="mailto:support@lokigames.com">support@lokigames.com</a>. Here's a list of the currently available newsgroups:
+<? echo $_text_small ?>
+
+<? echo $table_cp4 ?>
+	<TR>
+		<? tabcell_special('head',2,1) ?>
+		Game Discussion and Support
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+		General discussions about Loki
+		<? tabcell('end') ?>
+		<? tabcell('light') ?>
+		<A HREF="news://news.lokigames.com/loki.misc">loki.misc</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('dark') ?>
+		Announcements from Loki
+		<? tabcell('end') ?>
+		<? tabcell('dark') ?>
+		<A HREF="news://news.lokigames.com/loki.announce">loki.announce</A>
+		<? tabcell('end') ?>
+	</TR>
+	<TR>
+		<? tabcell('light') ?>
+		Requests for game ports from Loki
+		<? tabcell('end') ?>
+		<? tabcell('light') ?>
+		<A HREF="news://news.lokigames.com/loki.requests">loki.requests</A>
+		<? tabcell('end') ?>
+	</TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Civilization: Call to Power
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.civ-ctp">loki.games.civ-ctp</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                &nbsp;
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.civ-ctp.tournament">loki.games.civ-ctp.tournament</A>
+                <? tabcell('end') ?>
+        </TR>
+
+        <TR>
+                <? tabcell('light') ?>
+                Descent 3
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.descent3">loki.games.descent3</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Eric's Ultimate Solitaire
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.e-u-s">loki.games.e-u-s</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Heavy Gear II
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.heavy-gear2">loki.games.heavy-gear2</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Heretic II
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.heretic2">loki.games.heretic2</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Heroes III
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.heroes3">loki.games.heroes3</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Mindrover
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+		<A HREF="news://news.lokigames.com/loki.games.mindrover">loki.games.mindrover</A>
+	</TR>
+        <TR>
+                <? tabcell('light') ?>
+                Myth II: Soulblighter
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.myth2">loki.games.myth2</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Quake III Arena
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.quake3">loki.games.quake3</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Railroad Tycoon II
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.rt2">loki.games.rt2</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Sid Meier's Alpha Centauri
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.smac">loki.games.smac
+</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Sim City 3000
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.games.sc3k">loki.games.sc3k
+</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Soldier of Fortune
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.games.sof">loki.games.sof
+</A>
+	</TR>
+        <TR>
+                <? tabcell_special('head',2,1) ?>
+                Open Source Development
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Fenris Bugtracking System
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.fenris">loki.open-source.fenris</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                OpenAL
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.openal">loki.open-source.openal</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                SDL Motion JPEG Library
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.smjpeg">loki.open-source.smjpeg</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                SDL MPEG Player Library
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.smpeg">loki.open-source.smpeg</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('light') ?>
+                Simple DirectMedia Layer (SDL)
+                <? tabcell('end') ?>
+                <? tabcell('light') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.sdl">loki.open-source.sdl</A>
+                <? tabcell('end') ?>
+        </TR>
+        <TR>
+                <? tabcell('dark') ?>
+                Setup Installer Utility
+                <? tabcell('end') ?>
+                <? tabcell('dark') ?>
+                <A HREF="news://news.lokigames.com/loki.open-source.setup">loki.open-source.setup</A>
+                <? tabcell('end') ?>
+        </TR>
+
+<? echo $_table_cp4 ?>
+
+

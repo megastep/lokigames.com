@@ -1,0 +1,26 @@
+
+			LokiHack '99 Patch
+
+Patch Title: DON'T PANIC!
+Author: Nicholas Leippe
+E-mail: nick@byu.edu
+
+Short Description:  (one line)
+This is supposed to be the 'Don't Panic!' button - when pressed
+will perform random operations, usually to your benefit, but not
+always.
+
+Long Description:   (short paragraph)
+It was going to also be a 'random bugger button' that could only
+be in the possession of one player at a time, up until pressed,
+at which time a random act would be performed against an opponent,
+and then would be up for grabs by anyone.
+
+Documentation:      (how does it work, special features, instructions, etc.)
+To get it, type '%NCL%'.
+
+Known Bugs: none? but not finished
+the binary in this didn't link right, and doesn't perform the callback
+as currently in the code...
+
+---

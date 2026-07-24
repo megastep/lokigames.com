@@ -1,0 +1,35 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Flat World and Replication
+Author: Dennis Payne
+E-mail: dulsi@identicalsoftware.com
+
+Short Description:
+Flat world mode along with multiplying and non healing units
+
+Long Description:
+Flat world is just a world with edges on all sides.  Multiplying creatures
+do just as the name implies.  As long as they stand still they have a
+chance of replicating.  The non-healing unit option is mainly intended for
+limiting the replicating units.  But could be used for cheap robots or
+something.  And I restored the Aztec civilization to the game since
+Activision accidently left them out.
+
+Documentation:
+Flat world is an option on the new game screen.  The world currently has a
+few bugs.  Path finding doesn't recognize that the edges.  Also the
+exploration of certain areas is buggy.  I know where the error is
+Vision::CheckWrap() but haven't corrected the issue.  Also Neighbor square
+finding isn't quite right.  For units I added the slime which can replicate
+but not heal.  Every turn it waits it has a 50% chance of multiplying.
+(Otherwise they are identical to Warriors.  This includes the maintanance
+costs.)  Finally I put in the Aztecs which should have been there all along.
+
+Known Bugs:
+Flat world still buggy.  Check MapPoint neighbor finding and
+Vision::CheckWrap().  Also if war is set lower than normal the
+"Can't Heal" units will start with a lower health (could add special forces
+to compensate).
+
+---

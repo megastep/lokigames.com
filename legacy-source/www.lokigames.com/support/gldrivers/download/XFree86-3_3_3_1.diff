@@ -1,0 +1,1379 @@
+Index: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/nv_driver.c
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/nv_driver.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.3
+diff -u -r1.1.1.1 -r1.3
+--- nv_driver.c	1999/02/04 23:21:01	1.1.1.1
++++ nv_driver.c	1999/03/31 01:48:44	1.3
+@@ -135,7 +135,11 @@
+   { "NV1",NV1,PCI_VENDOR_NVIDIA,PCI_CHIP_DAC64},
+   { "STG2000",NV1,PCI_VENDOR_SGS,PCI_CHIP_STG1764},
+   { "RIVA128",NV3,PCI_VENDOR_NVIDIA_SGS,PCI_CHIP_RIVA128},
+-  { "RIVATNT",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_TNT}
++  { "RIVATNT",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_TNT},
++  { "RIVATNT2",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_TNT2},
++  { "RIVATNT2",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_UTNT2},
++  { "RIVATNT2",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_VTNT2},
++  { "RIVATNT2",NV4,PCI_VENDOR_NVIDIA,PCI_CHIP_ITNT2}
+ };
+ 
+ 
+Index: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_hw.c
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_hw.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.7
+diff -u -r1.1.1.1 -r1.7
+--- riva_hw.c	1999/02/04 23:21:01	1.1.1.1
++++ riva_hw.c	1999/04/08 01:31:19	1.7
+@@ -1,6 +1,6 @@
+  /***************************************************************************\
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NOTICE TO USER:   The source code  is copyrighted under  U.S. and     *|
+ |*     international laws.  Users and possessors of this source code are     *|
+@@ -11,7 +11,7 @@
+ |*     tion and  internal comments to the code,  notices to the end user     *|
+ |*     as follows:                                                           *|
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NVIDIA, CORPORATION MAKES NO REPRESENTATION ABOUT THE SUITABILITY     *|
+ |*     OF  THIS SOURCE  CODE  FOR ANY PURPOSE.  IT IS  PROVIDED  "AS IS"     *|
+@@ -36,7 +36,6 @@
+ |*     those rights set forth herein.                                        *|
+ |*                                                                           *|
+  \***************************************************************************/
+-/* $XFree86: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_hw.c,v 1.1.2.3 1998/12/26 00:12:39 dawes Exp $ */
+ 
+ #include "riva_hw.h"
+ #include "riva_tbl.h"
+@@ -172,7 +171,7 @@
+     int vlwm, glwm, mlwm;
+     int last, next, cur;
+     int max_gfsize ;
+-    long ns;
++    long long ns;
+ 
+     vlwm = 0;
+     glwm = 0;
+@@ -205,7 +204,7 @@
+             if (ainfo->wcglwm > glwm) ainfo->wcglwm = glwm ;
+             if (ainfo->wcgocc > ainfo->gocc) ainfo->wcgocc = ainfo->gocc;
+             ns = 1000000 * (ainfo->gburst_size/(state->memory_width/8))/state->mclk_khz;
+-            gfsize = ns *ainfo->gdrain_rate/1000000;
++            gfsize = (ns * (long long) ainfo->gdrain_rate)/1000000;
+             gfsize = ainfo->wcglwm - ainfo->gburst_size + gfsize;
+         }
+         mfsize = 0;
+@@ -302,7 +301,7 @@
+         }
+         ns = 1000000*ainfo->gburst_size/(state->memory_width/8)/state->mclk_khz;
+         tmp = ns * ainfo->gdrain_rate/1000000;
+-        if (ABS(ainfo->gburst_size) + ((ABS(ainfo->wcglwm) + 16 ) & ~0x7)    - tmp > max_gfsize)
++        if (ABS(ainfo->gburst_size) + ((ABS(ainfo->wcglwm) + 16 ) & ~0x7) - tmp > max_gfsize)
+         {
+             ainfo->converged = 0;
+             return (1);
+@@ -349,7 +348,7 @@
+ static char nv3_arb(nv3_fifo_info * res_info, nv3_sim_state * state,  nv3_arb_info *ainfo) 
+ {
+     int  g, v, not_done;
+-    long ens, vns, mns, gns;
++    long long ens, vns, mns, gns;
+     int mmisses, gmisses, vmisses, eburst_size, mburst_size;
+     int refresh_cycle;
+ 
+@@ -445,6 +444,9 @@
+     }
+     else
+     {
++#ifdef nARBDEBUG
++        ErrorF("** Non-converged!\n");
++#endif
+         res_info->graphics_lwm = 256;
+         res_info->video_lwm = 128;
+         res_info->graphics_burst_size = 64;
+@@ -457,36 +459,32 @@
+ static char nv3_get_param(nv3_fifo_info *res_info, nv3_sim_state * state, nv3_arb_info *ainfo)
+ {
+     int done, g,v, p;
+-    int priority, gburst_size, vburst_size, iter;
++    int priority, gburst_size, vburst_size;
+     
+     done = 0;
+-    if (state->gr_during_vid && ainfo->vid_en)
+-        ainfo->priority = MPORT;
+-    else
+-        ainfo->priority = ainfo->gdrain_rate < ainfo->vdrain_rate ? VIDEO: GRAPHICS;
+-    for (p=0; p < 2 && done != 1; p++)
++    for (p=0; p < 2; p++)
+     {
+-        for (g=128 ; (g > 32) && (done != 1); g= g>> 1)
++        for (g=128 ; g > 32; g= g>> 1)
+         {
+-            for (v=128; (v >=32) && (done !=1); v = v>> 1)
++            for (v=128; v >=32; v = v>> 1)
+             {
+                 ainfo->priority = p;
+                 ainfo->gburst_size = g;     
+                 ainfo->vburst_size = v;
+                 done = nv3_arb(res_info, state,ainfo);
+-                if (g==128)
+-                {
++                if (done && (g==128))
+                     if ((res_info->graphics_lwm + g) > 256)
+                         done = 0;
+-                }
++                if (done)
++                    goto Done;
+             }
+         }
+     }
+-    if (!done)
+-        return (0);
+-    else
+-        return (1);
++
++ Done:
++    return done;
+ }
++
+ static void nv3CalcArbitration 
+ (
+     nv3_fifo_info * res_info,
+@@ -501,7 +499,7 @@
+     ainfo.vid_en = state->enable_video;
+     ainfo.vid_only_once = 0;
+     ainfo.gr_only_once = 0;
+-    ainfo.gdrain_rate = (int) state->pclk_khz * state -> pix_bpp/8;
++    ainfo.gdrain_rate = (int) state->pclk_khz * (state->pix_bpp/8);
+     ainfo.vdrain_rate = (int) state->pclk_khz * 2;
+     if (state->video_scale != 0)
+         ainfo.vdrain_rate = ainfo.vdrain_rate/state->video_scale;
+@@ -519,7 +517,7 @@
+         ainfo.vid_en = 1;
+         ainfo.vid_only_once = 1;
+         ainfo.gr_en = 1;
+-        ainfo.gdrain_rate = (int) state->pclk_khz * state -> pix_bpp/8;
++        ainfo.gdrain_rate = (int) state->pclk_khz * (state->pix_bpp/8);
+         ainfo.vdrain_rate = 0;
+         res_gr = nv3_get_param(res_info, state,  &ainfo);
+         res_gr = ainfo.converged;
+@@ -557,9 +555,10 @@
+     sim_data.video_scale    = 1;
+     sim_data.memory_width   = (chip->PEXTDEV[0x00000000/4] & 0x10) ? 128 : 64;
+     sim_data.memory_width   = 128;
+-    sim_data.mem_latency    = 11;
++
++    sim_data.mem_latency    = 9;
+     sim_data.mem_aligned    = 1;
+-    sim_data.mem_page_miss  = 9;
++    sim_data.mem_page_miss  = 11;
+     sim_data.gr_during_vid  = 0;
+     sim_data.pclk_khz       = VClk;
+     sim_data.mclk_khz       = MClk;
+@@ -574,7 +573,7 @@
+     else
+     {
+         *lwm   = 0x24;
+-        *burst = 0x02;
++        *burst = 0x2;
+     }
+ }
+ static void nv4CalcArbitration 
+@@ -773,6 +772,7 @@
+ static int CalcVClock
+ (
+     int           clockIn,
++    int           double_scan,
+     int          *clockOut,
+     int          *mOut,
+     int          *nOut,
+@@ -786,7 +786,11 @@
+     unsigned M, N, O, P;
+     
+     DeltaOld = 0xFFFFFFFF;
++
+     VClk     = (unsigned)clockIn;
++    if (double_scan)
++        VClk *= 2;
++    
+     if (chip->CrystalFreqKHz == 14318)
+     {
+         lowM  = 8;
+@@ -797,6 +801,7 @@
+         lowM  = 7;
+         highM = 13 - (chip->Architecture == 3);
+     }                      
++
+     highP = 4 - (chip->Architecture == 3);
+     for (P = 0; P <= highP; P ++)
+     {
+@@ -822,7 +827,11 @@
+             }
+         }
+     }
+-    return (DeltaOld != 0xFFFFFFFF);
++
++    if (DeltaOld == 0xFFFFFFFF)
++        FatalError("RIVA ERROR: did not generate good VClk\n");
++
++    return DeltaOld != 0xFFFFFFFF;
+ }
+ /*
+  * Calculate extended mode parameters (SVGA) and save in a 
+@@ -858,7 +867,13 @@
+      * Extended RIVA registers.
+      */
+     pixelDepth = (bpp + 1)/8;
+-    CalcVClock(dotClock, &VClk, &m, &n, &p, chip);
++    CalcVClock(dotClock, hDisplaySize < 512,  /* double scan? */
++               &VClk, &m, &n, &p, chip);
++
++#ifdef ARBDEBUG
++    ErrorF("** VClk is %d\n", VClk);
++#endif
++
+     switch (chip->Architecture)
+     {
+         case 3:
+@@ -876,6 +891,12 @@
+                             | 0x1000;
+             state->general  = 0x00000100;
+             state->repaint1 = hDisplaySize < 1280 ? 0x06 : 0x02;
++#ifdef ARBDEBUG
++    ErrorF("** %2d bpp; burst: 0x%02x  lwm: 0x%02x\n",
++           state->bpp,
++           state->arbitration0,
++           state->arbitration1);
++#endif
+             break;
+         case 4:
+             nv4UpdateArbitrationSettings(VClk, 
+@@ -890,6 +911,14 @@
+             state->config   = 0x00001114;
+             state->general  = bpp == 16 ? 0x00101100 : 0x00100100;
+             state->repaint1 = hDisplaySize < 1280 ? 0x04 : 0x00;
++#ifdef ARBDEBUG
++    ErrorF("** %2d bpp; %4dx%-4d; burst: 0x%02x  lwm: 0x%02x\n",
++           state->bpp,
++           state->width,
++           state->height,
++           state->arbitration0,
++           state->arbitration1);
++#endif
+             break;
+     }
+     state->vpll     = (p << 16) | (n << 8) | m;
+@@ -1056,6 +1085,10 @@
+      * Reset FIFO free count.
+      */
+     chip->FifoFreeCount = 0;
++
++#ifdef ARBDEBUG
++    ErrorF("** Set\n");
++#endif
+ }
+ static void UnloadStateExt
+ (
+@@ -1248,7 +1281,7 @@
+     chip->VBLANKENABLE     = &(chip->PGRAPH[0x0140/4]);
+     chip->VBLANK           = &(chip->PGRAPH[0x0100/4]);
+     chip->VBlankBit        = 0x00000100;
+-    chip->MaxVClockFreqKHz = 230000;
++    chip->MaxVClockFreqKHz = 256000;
+     chip->LockUnlockIO     = 0x3C4;
+     chip->LockUnlockIndex  = 0x06;
+     /*
+@@ -1271,21 +1304,29 @@
+     /*
+      * Fill in chip configuration.
+      */
+-    switch (chip->PFB[0x00000000/4] & 0x00000003)
++    if (chip->PFB[0x00000000/4] & 0x00000100)
+     {
+-        case 0:
+-            chip->RamAmountKBytes = 1024 * 32 - 128;
+-            break;
+-        case 1:
+-            chip->RamAmountKBytes = 1024 * 4 - 128;
+-            break;
+-        case 2:
+-            chip->RamAmountKBytes = 1024 * 8 - 128;
+-            break;
+-        case 3:
+-        default:
+-            chip->RamAmountKBytes = 1024 * 16 - 128;
+-            break;
++        chip->RamAmountKBytes = ((chip->PFB[0x00000000/4] >> 12) & 0x0F) * 1024 * 2
++                              + 1024 * 2 - 128;
++    }
++    else
++    {
++        switch (chip->PFB[0x00000000/4] & 0x00000003)
++        {
++            case 0:
++                chip->RamAmountKBytes = 1024 * 32 - 128;
++                break;
++            case 1:
++                chip->RamAmountKBytes = 1024 * 4 - 128;
++                break;
++            case 2:
++                chip->RamAmountKBytes = 1024 * 8 - 128;
++                break;
++            case 3:
++            default:
++                chip->RamAmountKBytes = 1024 * 16 - 128;
++                break;
++        }
+     }
+     switch ((chip->PFB[0x00000000/4] >> 3) & 0x00000003)
+     {
+@@ -1302,7 +1343,7 @@
+     chip->VBLANKENABLE     = &(chip->PCRTC[0x0140/4]);
+     chip->VBLANK           = &(chip->PCRTC[0x0100/4]);
+     chip->VBlankBit        = 0x00000001;
+-    chip->MaxVClockFreqKHz = 250000;
++    chip->MaxVClockFreqKHz = 350000;
+     chip->LockUnlockIO     = 0x3D4;
+     chip->LockUnlockIndex  = 0x1F;
+     /*
+Index: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_hw.h
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_hw.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -u -r1.1.1.1 -r1.2
+--- riva_hw.h	1999/02/04 23:21:01	1.1.1.1
++++ riva_hw.h	1999/04/08 01:31:19	1.2
+@@ -1,6 +1,6 @@
+ /***************************************************************************\
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NOTICE TO USER:   The source code  is copyrighted under  U.S. and     *|
+ |*     international laws.  Users and possessors of this source code are     *|
+@@ -11,7 +11,7 @@
+ |*     tion and  internal comments to the code,  notices to the end user     *|
+ |*     as follows:                                                           *|
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NVIDIA, CORPORATION MAKES NO REPRESENTATION ABOUT THE SUITABILITY     *|
+ |*     OF  THIS SOURCE  CODE  FOR ANY PURPOSE.  IT IS  PROVIDED  "AS IS"     *|
+Index: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_tbl.h
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_tbl.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.8
+diff -u -r1.1.1.1 -r1.8
+--- riva_tbl.h	1999/02/04 23:21:01	1.1.1.1
++++ riva_tbl.h	1999/04/14 03:07:16	1.8
+@@ -1,6 +1,6 @@
+  /***************************************************************************\
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NOTICE TO USER:   The source code  is copyrighted under  U.S. and     *|
+ |*     international laws.  Users and possessors of this source code are     *|
+@@ -11,7 +11,7 @@
+ |*     tion and  internal comments to the code,  notices to the end user     *|
+ |*     as follows:                                                           *|
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NVIDIA, CORPORATION MAKES NO REPRESENTATION ABOUT THE SUITABILITY     *|
+ |*     OF  THIS SOURCE  CODE  FOR ANY PURPOSE.  IT IS  PROVIDED  "AS IS"     *|
+@@ -36,7 +36,6 @@
+ |*     those rights set forth herein.                                        *|
+ |*                                                                           *|
+  \***************************************************************************/
+-/* $XFree86: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_tbl.h,v 1.1.2.2 1998/12/22 16:33:20 hohndel Exp $ */
+ /*
+  * RIVA Fixed Functionality Init Tables.
+  */
+@@ -182,9 +181,11 @@
+ };
+ static unsigned nv3TablePRAMIN_8BPP[][2] =
+ {
++    /*           0xXXXXX3XX For  MSB mono format */
++    /*           0xXXXXX2XX For  LSB mono format */
+     {0x00000D04, 0x10110203},
+     {0x00000D08, 0x10110203},
+-    {0x00000D0C, 0x10110203},
++    {0x00000D0C, 0x1011020B},
+     {0x00000D10, 0x10118203},
+     {0x00000D14, 0x10110203},
+     {0x00000D18, 0x10110203},
+@@ -192,9 +193,11 @@
+ };
+ static unsigned nv3TablePRAMIN_15BPP[][2] =
+ {
++    /*           0xXXXXX2XX For  MSB mono format */
++    /*           0xXXXXX3XX For  LSB mono format */
+     {0x00000D04, 0x10110200},
+     {0x00000D08, 0x10110200},
+-    {0x00000D0C, 0x10110200},
++    {0x00000D0C, 0x10110208},
+     {0x00000D10, 0x10118200},
+     {0x00000D14, 0x10110200},
+     {0x00000D18, 0x10110200},
+@@ -202,9 +205,11 @@
+ };
+ static unsigned nv3TablePRAMIN_32BPP[][2] =
+ {
++    /*           0xXXXXX3XX For  MSB mono format */
++    /*           0xXXXXX2XX For  LSB mono format */
+     {0x00000D04, 0x10110201},
+     {0x00000D08, 0x10110201},
+-    {0x00000D0C, 0x10110201},
++    {0x00000D0C, 0x10110209},
+     {0x00000D10, 0x10118201},
+     {0x00000D14, 0x10110201},
+     {0x00000D18, 0x10110201},
+@@ -273,45 +278,43 @@
+     {0x0000005A, 0x00000000},
+     {0x0000005B, 0x00000000},
+     {0x00000196, 0x00000000},
+-    {0x000001A1, 0x00FFFFFF},
++    {0x000001A1, 0x01FFFFFF},
+     {0x00000197, 0x00000000},
+-    {0x000001A2, 0x00FFFFFF},
++    {0x000001A2, 0x01FFFFFF},
+     {0x00000198, 0x00000000},
+-    {0x000001A3, 0x00FFFFFF},
++    {0x000001A3, 0x01FFFFFF},
+     {0x00000199, 0x00000000},
+-    {0x000001A4, 0x00FFFFFF},
++    {0x000001A4, 0x01FFFFFF},
+     {0x00000050, 0x00000000},
+     {0x00000040, 0xFFFFFFFF},
+     {0x0000005C, 0x10010100},
+-    {0x000001C8, 0x00000001}
++    {0x000001C4, 0xFFFFFFFF},
++    {0x000001C8, 0x00000001},
++    {0x00000204, 0x00000000}
+ };
+ static unsigned nv4TablePGRAPH_8BPP[][2] =
+ {
+-    {0x000001C4, 0xFFFFFFFF},
+     {0x000001C9, 0x00111111},
+     {0x00000186, 0x00001010},
+-    {0x0000020C, 0x01010101}
++    {0x0000020C, 0x03020202}
+ };
+ static unsigned nv4TablePGRAPH_15BPP[][2] =
+ {
+-    {0x000001C4, 0xFFFFFFFF},
+     {0x000001C9, 0x00226222},
+     {0x00000186, 0x00002071},
+-    {0x0000020C, 0x09090909}
++    {0x0000020C, 0x09080808}
+ };
+ static unsigned nv4TablePGRAPH_16BPP[][2] =
+ {
+-    {0x000001C4, 0xFFFFFFFF},
+     {0x000001C9, 0x00556555},
+     {0x00000186, 0x000050C2},
+-    {0x0000020C, 0x0C0C0C0C}
++    {0x0000020C, 0x0C0B0B0B}
+ };
+ static unsigned nv4TablePGRAPH_32BPP[][2] =
+ {
+-    {0x000001C4, 0xFFFFFFFF},
+     {0x000001C9, 0x0077D777},
+     {0x00000186, 0x000070E5},
+-    {0x0000020C, 0x07070707}
++    {0x0000020C, 0x0E0D0D0D}
+ };
+ static unsigned nv4TablePRAMIN[][2] =
+ {
+@@ -323,6 +326,10 @@
+     {0x00000005, 0x80011147},
+     {0x00000006, 0x80000013},
+     {0x00000007, 0x80011148},
++    {0x00000008, 0x80000014},
++    {0x00000009, 0x80011149},
++    {0x0000000A, 0x80000015},
++    {0x0000000B, 0x8001114A},
+     {0x00000020, 0x80000000},
+     {0x00000021, 0x80011142},
+     {0x00000022, 0x80000001},
+@@ -330,7 +337,7 @@
+     {0x00000024, 0x80000002},
+     {0x00000025, 0x80011144}, 
+     {0x00000500, 0x00003000},
+-    {0x00000501, 0x02FFFFFF},
++    {0x00000501, 0x01FFFFFF},
+     {0x00000502, 0x00000002},
+     {0x00000503, 0x00000002},
+     {0x00000508, 0x01008043},
+@@ -339,7 +346,11 @@
+     {0x0000050C, 0x01008019},
+     {0x0000050E, 0x00000000},
+     {0x0000050F, 0x00000000},
++#if 1
+     {0x00000510, 0x01008018},
++#else
++    {0x00000510, 0x01008044},
++#endif
+     {0x00000512, 0x00000000},
+     {0x00000513, 0x00000000},
+     {0x00000514, 0x0100A033},
+@@ -348,48 +359,68 @@
+     {0x00000518, 0x0100805F},
+     {0x0000051A, 0x00000000},
+     {0x0000051B, 0x00000000},
++#if 1
+     {0x0000051C, 0x0100804B},
++#else
++    {0x0000051C, 0x0100804A},
++#endif
+     {0x0000051E, 0x00000000},
+     {0x0000051F, 0x00000000},
+     {0x00000520, 0x0100A048},
+     {0x00000521, 0x00000D01},
+     {0x00000522, 0x11401140},
+-    {0x00000523, 0x00000000}
++    {0x00000523, 0x00000000},
++    {0x00000524, 0x0100A054},
++    {0x00000525, 0x00000D01},
++    {0x00000526, 0x11401140},
++    {0x00000527, 0x00000000},
++    {0x00000528, 0x0100A055},
++    {0x00000529, 0x00000D01},
++    {0x0000052A, 0x11401140},
++    {0x0000052B, 0x00000000}
+ };
+ static unsigned nv4TablePRAMIN_8BPP[][2] =
+ {
+-    {0x00000509, 0x00000301},
+-    {0x0000050D, 0x00000301},
+-    {0x00000511, 0x00000301},
+-    {0x00000515, 0x00000301},
+-    {0x00000519, 0x00000301},
+-    {0x0000051D, 0x00000301}
++    /*           0xXXXXXX01 For  MSB mono format */
++    /*           0xXXXXXX02 For  LSB mono format */
++    {0x00000509, 0x00000302},
++    {0x0000050D, 0x00000302},
++    {0x00000511, 0x00000202},
++    {0x00000515, 0x00000302},
++    {0x00000519, 0x00000302},
++    {0x0000051D, 0x00000302}
+ };
+ static unsigned nv4TablePRAMIN_15BPP[][2] =
+ {
+-    {0x00000509, 0x00000901},
+-    {0x0000050D, 0x00000901},
+-    {0x00000511, 0x00000901},
+-    {0x00000515, 0x00000901},
+-    {0x00000519, 0x00000901},
+-    {0x0000051D, 0x00000901}
++    /*           0xXXXXXX01 For  MSB mono format */
++    /*           0xXXXXXX02 For  LSB mono format */
++    {0x00000509, 0x00000902},
++    {0x0000050D, 0x00000902},
++    {0x00000511, 0x00000802},
++    {0x00000515, 0x00000902},
++    {0x00000519, 0x00000902},
++    {0x0000051D, 0x00000902}
+ };
+ static unsigned nv4TablePRAMIN_16BPP[][2] =
+ {
+-    {0x00000509, 0x00000C01},
+-    {0x0000050D, 0x00000C01},
+-    {0x00000511, 0x00000C01},
+-    {0x00000515, 0x00000C01},
+-    {0x00000519, 0x00000C01},
+-    {0x0000051D, 0x00000C01}
++    /*           0xXXXXXX01 For  MSB mono format */
++    /*           0xXXXXXX02 For  LSB mono format */
++    {0x00000509, 0x00000C02},
++    {0x0000050D, 0x00000C02},
++    {0x00000511, 0x00000B02},
++    {0x00000515, 0x00000C02},
++    {0x00000519, 0x00000C02},
++    {0x0000051D, 0x00000C02}
+ };
+ static unsigned nv4TablePRAMIN_32BPP[][2] =
+ {
+-    {0x00000509, 0x00000E01},
+-    {0x0000050D, 0x00000E01},
+-    {0x00000511, 0x00000E01},
+-    {0x00000515, 0x00000E01},
+-    {0x00000519, 0x00000E01},
+-    {0x0000051D, 0x00000E01}
++    /*           0xXXXXXX01 For  MSB mono format */
++    /*           0xXXXXXX02 For  LSB mono format */
++    {0x00000509, 0x00000E02},
++    {0x0000050D, 0x00000E02},
++    {0x00000511, 0x00000D02},
++    {0x00000515, 0x00000E02},
++    {0x00000519, 0x00000E02},
++    {0x0000051D, 0x00000E02}
+ };
+ 
+Index: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_xaa.c
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_xaa.c,v
+retrieving revision 1.1.1.1
+retrieving revision 1.17
+diff -u -r1.1.1.1 -r1.17
+--- riva_xaa.c	1999/02/04 23:21:01	1.1.1.1
++++ riva_xaa.c	1999/04/17 07:37:37	1.17
+@@ -1,6 +1,6 @@
+  /***************************************************************************\
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NOTICE TO USER:   The source code  is copyrighted under  U.S. and     *|
+ |*     international laws.  Users and possessors of this source code are     *|
+@@ -11,7 +11,7 @@
+ |*     tion and  internal comments to the code,  notices to the end user     *|
+ |*     as follows:                                                           *|
+ |*                                                                           *|
+-|*       Copyright 1993-1998 NVIDIA, Corporation.  All rights reserved.      *|
++|*       Copyright 1993-1999 NVIDIA, Corporation.  All rights reserved.      *|
+ |*                                                                           *|
+ |*     NVIDIA, CORPORATION MAKES NO REPRESENTATION ABOUT THE SUITABILITY     *|
+ |*     OF  THIS SOURCE  CODE  FOR ANY PURPOSE.  IT IS  PROVIDED  "AS IS"     *|
+@@ -36,9 +36,9 @@
+ |*     those rights set forth herein.                                        *|
+ |*                                                                           *|
+  \***************************************************************************/
+-/* $XFree86: xc/programs/Xserver/hw/xfree86/vga256/drivers/nv/riva_xaa.c,v 1.1.2.4 1998/12/26 00:12:39 dawes Exp $ */
++
+ /*
+- * Based on the NV1, NV3 code by Dave McKay.
++ * Based initially on the NV1, NV3 code by Dave McKay.
+  *
+  * Copyright 1996-1997  David J. McKay
+  */
+@@ -88,6 +88,10 @@
+ #define SetBit(n) (1<<(n))
+ #define Set8Bits(value) ((value)&0xff)
+ /*
++ * Macro to define valid rectangle.
++ */
++#define RIVA_RECT_VALID(rr)  (((rr).x1 < (rr).x2) && ((rr).y1 < (rr).y2))
++/*
+  * RIVA hardware instance structure.
+  */
+ RIVA_HW_INST riva;
+@@ -112,6 +116,37 @@
+  */
+ int rivaRendered2D = 0;
+ /*
++ * Opaque monochrome bits.
++ */
++unsigned int rivaOpaqueMonochrome;
++/*
++ * Set scissor clip rect.  Internal routine.
++ */
++static void RivaSetClippingRectangle(int x1, int y1, int x2, int y2)
++{
++    int height = y2-y1 + 1;
++    int width  = x2-x1 + 1;
++
++    rivaRendered2D = 1;
++    RIVA_FIFO_FREE(riva, Clip, 2);
++    riva.Clip->TopLeft     = (y1     << 16) | x1;
++    riva.Clip->WidthHeight = (height << 16) | width;
++}
++/*
++ * Set pattern. Internal routine. The upper bits of the colors
++ * are the ALPHA bits.  0 == transparency.
++ */
++static void RivaSetPattern(int clr0, int clr1, int pat0, int pat1)
++{
++    rivaRendered2D = 1;
++    RIVA_FIFO_FREE(riva, Patt, 5);
++    riva.Patt->Shape         = 0; /* 0 = 8X8, 1 = 64X1, 2 = 1X64 */
++    riva.Patt->Color0        = clr0;
++    riva.Patt->Color1        = clr1;
++    riva.Patt->Monochrome[0] = pat0;
++    riva.Patt->Monochrome[1] = pat1;
++}
++/*
+  * Set ROP.  Translate X rop into ROP3.  Internal routine.
+  */
+ static int currentRop = -1;
+@@ -139,6 +174,8 @@
+     
+     if (currentRop != rop)
+     {
++        if (currentRop > 16)
++            RivaSetPattern(0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF);
+         currentRop     = rop;
+         rivaRendered2D = 1;
+         RIVA_FIFO_FREE(riva, Rop, 1);
+@@ -176,43 +213,54 @@
+     }
+ }
+ /*
+- * Set scissor clip rect.  Internal routine.
+- */
+-static void RivaSetClippingRectangle(int x1, int y1, int x2, int y2)
++ * Fill solid rectangles.
++ */                                           
++static void RivaSetupForFillRectSolid(int color, int rop, unsigned planemask)
+ {
+-    int height = y2-y1 + 1;
+-    int width  = x2-x1 + 1;
+-
++    RivaSetRopSolid(rop);
+     rivaRendered2D = 1;
+-    RIVA_FIFO_FREE(riva, Clip, 2);
+-    riva.Clip->TopLeft     = (y1     << 16) | x1;
+-    riva.Clip->WidthHeight = (height << 16) | width;
++    RIVA_FIFO_FREE(riva, Bitmap, 1);
++    riva.Bitmap->Color1A = color;
+ }
+-/*
+- * Set pattern. Internal routine.
+- */
+-static void RivaSetPattern(int clr0, int clr1, int pat0, int pat1)
++static void RivaSubsequentFillRectSolid(int x, int y, int w, int h)
+ {
+-    rivaRendered2D = 1;
+-    RIVA_FIFO_FREE(riva, Patt, 5);
+-    riva.Patt->Shape         = 0; /* 0 = 8X8, 1 = 64X1, 2 = 1X64 */
+-    riva.Patt->Color0        = clr0;
+-    riva.Patt->Color1        = clr1;
+-    riva.Patt->Monochrome[0] = pat0;
+-    riva.Patt->Monochrome[1] = pat1;
++    RIVA_FIFO_FREE(riva, Bitmap, 2);
++    riva.Bitmap->UnclippedRectangle[0].TopLeft     = (x << 16) | y;
++    riva.Bitmap->UnclippedRectangle[0].WidthHeight = (w << 16) | h;
+ }
+ /*
+- * Fill solid rectangles.
++ * Fill 8x8 monochrome pattern rectangles.  patternx and patterny are
++ * the overloaded pattern bits themselves. The pattern colors don't
++ * support 565, only 555. Hack around it.
+  */                                           
+-static void RivaSetupForFillRectSolid(int color, int rop, unsigned planemask)
++static void RivaSetupFor8x8PatternColorExpand(int patternx, int patterny, int bg, int fg, int rop, unsigned planemask)
+ {
+-    RivaSetRopSolid(rop);
+-    
++    RivaSetRopPattern(rop);
+     rivaRendered2D = 1;
++    if (vga256InfoRec.bitsPerPixel == 16 && xf86weight.green == 6)
++    {
++        fg = ((fg & 0x0000F800) << 8)
++           | ((fg & 0x000007E0) << 5)
++           | ((fg & 0x0000001F) << 3)
++           |        0xFF000000;
++        if (bg != -1)
++            bg = ((bg & 0x0000F800) << 8)
++               | ((bg & 0x000007E0) << 5)
++               | ((bg & 0x0000001F) << 3)
++               |        0xFF000000;
++        else
++            bg = 0;
++    }
++    else
++    {
++        fg |= rivaOpaqueMonochrome;
++        bg  = (bg == -1) ? 0 : bg | rivaOpaqueMonochrome;
++    }
++    RivaSetPattern(bg, fg, patternx, patterny);
+     RIVA_FIFO_FREE(riva, Bitmap, 1);
+-    riva.Bitmap->Color1A = color;
++    riva.Bitmap->Color1A = fg;
+ }
+-static void RivaSubsequentFillRectSolid(int x, int y, int w, int h)
++static void RivaSubsequent8x8PatternColorExpand(int patternx, int patterny, int x, int y, int w, int h)
+ {
+     RIVA_FIFO_FREE(riva, Bitmap, 2);
+     riva.Bitmap->UnclippedRectangle[0].TopLeft     = (x << 16) | y;
+@@ -234,6 +282,447 @@
+     riva.Blt->WidthHeight = (h  << 16) | w;
+ }
+ /*
++ * Individual glyph routines.
++ */
++static void RivaTransparentGlyph(int x, int y, int w, int h, unsigned long *pbits)
++{
++    int i, padHeight, padWidth;
++
++    RIVA_FIFO_FREE(riva, Bitmap, 3);
++    if (w <= 8)
++    {
++        padHeight = (h + 3) >> 2;
++        riva.Bitmap->WidthHeightInD  = (padHeight << (16 + 2)) | 8;
++        riva.Bitmap->WidthHeightOutD = (h         <<  16)      | w;
++        riva.Bitmap->PointD          = (y         <<  16)      | (x & 0xFFFF);
++        while (padHeight--)
++        {
++            RIVA_FIFO_FREE(riva, Bitmap, 1);
++            riva.Bitmap->MonochromeData1D = (pbits[0])
++                                          | (pbits[1] << 8)
++                                          | (pbits[2] << 16)
++                                          | (pbits[3] << 24);
++            pbits += 4;
++        }
++    }
++    else if (w <= 16)
++    {
++        padHeight = (h + 1) >> 1;
++        riva.Bitmap->WidthHeightInD  = (padHeight << (16 + 1)) | 16;
++        riva.Bitmap->WidthHeightOutD = (h         <<  16)      | w;
++        riva.Bitmap->PointD          = (y         <<  16)      | (x & 0xFFFF);
++        while (padHeight--)
++        {
++            RIVA_FIFO_FREE(riva, Bitmap, 1);
++            riva.Bitmap->MonochromeData1D = (pbits[0])
++                                          | (pbits[1] << 16);
++            pbits += 2;
++        }
++    }
++    else
++    {
++        padWidth = (w + 31) >> 5;
++        riva.Bitmap->WidthHeightInD  = (h << 16) | (padWidth << 5);
++        riva.Bitmap->WidthHeightOutD = (h << 16) | w;
++        riva.Bitmap->PointD          = (y << 16) | (x & 0xFFFF);
++        while (h--)
++            for (i = 0; i < padWidth; i++)
++            {
++                RIVA_FIFO_FREE(riva, Bitmap, 1);
++                riva.Bitmap->MonochromeData1D = *pbits++;
++            }
++    }
++}
++static void RivaOpaqueGlyph(int x, int y, int w, int h, unsigned long *pbits)
++{
++    int i, padHeight, padWidth;
++
++    RIVA_FIFO_FREE(riva, Bitmap, 3);
++    if (w <= 8)
++    {
++        padHeight = (h + 3) >> 2;
++        riva.Bitmap->WidthHeightInE  = (padHeight << (16 + 2)) | 8;
++        riva.Bitmap->WidthHeightOutE = (h         <<  16)      | w;
++        riva.Bitmap->PointE          = (y         <<  16)      | (x & 0xFFFF);
++        while (padHeight--)
++        {
++            RIVA_FIFO_FREE(riva, Bitmap, 1);
++            riva.Bitmap->MonochromeData01E = (pbits[0])
++                                           | (pbits[1] << 8)
++                                           | (pbits[2] << 16)
++                                           | (pbits[3] << 24);
++            pbits += 4;
++        }
++    }
++    else if (w <= 16)
++    {
++        padHeight = (h + 1) >> 1;
++        riva.Bitmap->WidthHeightInE  = (padHeight << (16 + 1)) | 16;
++        riva.Bitmap->WidthHeightOutE = (h         <<  16)      | w;
++        riva.Bitmap->PointE          = (y         <<  16)      | (x & 0xFFFF);
++        while (padHeight--)
++        {
++            RIVA_FIFO_FREE(riva, Bitmap, 1);
++            riva.Bitmap->MonochromeData01E = (pbits[0])
++                                           | (pbits[1] << 16);
++            pbits += 2;
++        }
++    }
++    else
++    {
++        padWidth = (w + 31) >> 5;
++        riva.Bitmap->WidthHeightInE  = (h << 16) | (padWidth << 5);
++        riva.Bitmap->WidthHeightOutE = (h << 16) | w;
++        riva.Bitmap->PointE          = (y << 16) | (x & 0xFFFF);
++        while (h--)
++            for (i = 0; i < padWidth; i++)
++            {
++                RIVA_FIFO_FREE(riva, Bitmap, 1);
++                riva.Bitmap->MonochromeData01E = *pbits++;
++            }
++    }
++}
++/*
++ * Terminal Emulator font routines.
++ */
++static void RivaPolyGlyphBltTE(DrawablePtr pDrawable, GCPtr pGC, int xInit, int yInit, int nglyph, CharInfoPtr *ppci, unsigned char *pglyphBase)
++{
++    FontPtr   pfont = pGC->font;
++    RegionPtr cclip;
++    BoxPtr    pclipRect;
++    BoxRec    glyphRect, intersectRect;
++    int       x, y, i;
++    int       glyphWidth, glyphHeight;
++    int       nclip;
++
++    /*
++     * Sanity checks.
++     */
++    if (!xf86VTSema) return;
++    if (pGC->fillStyle != FillSolid)
++    {
++        miPolyGlyphBlt(pDrawable, pGC, xInit, yInit, nglyph, ppci,pglyphBase);
++        return;
++    }
++    /*
++     * Get glyph extents.
++     */
++    glyphWidth  = FONTMAXBOUNDS(pfont, characterWidth);
++    glyphHeight = FONTASCENT(pfont) + FONTDESCENT(pfont);
++    if ((glyphHeight | glyphWidth) == 0) return;
++    x = xInit + FONTMAXBOUNDS(pfont, leftSideBearing) + pDrawable->x;
++    y = yInit - FONTASCENT(pfont)                     + pDrawable->y;
++    glyphRect.x1 = x; glyphRect.x2 = x + (glyphWidth * nglyph) + 1;
++    glyphRect.y1 = y; glyphRect.y2 = y + glyphHeight           + 1;
++    /*
++     * Get region clip rects.
++     */
++    cclip     = cfbGetCompositeClip(pGC);
++    nclip     = REGION_NUM_RECTS(cclip);
++    pclipRect = REGION_RECTS(cclip);
++    /*
++     * Render glyphs through clipping regions.
++     */
++    RivaSetRopSolid(pGC->alu);
++    rivaRendered2D = 1;
++    while (nclip--)
++    {
++        /*
++         * Intersect glyph bounds with clip rect.
++         */
++        intersectRect.x1 = max(pclipRect->x1, glyphRect.x1);
++        intersectRect.y1 = max(pclipRect->y1, glyphRect.y1);
++        intersectRect.x2 = min(pclipRect->x2, glyphRect.x2);
++        intersectRect.y2 = min(pclipRect->y2, glyphRect.y2);
++        pclipRect++;
++        /*
++         * Only draw glyph string if visible through this region.
++         */
++        if (RIVA_RECT_VALID(intersectRect))
++        {
++            /*
++             * Set clip rect.
++             */
++            RIVA_FIFO_FREE(riva, Bitmap, 3);
++            riva.Bitmap->ClipD.TopLeft     = (intersectRect.y1 << 16) | intersectRect.x1;
++            riva.Bitmap->ClipD.BottomRight = (intersectRect.y2 << 16) | intersectRect.x2;
++            riva.Bitmap->Color1D           = pGC->fgPixel;
++            /*
++             * Render each glyph.
++             */
++            for (i = 0; i < nglyph; i++)
++                RivaTransparentGlyph(x + i * glyphWidth, 
++                                     y,
++                                     glyphWidth,
++                                     glyphHeight,
++                                     (unsigned long *)(FONTGLYPHBITS(pglyphBase, ppci[i])));
++        }
++    }
++}
++static void RivaImageGlyphBltTE(DrawablePtr pDrawable, GCPtr pGC, int xInit, int yInit, int nglyph, CharInfoPtr *ppci, unsigned char *pglyphBase)
++{
++    FontPtr   pfont = pGC->font;
++    RegionPtr cclip;
++    BoxPtr    pclipRect;
++    BoxRec    glyphRect, intersectRect;
++    int       x, y, i, bg;
++    int       glyphWidth, glyphHeight;
++    int       nclip;
++
++    /*
++     * Sanity checks.
++     */
++    if (!xf86VTSema) return;
++    if (pGC->fillStyle != FillSolid)
++    {
++        miPolyGlyphBlt(pDrawable, pGC, xInit, yInit, nglyph, ppci,pglyphBase);
++        return;
++    }
++    /*
++     * Get glyph extents.
++     */
++    glyphWidth  = FONTMAXBOUNDS(pfont, characterWidth);
++    glyphHeight = FONTASCENT(pfont) + FONTDESCENT(pfont);
++    if ((glyphHeight | glyphWidth) == 0) return;
++    x = xInit + FONTMAXBOUNDS(pfont, leftSideBearing) + pDrawable->x;
++    y = yInit - FONTASCENT(pfont)                     + pDrawable->y;
++    glyphRect.x1 = x; glyphRect.x2 = x + (glyphWidth * nglyph) + 1;
++    glyphRect.y1 = y; glyphRect.y2 = y + glyphHeight           + 1;
++    /*
++     * Get region clip rects.
++     */
++    cclip     = cfbGetCompositeClip(pGC);
++    nclip     = REGION_NUM_RECTS(cclip);
++    pclipRect = REGION_RECTS(cclip);
++    /*
++     * Render glyphs through clipping regions.
++     */
++    RivaSetRopSolid(pGC->alu);
++    rivaRendered2D = 1;
++    bg = pGC->bgPixel;
++    if (vga256InfoRec.bitsPerPixel == 16 && xf86weight.green == 6)
++    {
++        bg = ((bg & 0x0000F800) << 8)
++           | ((bg & 0x000007E0) << 5)
++           | ((bg & 0x0000001F) << 3)
++           |        0xFF000000;
++    }
++    else
++    {
++        bg |= rivaOpaqueMonochrome;
++    }
++    while (nclip--)
++    {
++        /*
++         * Intersect glyph bounds with clip rect.
++         */
++        intersectRect.x1 = max(pclipRect->x1, glyphRect.x1);
++        intersectRect.y1 = max(pclipRect->y1, glyphRect.y1);
++        intersectRect.x2 = min(pclipRect->x2, glyphRect.x2);
++        intersectRect.y2 = min(pclipRect->y2, glyphRect.y2);
++        pclipRect++;
++        /*
++         * Only draw glyph string if visible through this region.
++         */
++        if (RIVA_RECT_VALID(intersectRect))
++        {
++            /*
++             * Set clip rect.
++             */
++            RIVA_FIFO_FREE(riva, Bitmap, 4);
++            riva.Bitmap->ClipE.TopLeft     = (intersectRect.y1 << 16) | intersectRect.x1;
++            riva.Bitmap->ClipE.BottomRight = (intersectRect.y2 << 16) | intersectRect.x2;
++            riva.Bitmap->Color0E           = bg;
++            riva.Bitmap->Color1E           = pGC->fgPixel;
++            /*
++             * Render each glyph.
++             */
++            for (i = 0; i < nglyph; i++)
++                RivaOpaqueGlyph(x + i * glyphWidth, 
++                                y,
++                                glyphWidth,
++                                glyphHeight,
++                                (unsigned long *)FONTGLYPHBITS(pglyphBase, ppci[i]));
++        }
++    }
++}
++/*
++ * Normal Font routines.
++ */
++static void RivaPolyGlyphBltNonTE(DrawablePtr pDrawable, GCPtr pGC, int xInit, int yInit, int nglyph, CharInfoPtr *ppci, unsigned char *pglyphBase)
++{
++    FontPtr       pfont = pGC->font;
++    RegionPtr     cclip;
++    BoxPtr        pclipRect;
++    BoxRec        glyphRect, intersectRect;
++    int           x, y, i, dx;
++    int           nclip;
++
++    /*
++     * Sanity checks.
++     */
++    if (!xf86VTSema) return;
++    if (pGC->fillStyle != FillSolid)
++    {
++        miPolyGlyphBlt(pDrawable, pGC, xInit, yInit, nglyph, ppci,pglyphBase);
++        return;
++    }
++    y = yInit + pDrawable->y;
++    x = xInit + pDrawable->x;
++    /*
++     * Get glyph extents.
++     */
++    for (i = dx = 0; i < nglyph; i++)
++    	dx += ppci[i]->metrics.characterWidth;
++    if (dx >= 0)
++    {
++        glyphRect.x1 = x; glyphRect.x2 = x + dx + 1;
++    }
++    else
++    {
++        glyphRect.x1 = x + dx; glyphRect.x2 = x + 1;
++    }
++    glyphRect.y1 = y - FONTASCENT(pfont); glyphRect.y2 = y + FONTDESCENT(pfont) + 1;
++    /*
++     * Get region clip rects.
++     */
++    cclip     = cfbGetCompositeClip(pGC);
++    nclip     = REGION_NUM_RECTS(cclip);
++    pclipRect = REGION_RECTS(cclip);
++    /*
++     * Render glyphs through clipping regions.
++     */
++    RivaSetRopSolid(pGC->alu);
++    rivaRendered2D = 1;
++    while (nclip--)
++    {
++        /*
++         * Intersect glyph bounds with clip rect.
++         */
++        intersectRect.x1 = max(pclipRect->x1, glyphRect.x1);
++        intersectRect.y1 = max(pclipRect->y1, glyphRect.y1);
++        intersectRect.x2 = min(pclipRect->x2, glyphRect.x2);
++        intersectRect.y2 = min(pclipRect->y2, glyphRect.y2);
++        pclipRect++;
++        /*
++         * Only draw glyph string if visible through this region.
++         */
++        if (RIVA_RECT_VALID(intersectRect))
++        {
++            /*
++             * Set clip rect.
++             */
++            RIVA_FIFO_FREE(riva, Bitmap, 3);
++            riva.Bitmap->ClipD.TopLeft     = (intersectRect.y1 << 16) | intersectRect.x1;
++            riva.Bitmap->ClipD.BottomRight = (intersectRect.y2 << 16) | intersectRect.x2;
++            riva.Bitmap->Color1D           = pGC->fgPixel;
++            /*
++             * Render each glyph.
++             */
++            for (i = dx = 0; i < nglyph; i++)
++            {
++                RivaTransparentGlyph(x + dx + ppci[i]->metrics.leftSideBearing,
++                                     y      - ppci[i]->metrics.ascent,
++                                     GLYPHWIDTHPIXELS(ppci[i]),
++                                     GLYPHHEIGHTPIXELS(ppci[i]),
++                                     (unsigned long *)FONTGLYPHBITS(pglyphBase, ppci[i]));
++                dx += ppci[i]->metrics.characterWidth;
++            }
++        }
++    }
++}
++static void RivaImageGlyphBltNonTE(DrawablePtr pDrawable, GCPtr pGC, int xInit, int yInit, int nglyph, CharInfoPtr *ppci, unsigned char *pglyphBase)
++{
++    FontPtr       pfont = pGC->font;
++    RegionPtr     cclip;
++    BoxPtr        pclipRect;
++    BoxRec        glyphRect, intersectRect;
++    int           x, y, i, dx;
++    int           nclip;
++
++    /*
++     * Sanity checks.
++     */
++    if (!xf86VTSema) return;
++    if (pGC->fillStyle != FillSolid)
++    {
++        miImageGlyphBlt(pDrawable, pGC, xInit, yInit, nglyph, ppci,pglyphBase);
++        return;
++    }
++    y = yInit + pDrawable->y;
++    x = xInit + pDrawable->x;
++    /*
++     * Get glyph extents.
++     */
++    for (i = dx = 0; i < nglyph; i++)
++    	dx += ppci[i]->metrics.characterWidth;
++    if (dx >= 0)
++    {
++        glyphRect.x1 = x; glyphRect.x2 = x + dx + 1;
++    }
++    else
++    {
++        glyphRect.x1 = x + dx; glyphRect.x2 = x + 1;
++    }
++    glyphRect.y1 = y - FONTASCENT(pfont); glyphRect.y2 = y + FONTDESCENT(pfont) + 1;
++    /*
++     * Get region clip rects.
++     */
++    cclip     = cfbGetCompositeClip(pGC);
++    nclip     = REGION_NUM_RECTS(cclip);
++    pclipRect = REGION_RECTS(cclip);
++    /*
++     * Render glyphs through clipping regions.
++     */
++    rivaRendered2D = 1;
++    while (nclip--)
++    {
++        /*
++         * Intersect glyph bounds with clip rect.
++         */
++        intersectRect.x1 = max(pclipRect->x1, glyphRect.x1);
++        intersectRect.y1 = max(pclipRect->y1, glyphRect.y1);
++        intersectRect.x2 = min(pclipRect->x2, glyphRect.x2);
++        intersectRect.y2 = min(pclipRect->y2, glyphRect.y2);
++        pclipRect++;
++        /*
++         * Only draw glyph string if visible through this region.
++         */
++        if (RIVA_RECT_VALID(intersectRect))
++        {
++            /*
++             * Draw background rect.
++             */
++            RivaSetRopSolid(GXcopy);
++            RIVA_FIFO_FREE(riva, Bitmap, 3);
++            riva.Bitmap->Color1A                           = pGC->bgPixel;
++            riva.Bitmap->UnclippedRectangle[0].TopLeft     = (intersectRect.x1 << 16) | intersectRect.y1;
++            riva.Bitmap->UnclippedRectangle[0].WidthHeight = ((intersectRect.x2 - intersectRect.x1) << 16)
++                                                           |  (intersectRect.y2 - intersectRect.y1);
++            RivaSetRopSolid(pGC->alu);
++            /*
++             * Set clip rect.
++             */
++            RIVA_FIFO_FREE(riva, Bitmap, 3);
++            riva.Bitmap->ClipD.TopLeft     = (intersectRect.y1 << 16) | intersectRect.x1;
++            riva.Bitmap->ClipD.BottomRight = (intersectRect.y2 << 16) | intersectRect.x2;
++            riva.Bitmap->Color1D           = pGC->fgPixel;
++            /*
++             * Render each glyph.
++             */
++            for (i = dx = 0; i < nglyph; i++)
++            {
++                RivaTransparentGlyph(x + dx + ppci[i]->metrics.leftSideBearing,
++                                     y      - ppci[i]->metrics.ascent,
++                                     GLYPHWIDTHPIXELS(ppci[i]),
++                                     GLYPHHEIGHTPIXELS(ppci[i]),
++                                     (unsigned long *)FONTGLYPHBITS(pglyphBase, ppci[i]));
++                dx += ppci[i]->metrics.characterWidth;
++            }
++        }
++    }
++}
++/*
+  * Synchronise with graphics engine.  Make sure it is idle before returning.
+  * Should attempt to yield CPU if busy for awhile.
+  */
+@@ -339,9 +828,15 @@
+  */
+ static void RivaMoveCursor(ScreenPtr pScr, int x, int y)
+ {
+-    if (xf86VTSema)
+-        *(riva.CURSORPOS) = ((x - vga256InfoRec.frameX0 - RivaCursorHotX) & 0xFFFF)
+-                          | ((y - vga256InfoRec.frameY0 - RivaCursorHotY) << 16);
++    if ( ! xf86VTSema)
++        return;
++
++    x -= vga256InfoRec.frameX0 + RivaCursorHotX;
++    y -= vga256InfoRec.frameY0 + RivaCursorHotY;
++    if (XF86SCRNINFO(pScr)->modes->Flags & V_DBLSCAN)
++        y *= 2;
++
++    *(riva.CURSORPOS) = (x & 0xFFFF) | (y << 16);
+ }
+ /*
+  * This function uploads a cursor image to the video memory of the
+@@ -503,14 +998,34 @@
+         /*
+          * There are still some problems with delayed syncing.
+          */
+-        xf86AccelInfoRec.Flags = BACKGROUND_OPERATIONS/*| DELAYED_SYNC*/;
++        xf86AccelInfoRec.Flags = BACKGROUND_OPERATIONS/*| DELAYED_SYNC*/
++                               | HARDWARE_PATTERN_PROGRAMMED_BITS/*| HARDWARE_PATTERN_BIT_ORDER_MSBFIRST*/
++                               | HARDWARE_PATTERN_MONO_TRANSPARENCY
++                               | HARDWARE_PATTERN_SCREEN_ORIGIN;
+         xf86AccelInfoRec.Sync  = RivaSync;
+         /*
+          * Hook filled rectangles.
+          */
+-        xf86GCInfoRec.PolyFillRectSolidFlags     = NO_PLANEMASK | NO_TRANSPARENCY;
+-        xf86AccelInfoRec.SetupForFillRectSolid   = RivaSetupForFillRectSolid;
+-        xf86AccelInfoRec.SubsequentFillRectSolid = RivaSubsequentFillRectSolid;
++        xf86GCInfoRec.PolyFillRectSolidFlags             = NO_PLANEMASK;
++        xf86AccelInfoRec.SetupForFillRectSolid           = RivaSetupForFillRectSolid;
++        xf86AccelInfoRec.SubsequentFillRectSolid         = RivaSubsequentFillRectSolid;
++        xf86AccelInfoRec.SetupFor8x8PatternColorExpand   = RivaSetupFor8x8PatternColorExpand;
++        xf86AccelInfoRec.Subsequent8x8PatternColorExpand = RivaSubsequent8x8PatternColorExpand;
++        /*
++         * Set pattern opaque bits based on pixel format.
++         */
++        switch (vga256InfoRec.bitsPerPixel)
++        {
++            case 8:
++                rivaOpaqueMonochrome = 0xFFFFFF00;
++                break;
++            case 15:
++            case 16:
++                rivaOpaqueMonochrome = (xf86weight.green == 5) ? 0xFFFF8000 : 0xFF000000;
++                break;
++            default:
++                rivaOpaqueMonochrome = 0xFF000000;
++        }
+         /*
+          * Hook screen-to-screen BLTs.
+          */
+@@ -518,6 +1033,19 @@
+         xf86AccelInfoRec.SetupForScreenToScreenCopy   = RivaSetupForScreenToScreenCopy;
+         xf86AccelInfoRec.SubsequentScreenToScreenCopy = RivaSubsequentScreenToScreenCopy;
+         /*
++         * Hook text routines.
++         */
++#if GLYPHPADBYTES == 4
++        xf86GCInfoRec.PolyGlyphBltNonTEFlags  |= NO_PLANEMASK;
++        xf86GCInfoRec.ImageGlyphBltNonTEFlags |= NO_PLANEMASK;
++        xf86GCInfoRec.PolyGlyphBltTEFlags     |= NO_PLANEMASK;
++        xf86GCInfoRec.ImageGlyphBltTEFlags    |= NO_PLANEMASK;
++        xf86GCInfoRec.PolyGlyphBltTE           = RivaPolyGlyphBltTE;
++        xf86GCInfoRec.PolyGlyphBltNonTE        = RivaPolyGlyphBltNonTE;
++        xf86GCInfoRec.ImageGlyphBltTE          = RivaImageGlyphBltTE;
++        xf86GCInfoRec.ImageGlyphBltNonTE       = RivaImageGlyphBltNonTE;
++#endif
++        /*
+          * Calc surface size and round up to nearest 256 bytes.
+          */
+         surfSize = vga256InfoRec.virtualY 
+@@ -774,13 +1302,18 @@
+     int startAddr = (((y*vga256InfoRec.virtualX)+x)*(vgaBitsPerPixel/8));
+     riva.SetStartAddress(&riva, startAddr);
+ }
+-/*
+- * These are all NO-OPed for now.
+- */
+ static int RivaValidMode(DisplayModePtr mode, Bool verbose, int flag)
+ {
++    float refresh_rate;
++
++    refresh_rate = mode->Clock * 1000 / (mode->CrtcHTotal * mode->CrtcVTotal);
++    if (mode->Flags & V_DBLSCAN)
++        refresh_rate /= 2;
+     return (MODE_OK);
+ }
++/*
++ * These are all NO-OPed for now.
++ */
+ static void RivaDisplayPowerManagementSet(int mode)
+ {
+ }
+Index: xc/programs/Xserver/hw/xfree86/vga256/vga/vgaPCI.h
+===================================================================
+RCS file: /home/cvs/XFree86-3.3/Xserver/xc/programs/Xserver/hw/xfree86/vga256/vga/vgaPCI.h,v
+retrieving revision 1.1.1.1
+retrieving revision 1.3
+diff -u -r1.1.1.1 -r1.3
+--- vgaPCI.h	1999/02/04 23:21:06	1.1.1.1
++++ vgaPCI.h	1999/03/31 01:48:44	1.3
+@@ -172,6 +172,10 @@
+ #define PCI_CHIP_NV1		0x0008
+ #define PCI_CHIP_DAC64		0x0009
+ #define PCI_CHIP_TNT		0x0020
++#define PCI_CHIP_TNT2		0x0028
++#define PCI_CHIP_UTNT2		0x0029
++#define PCI_CHIP_VTNT2		0x002C
++#define PCI_CHIP_ITNT2		0x00A0
+ 
+ /* NVIDIA & SGS */
+ #define PCI_CHIP_RIVA128        0x0018
+@@ -383,6 +387,10 @@
+     {PCI_VENDOR_NVIDIA,	"NVidia",	{
+ 				{PCI_CHIP_NV1,		"NV1"},
+ 				{PCI_CHIP_TNT,		"Riva TNT"},
++				{PCI_CHIP_TNT2,		"Riva TNT2"},
++				{PCI_CHIP_UTNT2,		"Riva Ultra TNT2"},
++				{PCI_CHIP_VTNT2,		"Riva Vanta TNT2"},
++				{PCI_CHIP_ITNT2,		"Riva TNT2"},
+ 				{0x0000,		NULL}}},
+     {PCI_VENDOR_NVIDIA_SGS,	"NVidia/SGS-Thomson",	{
+ 				{PCI_CHIP_RIVA128,	"Riva128"},

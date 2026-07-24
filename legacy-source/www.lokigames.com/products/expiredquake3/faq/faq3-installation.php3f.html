@@ -1,0 +1,125 @@
+<?php echo $subhead ?>
+Installation
+<?php echo $_subhead ?>
+
+<?php echo $text_normal ?>
+<A NAME="no_access"></A><B>I ran the installer, and the files are not accessible.</B><BR>
+This generally happens when the file permissions are set incorrectly. 
+One common cause of this problem is when the game is installed by the 
+root user with a restrictive umask. Correct the file permissions as 
+follows:
+<PRE>
+   chmod -R a+r /usr/local/games/quake3 
+   chmod a+x /usr/local/games/quake3/quake3 
+   chmod a+x /usr/local/games/quake3/q3ded 
+   chmod a+x /usr/local/games/quake3/libMesaVoodooGL.so.3.2 
+   chmod a+x /usr/local/games/quake3/libMesaMatroxGL.so.3.2
+</PRE>
+The above example assumes the Quake III binaries are in 
+/usr/local/games/quake3/.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="glibc20"></A><B>I can't get the binaries installed on a glibc-2.0 based distribution.</B><BR>
+Quake III only works with glibc-2.0 with 3D cards based on 3dfx chips. 
+The Matrox G200/G400 are only supported under glibc 2.1.
+<P>
+You can manually install Quake III on a glibc-2.0 system with a 3dfx card 
+as follows:
+<PRE>
+   cp bin/x86/glibc-2.1/* /usr/local/games/quake3/
+   cd /usr/local/games/quake3/
+   ln -s libMesaVoodooGL.so.3.2 libMesaVoodooGL.so 
+   ln -s libMesaVoodooGL.so.3.2 libGL.so
+</PRE>
+The above example assumes the Quake III binaries are in 
+/usr/local/games/quake3/
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="dga_mouse"></A><B>How do I enable the DGA mouse?</B><BR>
+DGA mouse is disabled by default to prevent lockups in fullscreen mode 
+with XFree86 SVGA 3.3.3 and Voodoo3 cards. The lockup is severe enough to 
+force reboot. Other users can enable the DGA mouse by entering:
+<PRE>
+   +set in_dgamouse 1          /commandline 
+   \in_dgamouse 1              /console 
+   seta in_dgamouse "1"        /q3config.cfg
+</PRE>
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="smp"></A><B>Can I enable SMP support using +set r_smp 1?</B><BR>
+Quake III is not currently accelerated when used with multiple 
+processors. This support will be added in a future update.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="mouselook"></A><B>Can I disable mouselook in Quake III?</B><BR>
+Nope.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="libc5"></A><B>The installer incorrectly detects my LibC version as 5 on Debian  2.1.</B><BR>
+Manually copy the bin/x86/glibc-2.1 binaries to 
+/usr/local/games/quake3/.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="german_tilde"></A><B>How do I access the console on a german keyboard?</B><BR>
+On a german keyboard, the [AltGR] + [+] combo to get "~" doesn't work. 
+To work around this use the following workaround. It maps "Scroll-Lock" 
+(code 0x4E, "Rollen" in German) permanently to the tilde.
+<P>
+Look for a file in your home directory called ".Xmodmap". Keep a backup 
+of that file, just in case.
+<P>
+Use an editor of your choice to change the line starting with "keycode 
+0x4E", if it is already present, or add it:
+<BLOCKQUOTE>
+keycode 0x4E = asciitilde
+</BLOCKQUOTE>
+Log out of X and log back in again (or use $ xmodmap ~/.Xmodmap).
+<P>
+You should be able to use scroll lock as the console key. If you want to 
+play around with the xkeycaps tool (http://www.jwz.org/xkeycaps/) it is 
+possible to write a wrapper around q3a that remaps the key:
+<PRE>
+[/usr/local/bin/q3german.sh]
+#!/bin/sh
+ps2speed 200
+cd /usr/local/games/q3demoTEST
+xmodmap -e "keycode 49 = asciitilde"
+sudo ./linuxquake3 $*
+xmodmap -e "keycode 49 = asciicircum"
+...
+</PRE>
+This maps "the key beneath ESC" (which is "^" on german  keyboards) to 
+"~" and everything works as expected (except that you can't type "^" 
+anymore...).
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="cd_key"></A><B>Where is the CD key?</B><BR>
+The first 3,000 Quake III tin boxes have the CD Key on a sticker on 
+the last page of the manual. All other Quake III tin boxes have the CD 
+Key on a sticker on the back of the CD jewel case.
+<?php echo $_text_normal ?>
+
+<?php echo $text_normal ?>
+<A NAME="multisound"></A><B>I have multiple sound cards. Is there a way to specify to Quake III which one to use?</B><BR>
+You can specify the sound device to use with:
+<PRE>  +set snddevice <name></PRE>
+The default is: "/dev/dsp".
+Any changes made will be archived in the config file.
+<?php echo $_text_normal ?>
+
+<?php echo $text_small ?>
+<A HREF="quake3faq.php3.html#Installation">Back to Questions</A><?php echo $_text_small ?>
+
+
+
+
+
+
+

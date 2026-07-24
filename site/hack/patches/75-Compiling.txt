@@ -1,0 +1,27 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Various compile and general infrastructure improvements
+Author: Mark Coletti
+E-mail: mcoletti@clark.net
+
+Short Description:
+
+Changes for significant compile time improvement, some bugs fixes,
+better make file structure
+
+Long Description:
+
+The build time of CivCTP went from one hour to 30 minutes, with these
+Makefile enhancements.  Too bad this patch wasn't finished until the
+very end...
+
+Documentation:      (how does it work, special features, instructions, etc.)
+
+Just make.
+
+Known Bugs:
+
+Ran out of time to test, so not known if it works thoroughly.
+
+---

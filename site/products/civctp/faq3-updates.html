@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../">Products</a><a href="../../orders/">Orders</a><a href="../../support/">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Game Updates
+
+
+<div class="normal">
+<A NAME="Update"></A><B>Where can I download the update patches?</B><BR>
+The 1.1 patch is available <A HREF="updates.html"> here </A> on our website for x86, or we have a beta version for PPC and alpha architectures.
+</div>
+
+<div class="normal">
+<A NAME="howto"></A><B>How do I apply the most recent update?</B><BR>
+The new update patches are self-extracting archive scripts.  (While Logged in as a user with write permission to the game directory) Just type:
+</div>
+<div class="normal">
+	<TT><BLOCKQUOTE>sh [name-of-patch.sh]</BLOCKQUOTE></TT>
+</div>
+
+<div class="normal">
+NOTE: You need to apply the 1.1 patch before you can upgrade to 1.2.
+</div>
+
+<div class="normal">
+<A NAME="German"></A><B>I have the European version of the game.  Why can't I upgrade to 1.1?</B><BR>
+The European version of the game comes patched with the 1.1 update.  European users may upgrade directly to 1.2.
+</div>
+
+<div class="normal">
+<A NAME="SavGam"></A><B>Why can't I load my 1.0 save game files after upgrading to 1.1?</B><BR>
+Save game format was changed in the 1.1 update, to make all save game files fully compatible with the windows version save games.  So finish that game before upgrading, or upgrade before you start!
+</div>
+
+<div class="normal">
+<A NAME="PPCSav"></A><B>Will 1.1 save games be compatible across the three platforms (Alpha, PPC, x86)?</B><BR>
+Yes, all three will be save game and network compatible.
+</div>
+
+<div class="normal">
+<A NAME="Update2"></A><B>Are you going to release a 1.2 update also?</B><BR>
+Yes, of course!  You'll find 1.2 on our <A HREF="updates.html">updates </A> page.
+</div>
+
+<div class="normal">
+<A NAME="crash"></A><B>I upgraded to 1.2, and now the game crashes on startup!</B><BR>
+This is a problem with the SDL code to which 1.2 was linked.  It doesn't like 32 bit color.  We'll have this fixed soon, but in the meanwhile, you can enjoy the features of 1.2 by running your X server in 16 bpp this way:
+</div>
+
+<div class="normal">
+	<TT><BLOCKQUOTE>startx -- -bpp 16</TT></BLOCKQUOTE>
+</div>
+
+<div class="normal">
+<A NAME="parsing"></A><B> I get parsing errors (ie &quot;command not foundish.sh&quot;) when I try to run the update script.  Is there a problem with the mirror from which I downloaded the file?</B><BR>
+This usually happens when the file is downloaded with improper end-of-line conventions.  It's better to download the patches from within a Unix-based ftp utility with file type set to binary than from netscape.  If you do have this problem, one possible fix is to open up the file in vi and change the filetype:
+</div>
+
+<div class="normal">
+	<TT><BLOCKQUOTE>vi [filename.sh]<BR>
+	:set filetype=unix<BR>
+	:x</TT></BLOCKQUOTE>
+</div>
+
+<div class="normal">
+<A NAME="spaces"></A><B>When I run the script, it starts going, and then dies with: &quot;./upgrade: No such file or directory&quot; and give error code 126.</B><BR>
+We've seen this error when running the script from within a directory with spaces in its name.  Run the script from another directory, and you should be fine.
+</div>
+
+<div class="small">
+<A HREF="faq3.html#Updates">Back to Questions</A>
+</div>
+</main>
+  <footer><a href="../">Products</a> | <a href="../../orders/">Order</a> | <a href="../../support/">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

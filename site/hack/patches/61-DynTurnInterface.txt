@@ -1,0 +1,27 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Civ:CTP Dynamic Turn Interface (a.k.a. - BIG NASTY)
+Author: Ryan C. Gordon
+E-mail: ryan_gordon@hotmail.com
+
+Short Description:  Does dyn. process spawning at start and end of each turn.
+
+Long Description:   Each time the local player's turn begins and ends,
+there is an option to spawn an external script/program/etc...this allows
+for a rough bit of interfacing with the CIV code from the outside world.
+This can be anything from a Tetris window popping up while you wait for
+your turn in a 32 player game to come up again to a stats generator. It's
+flexible and limited mostly by your creativity. 
+
+Documentation: Execs file pointed to by env. variables CTPBEGINTURN and
+CTPENDTURN. Writes a text file with some current game info. Please read
+extra_hack_docs.txt for LOTS of details.
+
+Known Bugs: Some of the data exported in the civchain.txt has not been
+tested and may be inaccurate.
+
+---
+
+--ryan.
+

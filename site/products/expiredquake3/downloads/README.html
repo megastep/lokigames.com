@@ -1,0 +1,190 @@
+
+                           Quake III Arena SDK 
+                           Version 1.0b3 Linux
+                             July 26th, 2000 
+
+
+       TABLE OF CONTENTS
+
+       1 Requirements
+       2 Map Editor
+       3 Mod Coding
+       4 Known Issues
+       5 Credits
+
+
+----------
+What's New
+----------
+
+- Added linux versions of q3asm and lcc
+- Added the Portal Viewer Radiant plugin
+- Minor fixes in Q3Radiant
+
+We hope that a full version of this SDK will benefit
+Linux enthusiasts and aspiring game developers alike 
+to create maps and code game modifications under
+Linux, as has been common under Windows ever since
+the original Quake release. In combination with tried 
+and true Linux software for image processing, 
+conversion, and editing, a fully featured map editor 
+will provide Linux users a more complete toolchain 
+for content creation.
+
+This is an early test release, but the tools might
+already be useful as an introduction to the user 
+interface, along with the included documentation.
+You do not need the Win32 installation of the tools.
+
+This is not a supported product, but we would appreciate
+bug reports at the Loki website, at
+
+  /legacy-services.html#fenris/
+  /legacy-services.html#fenris/enter_bug.cgi?product=Q3SDK
+
+Pending source releases by id Software, this project
+will be maintained as open source. If you want to 
+contribute, please contact opensource@lokigames.com 
+when appropriate. 
+
+Loki Entertainment Software has created a newsgroup devoted 
+to discussion of the Linux Q3SDK:
+
+    /legacy-services.html#news/loki.games.q3sdk
+
+Please use this channel for Linux specific discussions of 
+the Q3SDK and its use. See quake3.lokigames.com for future
+releases and other announcements. The official sites for
+reference and id Software releases are
+
+    http://www.quake3arena.com/
+    http://www.quake3world.com/
+
+where you fill find tutorials and dicussion forms about
+Q3 map editing and mod coding in general. 
+
+----------------
+(1) REQUIREMENTS
+----------------
+
+  * Requires the full version of Quake3 Arena
+  * Linux kernel version 2.2.9 or above, glibc-2.1
+  * XFree86 SVGA server version 3.3.5 or above
+ 
+The map editor requires X11 to run, as well as an
+OpenGL compliant 3-D video card and Linux driver. 
+Software rendering in Mesa can be used, but is not 
+sufficient for acceptable rendering speeds.
+
+For updates on GL drivers, see 
+  /support/gldrivers/.
+
+The other binaries are commandline tools and do not 
+require graphics, X, or GL.
+
+
+---------------
+(2) MAP EDITING
+---------------
+
+You can specify the name of your OpenGL library by 
+setting the environment variable Q3R_LIBGL, or
+using the --libgl commandline parameter. Default 
+value is libGL.so.1
+ 
+Unlike the Win32 version, the Linux binary does 
+not require libGLU.
+
+The editor/tool install MUST be installed in the
+same directory as Quake 3 Arena. This means if 
+you installed Quake 3 Arena in 
+   /usr/local/games/quake3
+you MUST point the tool installer at that path.
+The installer currently does not autodetect the
+game installation.
+ 
+If you want bot support in your maps, you must 
+manually run the bot bspc tool. It is located
+e.g. in the 
+  /usr/local/games/quake3/tools/ 
+directory, depending on your installation.
+After you have produced a bsp file from a map, 
+you can execute it like:
+ 
+   bspc -bsp2aas /somwhere/maps/somemap.bsp
+
+Once installed properly, you should be able 
+to open q3dm1sample.map, choose "BSP - Fast Vis" 
+and within a few minutes you should be able to 
+run around in that map. Remember you must 
+have sv_pure set to 0 to load up maps that 
+do not exist in the pk3 file.
+
+
+--------------
+(3) MOD CODING
+--------------
+
+The binary versions of the q3asm and lcc tools 
+required to build QVM bytecode, as well as
+current versions of the game/cgame sources
+are now included in the SDK. They have not been
+extensively tested yet and should be considered
+still "beta software". Please read the CODING.txt 
+file in the "sources" directory, note that to
+avoid conflicts with other software installed
+the binary files have the prefix "q3" (lcc is
+called q3lcc for example).
+
+
+----------------
+(4) KNOWN ISSUES
+----------------
+
+Known issues for this version:
+
+ There are texture alignment/scaling problems 
+ processing sample maps from the Win32 
+ Q3Radiant 1.97 release.
+
+ Q3Radiant uses OpenGL paths not commonly used
+ by games. Early and incomplete driver releases
+ might crash the application, and even GLX/X11.
+ You might want to try with software Mesa first.
+ We have encountered problems with Utah GLX 
+ for G400. With 3dfx, 
+  export MESA_GLX_FX="window|fullscreen|disable"
+ all seem to work reasonably, but there might
+ be crashes on exiting the program due to
+ atexit() handlers registed by Mesa. NVidia
+ XFree 4.0 drivers older than 0.93 will not work,
+ you must upgrade to the latest version. If you
+ are running the game along with the editor, you
+ might expose driver problems with multiple GLX
+ contexts.
+
+ There is a bug in the libX11 library of XFree 4.0
+ that causes glXUseXFont to dump core. There is a
+ plan to get this fixed in XFree 4.0.1. As a
+ workaround, the libX11 library from XFree 3.3.x
+ can be used. Just copy it somewhere locally, and
+ set the LD_LIBRARY_PATH appropriately or you can
+ run radiant with the "--nofonts" command line
+ option but you won't be able to see the texture
+ names.
+
+
+-----------
+(5) CREDITS
+-----------
+Binaries in this SDK contain software technology 
+from id Software, Inc. The HTML manuals are based 
+on the Win32 documentation by id Software. Please
+check the HTML versions for the credits on the 
+conversion to HTML. The GTK port of Q3Radiant was 
+written by Leonardo Zide.
+
+
+Enjoy!
+- The Loki Quake III Arena Team
+

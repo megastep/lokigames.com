@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical FAQ</title>
+  <link rel="stylesheet" href="../../_global/legacy.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" aria-label="Loki home"><img src="../../home/_img/lokilogo2.gif" alt="Loki Entertainment Software" width="403" height="77"></a>
+    <nav aria-label="Primary"><a href="../../products/">Products</a><a href="../../orders/">Orders</a><a href="../">Support</a><a href="../../development/">Development</a><a href="../../press/">Press</a><a href="../../news/">News</a><a href="../../about/">About Loki</a></nav>
+  </header>
+  <main class="content">
+Display Issues
+
+
+
+<div class="normal">
+<A NAME="focus"></A><B>With the 1.2 patch, CivCTP has focus and is the active window at all times. 
+		As far as I can see, there is no way to take focus away from CivCTP now.</B><BR>
+CivCTP now defaults to fullscreen mode. You can use the "--windowed" command line option to start the game in
+windowed mode, and you can use ALT-Enter to toggle between windowed and
+fullscreen mode.
+</div>
+
+<div class="normal">
+<A NAME="fullscreen"></A><B>How do I get Civ:CTP to run fullscreen?</B><BR>
+Civ:CTP can run full screen using XFree86's DGA extensions.  To enable this feature, type (when logged in or su'd as root) 'export CIV_FULLSCREEN=1'.  Then when running the game as root, the game will use the full screen.  To go back to windowed mode, just set the variable back to 0, using the same command as above for bash users.
+</div>
+
+<div class="normal">
+NOTE: As of version 1.2, CivCTP can run fullscreen without the DGA extensions, and you don't have to be logged in as root, just use the &quot;--fullscreen&quot; command-line switch.
+</div>
+
+<div class="normal">
+<A NAME="fullscreen_not_root"></A><B>How can I get the game to play fullscreen if I'm not logged in as root?</B><BR>
+As of version 1.2, you don't have to be logged in as root, you can just use the --fullscreen command-line switch to run in fullscreen.  Previous versions of the game use the DGA extensions to switch to fullscreen.  To allow
+non-root access to this, you need to put yourself in a trusted group and
+give the group access to /dev/mem. <B>NOTE:</B> This is a
+security risk and should not be used on machines where security is
+important.
+</div>
+
+<div class="normal">
+<A NAME="Scrolling"></A><B>When I try to scroll with the mouse, I have to position it right at the edge of the screen or it won't work.  Is this a window manager problem?  Anything I can do?</B><BR>
+Pressing &quot;Caps Lock&quot; will lock the mouse into the game window, which should eliminate this problem.  Press it again to use the mouse freely outside the game.
+</div>
+
+<div class="normal">
+NOTE: As of version 1.2, pressing &quot;Ctrl-G&quot; locks the mouse, matching the style of other Loki games.
+</div>
+
+<div class="normal">
+Also, with a three button mouse, pressing the middle button and dragging will scroll the screen around.
+</div>
+
+<div class="normal">
+<A NAME="Gnome"></A><B>Does the game have GNOME or KDE support
+(adding itself to task bars, etc)?</B><BR>
+It doesn't have special GNOME/KDE support, but works as any other
+X11 application under those environments. If you are having trouble
+with the taskbar in your window manager, you can change the CivCTP
+window size by going to the game options menu and selecting the
+screen size menu in the graphics options, or run the game fullscreen. 
+</div>
+
+<div class="normal">
+<A NAME="Iconify"></A><B>How can I iconify the game and have it run in the background?</B><BR>
+Typing CNTL-z or hitting the Pause key iconifies the game. When
+the game is iconified, it is paused and uses very little CPU time.
+</div>
+
+<div class="normal">
+<A NAME="Screen"></A><B>How can I change my screen size?</B><BR>
+Currently the game is only supported in the X11 environment.
+By default, the program will run fullscreen. If you wish to change
+the screensize, access the Options menu (hit ESC from the game
+screen), click on the Graphics button, then access the Screen
+Size submenu. Choose a resolution (smaller resolution for a smaller
+screen), then restart the game for the change to take effect.
+</div>
+
+<div class="normal">
+<A NAME="Speed"></A><B>How can I maximize graphics speed when
+running the game?</B><BR>
+There are a couple of tricks that will speed things up for you:
+</div>
+
+<div class="normal">
+ X should be run in 16-bit color for those who wish to speed
+ up graphics. Using 24- or 32-bit color forces X to convert 16-bit
+ images to 32-bit before it displays them -- a severe penalty
+ for MHz challenged machines. You can make sure you're running
+ in 16-bit color by starting x with &quot;startx -- -bpp 16&quot;.
+ Run it without a window manager or desktop environment (if
+ you aren't already). Basically replace what is in your .xinitrc
+ with this one line: /usr/local/games/CivCTP/civctp
+ (or whatever path you put civctp in). You might want to back
+ up your old .xinitrc just in case.
+ Later on in the game it helps a lot to turn off trade and
+ unit animations. Running the game in<A HREF="faq3-sound.html#fullscreen"> full screen mode</A> (only possible on Xfree86) will reduce cpu usage by few percent.
+</div>
+
+<div class="small">
+<A HREF="faq3.html#Sound">Back to Questions</A>
+</div>
+</main>
+  <footer><a href="../../products/">Products</a> | <a href="../../orders/">Order</a> | <a href="../">Support</a> | <a href="../../development/">Development</a> | <a href="../../press/">Press</a> | <a href="../../news/">News</a> | <a href="../../about/">About Loki</a><br>© 2000 Loki Software, Inc.</footer>
+</body>
+</html>

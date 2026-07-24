@@ -1,0 +1,61 @@
+After hacking away at the *real* Civ:CTP source code for 24 hours, I decided to give up on it..... And... So started Console Civ:CTP (CCTP for you acro lovers)....
+
+And.. well.. I fooled myself into thinking I could get something worth-while done in twenty four hours...... I was wrong.
+
+What I have done now is a pretty solid (imho) object model for a civ-type game..
+
+The controller class, titled OMNI (as in omniscient) in sam.cpp (named after my nickname) stores the game map (class World in world.cpp, world.h), all of the countries (class Country in country*), the display manager (class EyeBall in eyes.*) and keeps track of whos turn it is.
+
+The World Class
+---------------
+ Loads up a map (not randomly generated yet-- right now it is just a map full of 
+  terrain-type grassland) and stores it in a two-dimensional array...
+
+ Basically, that is all it does.
+
+
+The Country Class
+-----------------
+ Stores all of a player's units and cities (currently, due to arbitrary restrictions  the max number of units or cities is 255)....
+
+ Keeps track of the player's gold, public works, etc etc etc.
+
+The City Class
+--------------
+ All the basic city crap blah blah blah
+
+The Unit Class
+--------------
+ Stores the unit type, health, armor class, attack power, yada yada yada..
+
+The EyeBall Class
+-----------------
+ Basically a console window manager.. Not complete yet (since I don't have access
+or the know-how to use the curses library).  Right now, it will display the map
+
+The Database Class
+------------------
+Rather than having custom file-types for each class, I invented this little crappy
+database class that has default fields for a primary  key and the units name...
+The rest of the fields are ALWAYS integers although you can emulate characters
+using ASCII codes (which is how the terrain-types and units get their display info)
+
+The Dynamic Array Class
+----------------------
+Just a simple-doo-hickey dynamic array template class.. weeeeeeeeee..
+
+ 
+---------------------------------
+Basically, since I've no clue on Civ's battle engine or any of their game
+playing algorithms (and it would probably take me 24 more hours to find them in 
+the original source code), I borrowed somewhat from the Dungeons and Dragons RPG...
+
+Two units can battle.
+
+
+---------------------------------
+Umm yeah.. it's a little more complex than all of this, but hell, i got a free penguin.
+MUHHAAHAHAHAHAHAHAHHAHA
+--------------------------------
+
+

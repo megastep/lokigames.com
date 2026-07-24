@@ -1,0 +1,22 @@
+
+			LokiHack '99 Patch
+
+Patch Title: Fixes for city and leader names
+Author: Eric S. Raymond
+E-mail: esr@thyrsus.com
+
+Short Description:  (one line)
+
+Corrects various errors and omissions in the civ strings file.
+
+Long Description:   (short paragraph)
+
+Corrected misspellings and historical errors.  Added names of many cities.
+Single biggest change: U.S. now has 70 city names available including all
+50 state capitols.
+
+Documentation:      (how does it work, special features, instructions, etc.)
+
+Known Bugs: None.
+
+---
