@@ -151,6 +151,56 @@ const localizeLegacyLinks = async (html, output) => {
   return localized;
 };
 
+const rewriteInternalPhpLinks = async (html, output) => {
+  const attribute = /\b(href|src|action)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
+  let rewritten = html;
+
+  for (const match of [...rewritten.matchAll(attribute)].reverse()) {
+    const original = match[2] ?? match[3] ?? match[4] ?? '';
+    if (/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(original)) continue;
+
+    const decoded = original.replace(/%3f/gi, '?').replace(/%252f/gi, '/');
+    if (!/\.php3?f?\b/i.test(decoded)) continue;
+
+    const [pathname, suffix = ''] = decoded.match(/^([^?#]*)(.*)$/).slice(1);
+    const pathFromPage = (relativePath) => path.resolve(path.dirname(output), relativePath);
+    let target;
+
+    // The mirror encoded dynamic monthly archive routes as archive.php3%3FMMYYYY.html.
+    const archiveRoute = decoded.match(/^(.*\/)?archive\.php3\?([^/?#]+?)(?:\.html)?(?:#.*)?$/i);
+    if (archiveRoute) {
+      const archiveId = archiveRoute[2].replace(/\.html$/i, '');
+      const candidate = pathFromPage(`${archiveRoute[1] ?? ''}archive/${archiveId}.html`);
+      try {
+        if ((await stat(candidate)).isFile()) target = candidate;
+      } catch { /* Press releases were not present as individual static files. */ }
+      if (!target && /(^|\/)press\//i.test(path.relative(destination, output))) {
+        target = path.join(destination, 'press', 'index.html');
+      }
+    } else {
+      const staticPath = pathname.replace(/\.php3?f?(?:\.bak)?$/i, '.html');
+      for (const candidate of [pathFromPage(staticPath), pathFromPage(`${staticPath}/index.html`)]) {
+        try {
+          if ((await stat(candidate)).isFile()) {
+            target = candidate;
+            break;
+          }
+        } catch { /* try the next static-file form */ }
+      }
+    }
+
+    // Avoid retaining a server-side URL even when the historic endpoint did
+    // not have a captured response. Link back to the closest local index.
+    target ??= path.join(path.dirname(output), 'index.html');
+    const relativeTarget = path.relative(path.dirname(output), target).split(path.sep).join('/');
+    const fragment = suffix.includes('#') ? `#${suffix.split('#')[1]}` : '';
+    const replacement = `${match[1]}="${relativeTarget || './'}${fragment}"`;
+    rewritten = `${rewritten.slice(0, match.index)}${replacement}${rewritten.slice(match.index + match[0].length)}`;
+  }
+
+  return rewritten;
+};
+
 await rm(destination, { recursive: true, force: true });
 await cp(source, destination, { recursive: true });
 await renameHiddenLegacyPaths(destination);
@@ -194,14 +244,14 @@ for (const file of await walk(destination)) {
   }
   if (file.endsWith('.html')) {
     const html = await readFile(file, 'utf8');
-    const staticHtml = await localizeLegacyLinks(
+    const staticHtml = await rewriteInternalPhpLinks(await localizeLegacyLinks(
       html
         .replace(/\.php3f?(?:\.html)?(?=["'#?\s>])/gi, '.html')
         .replaceAll('_global/', 'global/')
         .replaceAll('_img/', 'img/')
         .replaceAll('_bak/', 'bak/'),
       file,
-    );
+    ), file);
     if (html !== staticHtml) await writeFile(file, staticHtml);
   }
 }
