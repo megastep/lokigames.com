@@ -1,0 +1,12 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | escape }}</title>
+<meta name="description" content="{{ page.description | escape }}">
+<meta name="robots" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}">
+{% assign canonical_origin = site.github.url | default: site.url %}
+<link rel="canonical" href="{{ canonical_origin }}{{ page.url }}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ page.description | escape }}">
+<meta property="og:url" content="{{ canonical_origin }}{{ page.url }}">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">

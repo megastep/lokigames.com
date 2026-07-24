@@ -1,214 +1,31 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"><HTML>
+---
+noindex: false
+---
+<!doctype html><html lang="en">
 <HEAD>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loki | Home | The Games that Linux People Play</title>
+  <meta name="description" content="Loki: We make the games that Linux people play. Find out more about our products and where to get">
+  <meta name="robots" content="index, follow">
+  {% assign canonical_origin = site.github.url | default: site.url %}
+  <link rel="canonical" href="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:title" content="Loki | Home | The Games that Linux People Play">
+  <meta property="og:description" content="Loki: We make the games that Linux people play. Find out more about our products and where to get">
+  <meta property="og:url" content="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
 <!-- Copyright (C) 1999 Loki Entertainment Software -->
 <!-- Logo, graphic design and programming from John Grantham -->
 <!-- http://surf.to/multimedia -->
-	<TITLE>Loki | Home | The Games that Linux People Play</TITLE>
 
 
-<STYLE TYPE="text/css">
-<!--
+<link rel="stylesheet" href="global/homepage.css">
 
-BODY { background-image: url(global/img/back_stripe_blur3.gif); background-color: #000000; background-repeat: repeat-y; }
-
-.normal { font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #CCCCCC; text-decoration: none; }
-
-.subhead { font-family: Arial, Helvetica, sans-serif; font-size: 14pt; color: #FFFFFF; font-weight: bold; text-decoration: none; }
-
-.small { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #CCCCCC; text-decoration: none; }
-
-.headline { font-family: Arial, Helvetica, sans-serif; font-size: 16pt; color: #FFFFFF; text-decoration: none; font-style: bold; }
-
-LI { color: #FFFFFF; }
-
-
-#menuback { position: absolute; z-index: 1; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menuproducts { position: absolute; z-index: 2; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menuorders { position: absolute; z-index: 3; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menudevelopment { position: absolute; z-index: 4; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menusupport { position: absolute; z-index: 5; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menupress { position: absolute; z-index: 6; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-#menunews { position: absolute; z-index: 7; top: 250px; left: 0px; width: 100%;  height: 24px; visibility: hidden; }
-
-#menuabout { position: absolute; z-index: 8; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
-
-.linkmenu { color: #FFFFFF; }
-
-
-a:link { color: #B08F6F; text-decoration: none; }
-a:visited { color: #B08F6F; text-decoration: none; }
-a:active { color: #3366CC; text-decoration: none; }
-
-
--->
-</STYLE>
-
-<SCRIPT LANGUAGE="JavaScript">
-<!--
-
-var active = 0;
-
-function activate() {
-	active = 1;
-}
-
-
-// Global JavaScripts
-
-function flipPortalStart() {
-//	document.portal.src="global/img/navbar/portals_anim/products.gif";
-}
-
-var ie4 = (document.all)    ? 1 : 0;
-var nn4 = (document.layers) ? 1 : 0;
-bOK = (ie4) || (nn4);
-
-if (nn4) {
-	layerVar = "document.layers"; styleVar = ""; visVar = "show";
-} else if (ie4) {
-	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
-}
-
-var layer = "null";
-        
-function showLayer(num,isMenu){
-	if (bOK && active) {
-		hideAllLayers();
-		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
-		if (isMenu == 1) {
-			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
-		}
-	} else if (active) {
-		window.location = eval("'/"+buttonsList[num]+"/'");
-	}
-}
-     
-function hideLayer(num){
-	if (bOK && active) {
-		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
-	}
-}
-
-function hideAllLayers() {
-	if (bOK && active) {
-		for (i = 0; i < layerList.length; i++) {
-			hideLayer(i);
-			hideLayer(0);
-			flipNav('',0);
-		}
-	}
-}
-
-layerList = new Array();
-layerList[0] = "menuback";
-layerList[1] = "menuproducts";
-layerList[2] = "menuorders";
-layerList[3] = "menusupport";
-layerList[4] = "menudevelopment";
-layerList[5] = "menupress";
-layerList[6] = "menuabout";
-layerList[7] = "menunews";
-
-if (document.images) {
-
-buttonsList = new Array();
-buttonsList[0] = "back";
-buttonsList[1] = "products";
-buttonsList[2] = "orders";
-buttonsList[3] = "support";
-buttonsList[4] = "development";
-buttonsList[5] = "press";
-buttonsList[6] = "about";
-buttonsList[7] = "news";
-
-}
-
-
-// JavaScripts only for the homepage
-
-function flip(name,on) {
-	if (document.images && active) {
-		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
-		document[name].src = image;
-	}
-}
-
-var start = 1;
-
-function startupAnim() {
-	activate();
-	if (active) {
-		if (start <= 7) {
-//			showLayer(start,1);
-			image = buttonsList[start];
-			imagesrc = eval("'/home/img/nav/"+image+"_off.gif'");
-			document[image].src = imagesrc;
-			start++;
-			setTimeout('startupAnim()',500);
-		}
-	}
-}
-
-if (document.images) {
-
-products_on = new Image();
-products_on.src="home/img/nav/products_on.gif";
-products_off = new Image();
-products_off.src="home/img/nav/products_off.gif";
-
-orders_on = new Image();
-orders_on.src="home/img/nav/orders_on.gif";
-orders_off = new Image();
-orders_off.src="home/img/nav/orders_off.gif";
-
-support_on = new Image();
-support_on.src="home/img/nav/support_on.gif";
-support_off = new Image();
-support_off.src="home/img/nav/support_off.gif";
-
-development_on = new Image();
-development_on.src="home/img/nav/development_on.gif";
-development_off = new Image();
-development_off.src="home/img/nav/development_off.gif";
-
-press_on = new Image();
-press_on.src="home/img/nav/press_on.gif";
-press_off = new Image();
-press_off.src="home/img/nav/press_off.gif";
-
-about_on = new Image();
-about_on.src="home/img/nav/about_on.gif";
-about_off = new Image();
-about_off.src="home/img/nav/about_off.gif";
-
-news_on = new Image();
-news_on.src="home/img/nav/news_on.gif";
-news_off = new Image();
-news_off.src="home/img/nav/news_off.gif";
-
-}
-
-function flipNav(name,on) {
-	if (active) {
-		portalImg = (on == 1) ? eval("'/home/img/portal/"+name+".gif'") : "/home/img/portal/blank.gif";
-		document.portal.src = portalImg;
-//	image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
-//	document[name].src = image;
-	}
-}
-
-
-//-->
-</SCRIPT>
+<script src="global/homepage.js" defer></script>
 
 <META NAME="keywords" CONTENT="Loki, loki, entertainment, Entertainment, Software, software, games, game, Linux, linux, Intel, GNU, GNU/Linux, open source, open, source, reseller, distributor, scott, draeker, kathryn, sorhaindo, civilization, railroad tycoon, tycoon, myth, bungie, activision, terra soft solutions, linuxppc, ppc, penguin, spiele, spiel, jeux, jeu, pinguin, open source, open, development, developer, port, porting, ported, programming, program, programme, call to power, power, call, civilization, zivilisation, strategy, strategie, action, mpeg, MPEG, video, animation, animated, why are you reading this, anyway">
-<META NAME="description" CONTENT="Loki: We make the games that Linux people play. Find out more about our products and where to get them.">
 <META NAME="copyright" CONTENT="(C) 1999 Loki Entertainment Software">
 
 <MAP NAME="standardsmap">
@@ -218,25 +35,15 @@ function flipNav(name,on) {
 </MAP>
 
 </HEAD>
-<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="activate(),startupAnim()"><CENTER>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
-	<TR>
-		<TD COLSPAN="3"><IMG SRC="home/img/topleft.gif" ALT="" WIDTH="255" HEIGHT="69" BORDER="0" ISMAP USEMAP="#standardsmap"><IMG SRC="home/img/portal/blank.gif" ALT="" WIDTH="286" HEIGHT="69" BORDER="0" NAME="portal"></TD>
-	</TR>
-	<TR>
-		<TD COLSPAN="2"><IMG SRC="home/img/lokilogo2.gif" ALT="Loki Entertainment Software" WIDTH="370" HEIGHT="116" BORDER="0"></TD>
-		<TD><A HREF="javascript:showLayer(1,1),flipNav('products',1)" onMouseOver="flip('products',1)" onMouseOut="flip('products',0)"><IMG SRC="home/img/nav/products_out.gif" ALT="Products" WIDTH="130" HEIGHT="21" BORDER="0" NAME="products"></A><BR><A HREF="javascript:showLayer(2,1),flipNav('orders',1)" onMouseOver="flip('orders',1)" onMouseOut="flip('orders',0)"><IMG SRC="home/img/nav/orders_out.gif" ALT="Orders" WIDTH="106" HEIGHT="24" BORDER="0" NAME="orders"></A><BR><A HREF="javascript:showLayer(3,1),flipNav('support',1)" onMouseOver="flip('support',1)" onMouseOut="flip('support',0)"><IMG SRC="home/img/nav/support_out.gif" ALT="Support" WIDTH="103" HEIGHT="25" BORDER="0" NAME="support"></A><BR><A HREF="javascript:showLayer(4,1),flipNav('development',1)" onMouseOver="flip('development',1)" onMouseOut="flip('development',0)"><IMG SRC="home/img/nav/development_out.gif" ALT="Development" WIDTH="116" HEIGHT="27" BORDER="0" NAME="development"></A><BR><A HREF="javascript:showLayer(5,1),flipNav('press',1)" onMouseOver="flip('press',1)" onMouseOut="flip('press',0)"><IMG SRC="home/img/nav/press_out.gif" ALT="Press" WIDTH="67" HEIGHT="19" BORDER="0" NAME="press"></A></TD>
-	</TR>
-	<TR>
-		<TD ALIGN="RIGHT" VALIGN="TOP"><IMG SRC="home/img/bottom_left.gif" ALT="" WIDTH="313" HEIGHT="72" BORDER="0"></TD>
-		<TD COLSPAN="2" VALIGN="TOP"><A HREF="javascript:showLayer(6,1),flipNav('about',1)" onMouseOver="flip('about',1)" onMouseOut="flip('about',0)"><IMG SRC="home/img/nav/about_out.gif" ALT="About Loki" WIDTH="112" HEIGHT="24" BORDER="0" NAME="about"></A><BR><A HREF="javascript:showLayer(7,1),flipNav('news',1)" onMouseOver="flip('news',1)" onMouseOut="flip('news',0)"><IMG SRC="home/img/nav/news_out.gif" ALT="Newsstand" WIDTH="89" HEIGHT="35" BORDER="0" NAME="news"></A></TD>
-	</TR>
-	<TR>
-		<TD><IMG SRC="global/img/pixel.gif" WIDTH="313" HEIGHT="30" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="global/img/pixel.gif" WIDTH="35" HEIGHT="1" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="global/img/pixel.gif" WIDTH="180" HEIGHT="1" BORDER="0" ALT=""></TD>
-	</TR>
-</TABLE>
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0"><CENTER>
+<div id="home-composite">
+  <img id="home-top-left" src="home/img/topleft.gif" alt="" width="255" height="69" ismap usemap="#standardsmap">
+  <img id="home-portal" src="home/img/portal/blank.gif" alt="" width="286" height="69" name="portal">
+  <picture><source srcset="home/img/lokilogo2.webp" type="image/webp"><img loading="lazy" decoding="async" id="home-logo" src="home/img/lokilogo2.gif" alt="Loki Entertainment Software" width="366" height="116"></picture>
+  <div id="home-primary-nav" class="home-nav"><a href="products/" data-menu="products"><img src="home/img/nav/products_out.gif" alt="Products" width="130" height="21" name="products"></a><br><a href="orders/" data-menu="orders"><img src="home/img/nav/orders_out.gif" alt="Orders" width="106" height="24" name="orders"></a><br><a href="support/" data-menu="support"><img src="home/img/nav/support_out.gif" alt="Support" width="103" height="25" name="support"></a><br><a href="development/" data-menu="development"><img src="home/img/nav/development_out.gif" alt="Development" width="116" height="27" name="development"></a><br><a href="press/" data-menu="press"><img src="home/img/nav/press_out.gif" alt="Press" width="67" height="19" name="press"></a></div>
+  <img id="home-bottom-left" src="home/img/bottom_left.gif" alt="" width="313" height="72">
+  <div id="home-secondary-nav" class="home-nav"><a href="about/" data-menu="about"><img src="home/img/nav/about_out.gif" alt="About Loki" width="112" height="24" name="about"></a><br><a href="news/" data-menu="news"><img src="home/img/nav/news_out.gif" alt="Newsstand" width="89" height="35" name="news"></a></div>
+</div>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="483">
 	<TR>
 		<TD><IMG SRC="global/img/pixel.gif" WIDTH="258" HEIGHT="1" BORDER="0" ALT=""></TD>
@@ -336,7 +143,7 @@ We will be adding non-JS support as soon as we can. Sorry for any inconvenience.
 <P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="products/index.html">Products</A> | <A
 HREF="orders/">Order</A> | <A HREF="orders/resellers.html">Resellers</A> | <A HREF="support/index.html">Support</A> | <A HREF="development/index.html">Development</A> | <A HREF="press/index.html">Press</A> | <A HREF="news/index.html">News</A> | <A HREF="about/index.html">About Loki</A>
 </FONT></P>
-<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="about/contact.html">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><BR>
+<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="about/contact.html">Contact Us</A> | <A href="legacy-services.html#email">Webmaster</A><BR>
 Loki is a registered trademark of Loki Software, Inc.
 </FONT></P>
 <P>&nbsp;</P>
