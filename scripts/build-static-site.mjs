@@ -8,7 +8,7 @@
 import { cp, mkdir, readFile, readdir, rename, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { isCriticalImage, isDirectoryListing, isNoIndexRoute, isTemplateFragment, sanitizeUnsafeLegacyJavaScript } from './archive-policy.mjs';
+import { isDirectoryListing, isNoIndexRoute, isTemplateFragment, sanitizeUnsafeLegacyJavaScript } from './archive-policy.mjs';
 
 const root = process.cwd();
 const source = path.join(root, 'legacy-source', 'www.lokigames.com');
@@ -120,48 +120,45 @@ const localizeLegacyLinks = async (html, output) => {
     .replace(legacySubdomain, (_match, service) => `/legacy-services.html#${service.toLowerCase()}`);
   const attribute = /\b(href|src|action)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
 
-  localized = await (async () => {
-    const matches = [...localized.matchAll(attribute)].reverse();
-    for (const match of matches) {
-      const original = match[2] ?? match[3] ?? match[4] ?? '';
-      // Fragments occasionally used _global as if it were rooted; make that
-      // intent explicit before calculating a file-relative URL.
-      const requested = original.startsWith('_global/') ? `/${original}` : original;
-      if (!requested.startsWith('/')) continue;
+  const matches = [...localized.matchAll(attribute)].reverse();
+  for (const match of matches) {
+    const original = match[2] ?? match[3] ?? match[4] ?? '';
+    // Fragments occasionally used _global as if it were rooted; make that
+    // intent explicit before calculating a file-relative URL.
+    const requested = original.startsWith('_global/') ? `/${original}` : original;
+    if (!requested.startsWith('/')) continue;
 
-      const [pathname, suffix = ''] = requested.match(/^([^?#]*)(.*)$/).slice(1);
-      const safePath = pathname.replace(/^\/+/, '');
-      const base = path.resolve(destination, safePath);
-      if (!base.startsWith(destination)) continue;
-      // Prefer an index page for a legacy directory route. Some snapshots also
-      // contain a same-named Apache listing (for example, orders.html), which
-      // is not the page that the original /orders/ URL served.
-      const candidates = [base, path.join(base, 'index.html'), `${base}.html`];
-      let target;
-      for (const candidate of candidates) {
-        try {
-          if ((await stat(candidate)).isFile()) {
-            target = candidate;
-            break;
-          }
-        } catch { /* try the next static-file form */ }
-      }
-      // Keep even unavailable historical paths portable: they should remain a
-      // relative link in the archive rather than become a root-domain URL.
-      target ??= base;
-
-      const relativeTarget = path.relative(path.dirname(output), target).split(path.sep).join('/');
-      const isIndex = relativeTarget === 'index.html' || relativeTarget.endsWith('/index.html');
-      const localPath = isIndex
-        ? relativeTarget.replace(/index\.html$/, '') || './'
-        : relativeTarget;
-      // Query strings were PHP routing inputs; static routes do not need them.
-      const fragment = suffix.startsWith('#') ? suffix : suffix.includes('#') ? `#${suffix.split('#')[1]}` : '';
-      const replacement = `${match[1]}="${localPath}${fragment}"`;
-      localized = `${localized.slice(0, match.index)}${replacement}${localized.slice(match.index + match[0].length)}`;
+    const [pathname, suffix = ''] = requested.match(/^([^?#]*)(.*)$/).slice(1);
+    const safePath = pathname.replace(/^\/+/, '');
+    const base = path.resolve(destination, safePath);
+    if (!base.startsWith(destination)) continue;
+    // Prefer an index page for a legacy directory route. Some snapshots also
+    // contain a same-named Apache listing (for example, orders.html), which
+    // is not the page that the original /orders/ URL served.
+    const candidates = [base, path.join(base, 'index.html'), `${base}.html`];
+    let target;
+    for (const candidate of candidates) {
+      try {
+        if ((await stat(candidate)).isFile()) {
+          target = candidate;
+          break;
+        }
+      } catch { /* try the next static-file form */ }
     }
-    return localized;
-  })();
+    // Keep even unavailable historical paths portable: they should remain a
+    // relative link in the archive rather than become a root-domain URL.
+    target ??= base;
+
+    const relativeTarget = path.relative(path.dirname(output), target).split(path.sep).join('/');
+    const isIndex = relativeTarget === 'index.html' || relativeTarget.endsWith('/index.html');
+    const localPath = isIndex
+      ? relativeTarget.replace(/index\.html$/, '') || './'
+      : relativeTarget;
+    // Query strings were PHP routing inputs; static routes do not need them.
+    const fragment = suffix.startsWith('#') ? suffix : suffix.includes('#') ? `#${suffix.split('#')[1]}` : '';
+    const replacement = `${match[1]}="${localPath}${fragment}"`;
+    localized = `${localized.slice(0, match.index)}${replacement}${localized.slice(match.index + match[0].length)}`;
+  }
   return localized;
 };
 
@@ -332,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('focus', () => showMenu(name));
   });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') hideMenus(); });
-  menus.forEach((name, index) => setTimeout(() => setImage(name, 'off'), (index + 1) * 500));
 });
 `;
 
@@ -369,13 +365,11 @@ const modernizeHomePage = async (output) => {
     .replace(/<style[^>]*>[\s\S]*?<\/style>/i, '<link rel="stylesheet" href="global/homepage.css">')
     .replace(/<script[^>]*>[\s\S]*?<\/script>/i, '<script src="global/homepage.js" defer></script>')
     .replace(/\s+onLoad=("[^"]*"|'[^']*')/i, '')
-    .replace(/href="javascript:showLayer\(\d+,1\),flipNav\('([^']+)',1\)"\s+onMouseOver=("[^"]*"|'[^']*')\s+onMouseOut=("[^"]*"|'[^']*')/gi, (_match, name) => `href="${routesForHome[name]}" data-menu="${name}"`);
+    .replace(/href="javascript:showLayer\(\d+,1\),flipNav\('([^']+)',1\)"\s+onMouseOver=("[^"]*"|'[^']*')\s+onMouseOut=("[^"]*"|'[^']*')/gi, (_match, name) => `href="${name}/" data-menu="${name}"`);
   await writeFile(path.join(destination, 'global', 'homepage.css'), css);
   await writeFile(path.join(destination, 'global', 'homepage.js'), homepageScript);
   await writeFile(output, html);
 };
-
-const routesForHome = { products: 'products/', orders: 'orders/', support: 'support/', development: 'development/', press: 'press/', about: 'about/', news: 'news/' };
 
 const removeDirectoryListings = async () => {
   for (const file of (await walk(destination)).filter((item) => item.endsWith('.html'))) {
@@ -395,8 +389,7 @@ const optimizeImages = async () => {
       if (/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(src) || /\b(?:usemap|ismap|name)\s*=/i.test(tag)) continue;
       const imagePath = path.resolve(path.dirname(file), src);
       if (!imagePath.startsWith(destination) || !/\.(?:jpe?g|gif)$/i.test(imagePath)) continue;
-      let metadata;
-      let imageStat;
+      let metadata, imageStat;
       try {
         [metadata, imageStat] = await Promise.all([sharp(imagePath, { animated: true }).metadata(), stat(imagePath)]);
       } catch { continue; }
@@ -410,7 +403,7 @@ const optimizeImages = async () => {
       const webpRelative = path.relative(path.dirname(file), webpPath).split(path.sep).join('/');
       const sizedTag = /\bwidth\s*=/.test(tag) || !dimensions.width || !dimensions.height
         ? tag : tag.replace(/<img\b/i, `<img width="${dimensions.width}" height="${dimensions.height}"`);
-      const enrichedTag = /\bloading\s*=/.test(sizedTag) || isCriticalImage(path.relative(destination, file), sizedTag)
+      const enrichedTag = /\bloading\s*=/.test(sizedTag) || (path.relative(destination, file) === 'index.html' && /\bid="home-logo"/i.test(sizedTag))
         ? sizedTag.replace(/<img\b/i, '<img decoding="async"')
         : sizedTag.replace(/<img\b/i, '<img loading="lazy" decoding="async"');
       const picture = `<picture><source srcset="${webpRelative}" type="image/webp">${enrichedTag}</picture>`;

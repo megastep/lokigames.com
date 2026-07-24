@@ -14,5 +14,3 @@ export const sanitizeUnsafeLegacyJavaScript = (html) => html
   .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (script) => hasUnsafeLegacyJavaScript(script) ? '' : script)
   .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
   .replace(/\bhref\s*=\s*(["'])javascript:[\s\S]*?\1/gi, 'href="#"');
-
-export const isCriticalImage = (relativePage, tag) => relativePage === 'index.html' && /\bid="home-(?:top-left|portal|logo|bottom-left)"/i.test(tag);

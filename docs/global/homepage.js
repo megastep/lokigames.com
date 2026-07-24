@@ -36,5 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('focus', () => showMenu(name));
   });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') hideMenus(); });
-  menus.forEach((name, index) => setTimeout(() => setImage(name, 'off'), (index + 1) * 500));
 });
