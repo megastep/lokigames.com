@@ -10,7 +10,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const source = path.join(root, 'legacy-source', 'www.lokigames.com');
-const destination = path.join(root, 'site');
+const destination = path.join(root, 'docs');
 const legacyHost = /(?:https?:)?\/\/(?:www\.)?lokigames\.com(?=[:/?#]|["'\s<])/gi;
 const legacySubdomain = /(?:https?|ftp|news):\/\/([a-z0-9-]+)\.lokigames\.com(?=[:/?#]|["'\s<])/gi;
 
@@ -139,6 +139,15 @@ nav { display: flex; flex-wrap: wrap; gap: 0; margin-top: 16px; border-block: 1p
 .legacy-table { border-collapse: collapse; width: 100%; margin: 18px 0; } .legacy-table td, .legacy-table th { padding: 8px; border: 1px solid #564334; text-align: left; } .legacy-table .dark { background: #251b14; } .legacy-table .light { background: #3a2c20; }
 img { max-width: 100%; } footer { padding: 24px 0 38px; font-size: .8rem; line-height: 1.8; } @media (max-width: 600px) { .content { padding: 20px 14px; } nav a { padding: 8px; } }
 `);
+await writeFile(path.join(destination, '_config.yml'), `title: Loki Entertainment Software Archive
+description: The Games that Linux People Play
+markdown: kramdown
+
+# The original site stores shared visual assets in this historical directory.
+# Jekyll normally skips underscore-prefixed directories, so keep it public.
+include:
+  - _global
+`);
 await writeFile(path.join(destination, 'legacy-services.html'), pageShell('Loki legacy services', `
   <h1>Legacy Loki services</h1>
   <div class="normal">This static archive includes the public Loki Games website. Its historical store, update, FAQ, news, FTP, and bug-tracking subdomains were separate services and are not part of this snapshot.</div>
@@ -179,4 +188,4 @@ for (const file of staticFiles.filter((item) => item.endsWith('.html'))) {
   }
 }
 
-console.log(`Built ${fragments.length} converted PHP pages and ${staticFiles.length} static files in site/.`);
+console.log(`Built ${fragments.length} converted PHP pages and ${staticFiles.length} static files in docs/.`);

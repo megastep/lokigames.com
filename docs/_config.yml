@@ -1,0 +1,8 @@
+title: Loki Entertainment Software Archive
+description: The Games that Linux People Play
+markdown: kramdown
+
+# The original site stores shared visual assets in this historical directory.
+# Jekyll normally skips underscore-prefixed directories, so keep it public.
+include:
+  - _global
