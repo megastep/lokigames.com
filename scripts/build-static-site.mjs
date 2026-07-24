@@ -363,17 +363,18 @@ const modernizeHomePage = async (output) => {
 #home-composite img { position: absolute; display: block; max-width: none; }
 #home-top-left { left: 0; top: 0; width: 255px; height: 69px; }
 #home-portal { left: 255px; top: 0; width: 286px; height: 69px; }
-#home-logo { left: 0; top: 69px; width: 366px; height: 116px; }
-#home-bottom-left { left: 0; top: 185px; width: 313px; height: 72px; }
+#home-logo { left: 0; top: 69px; width: 370px; height: 116px; }
+/* The captured lower raster has a four-pixel overprint into the logo slice. */
+#home-bottom-left { left: 22px; top: 181px; width: 313px; height: 72px; }
 #home-composite .home-nav { position: absolute; z-index: 1; text-align: left; line-height: 0; }
-#home-primary-nav { left: 366px; top: 69px; }
-#home-secondary-nav { left: 313px; top: 185px; }
+#home-primary-nav { left: 370px; top: 69px; }
+#home-secondary-nav { left: 335px; top: 181px; }
 #home-composite .home-nav img { position: static; }
 `;
   const composite = `<div id="home-composite">
   <img id="home-top-left" src="home/img/topleft.gif" alt="" width="255" height="69" ismap usemap="#standardsmap">
   <img id="home-portal" src="home/img/portal/blank.gif" alt="" width="286" height="69" name="portal">
-  <img id="home-logo" src="home/img/lokilogo2.gif" alt="Loki Entertainment Software" width="366" height="116">
+  <img id="home-logo" src="home/img/lokilogo2.gif" alt="Loki Entertainment Software" width="370" height="116">
   <div id="home-primary-nav" class="home-nav"><a href="products/" data-menu="products"><img src="home/img/nav/products_out.gif" alt="Products" width="130" height="21" name="products"></a><br><a href="orders/" data-menu="orders"><img src="home/img/nav/orders_out.gif" alt="Orders" width="106" height="24" name="orders"></a><br><a href="support/" data-menu="support"><img src="home/img/nav/support_out.gif" alt="Support" width="103" height="25" name="support"></a><br><a href="development/" data-menu="development"><img src="home/img/nav/development_out.gif" alt="Development" width="116" height="27" name="development"></a><br><a href="press/" data-menu="press"><img src="home/img/nav/press_out.gif" alt="Press" width="67" height="19" name="press"></a></div>
   <img id="home-bottom-left" src="home/img/bottom_left.gif" alt="" width="313" height="72">
   <div id="home-secondary-nav" class="home-nav"><a href="about/" data-menu="about"><img src="home/img/nav/about_out.gif" alt="About Loki" width="112" height="24" name="about"></a><br><a href="news/" data-menu="news"><img src="home/img/nav/news_out.gif" alt="Newsstand" width="89" height="35" name="news"></a></div>
@@ -407,6 +408,10 @@ const optimizeImages = async () => {
       const tag = match[0];
       const src = match[1] ?? match[2] ?? match[3];
       if (/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(src) || /\b(?:usemap|ismap|name)\s*=/i.test(tag)) continue;
+      // These slices form a single, pixel-aligned homepage composition. Keep
+      // their original GIF pixels instead of introducing an independent image
+      // conversion or dimension calculation for one slice.
+      if (path.relative(destination, file) === 'index.html' && /\bid="home-(?:top-left|portal|logo|bottom-left)"/i.test(tag)) continue;
       const imagePath = path.resolve(path.dirname(file), src);
       if (!imagePath.startsWith(destination) || !/\.(?:jpe?g|gif)$/i.test(imagePath)) continue;
       let metadata, imageStat;

@@ -2,8 +2,10 @@
   "name": "lokigames-archive",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.16.0",
   "scripts": {
     "build": "node scripts/build-static-site.mjs",
+    "dev": "pnpm build && jekyll serve --source docs --destination /private/tmp/lokigames-jekyll-build --livereload --port 4173",
     "validate": "node scripts/validate-static-site.mjs /private/tmp/lokigames-jekyll-build"
   },
   "devDependencies": {

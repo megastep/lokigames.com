@@ -13,12 +13,11 @@ This repository preserves the public pages of [lokigames.com](https://www.lokiga
 ## Rebuild and preview
 
 ```sh
-node scripts/download-referenced-assets.mjs
-node scripts/build-static-site.mjs
-jekyll serve --source docs --livereload
+pnpm install
+pnpm dev
 ```
 
-Then open `http://127.0.0.1:4000`. For GitHub Pages, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**, then push `main`.
+Then open `http://127.0.0.1:4173`. `pnpm dev` rebuilds the generated archive, starts Jekyll with LiveReload, and writes its temporary output outside the repository. For GitHub Pages, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**, then push `main`.
 
 The PHP that is still visible on the live legacy host is not executable there either. Its `.php3f` companion files contain the page bodies; the build script uses those bodies and wraps them in a local, asset-backed static layout.
 
