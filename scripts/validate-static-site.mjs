@@ -83,6 +83,14 @@ for (const file of htmlFiles) {
     const fallback = picture[1].match(/<img\b/i);
     if (!webp || !fallback || !(await isReachable(path.resolve(path.dirname(file), webp)))) failures.push(`${relative}: invalid WebP picture fallback.`);
   }
+  for (const table of html.matchAll(/<table\b[^>]*\bclass=(?:"[^"]*\blegacy-table\b[^"]*"|'[^']*\blegacy-table\b[^']*')[^>]*>([\s\S]*?)<\/table>/gi)) {
+    if (/<tr\b[^>]*>\s*<tr\b/i.test(table[1])) failures.push(`${relative}: legacy table contains a nested row.`);
+    for (const row of table[1].matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
+      const opened = row[1].match(/<td\b[^>]*>/gi)?.length ?? 0;
+      const closed = row[1].match(/<\/td>/gi)?.length ?? 0;
+      if (opened !== closed) failures.push(`${relative}: legacy table has unbalanced cells.`);
+    }
+  }
   await validateLocalReferences(file, html);
 }
 

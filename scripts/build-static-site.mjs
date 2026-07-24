@@ -75,17 +75,30 @@ const renderFragment = (fragment) => {
     [/<\?php\s+echo\s+\$_subhead\s*\?>/gi, '</h2>'],
     [/<\?php\s+echo\s+\$table_cp4\s*\?>/gi, '<table class="legacy-table">'],
     [/<\?php\s+echo\s+\$_table_cp4\s*\?>/gi, '</table>'],
-    [/<\?php\s+tabcell_special\('(head|dark|light)',\s*(\d+),\s*\d+\);\s*\?>/gi, '<td class="$1" colspan="$2">'],
-    [/<\?php\s+tabcell\('(dark|light)'\);\s*\?>/gi, '<td class="$1">'],
-    [/<\?php\s+tabcell\('end'\);\s*\?>/gi, '</td>'],
+    // The captured PHP fragments call these helpers without semicolons. PHP 3
+    // accepted that form at the end of a template tag, but a literal match
+    // would drop every table cell in modern static output.
+    [/<\?php\s+tabcell_special\('(head|dark|light)',\s*(\d+),\s*\d+\)\s*;?\s*\?>/gi, '<td class="$1" colspan="$2">'],
+    [/<\?php\s+tabcell\('(head|dark|light)'\)\s*;?\s*\?>/gi, '<td class="$1">'],
+    [/<\?php\s+tabcell\('end'\)\s*;?\s*\?>/gi, '</td>'],
     [/<\?php[\s\S]*?\?>/gi, ''],
     [/\.php3f?(?:\.html)?(?=["'#?])/gi, '.html'],
   ];
 
-  return replacements.reduce((html, [pattern, replacement]) => html.replace(pattern, replacement), fragment)
+  const rendered = replacements.reduce((html, [pattern, replacement]) => html.replace(pattern, replacement), fragment)
     .replace(/<\/TABLE>(?!\s*<\/table>)/gi, '</table>')
     .replace(/<\/input>/gi, '')
     .replace(/\s+textwrap=(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+
+  // Repair the small number of malformed rows in the archival capture without
+  // changing their text, order, or table styling.
+  return rendered
+    .replace(/<tr\b([^>]*)>\s*<tr\b[^>]*>/gi, '<tr$1>')
+    .replace(/<tr\b([^>]*)>([\s\S]*?)<\/tr>/gi, (row, attributes, cells) => {
+      const opened = cells.match(/<td\b[^>]*>/gi)?.length ?? 0;
+      const closed = cells.match(/<\/td>/gi)?.length ?? 0;
+      return opened > closed ? `<tr${attributes}>${cells}${'</td>'.repeat(opened - closed)}</tr>` : row;
+    });
 };
 
 const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
