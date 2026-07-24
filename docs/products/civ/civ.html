@@ -1,6 +1,21 @@
+---
+noindex: false
+---
 <HTML>
 <HEAD>
-<TITLE>This page has moved</TITLE>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This page has moved</title>
+  <meta name="description" content="Civilization: Call To Power This page has moved to /products/civctp/">
+  <meta name="robots" content="index, follow">
+  {% assign canonical_origin = site.github.url | default: site.url %}
+  <link rel="canonical" href="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:title" content="This page has moved">
+  <meta property="og:description" content="Civilization: Call To Power This page has moved to /products/civctp/">
+  <meta property="og:url" content="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
 <META HTTP-EQUIV="refresh" content="0; URL=../civctp/index.html">
 
 </HEAD>
@@ -8,6 +23,6 @@
 <BODY BGCOLOR="#FFFFFF">
 <H1>Civilization: Call To Power</H1>
 
-This page has moved to <A HREF="../civctp/index.html">/products/civctp/</A>
+This page has moved to <A href="../civctp/">/products/civctp/</A>
 
 </BODY>

@@ -1,0 +1,55 @@
+
+
+
+BODY { background-image: url('img/back_stripe_blur3.gif'); background-color: #000000; background-repeat: repeat-y; }
+
+.normal { font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #CCCCCC; text-decoration: none; }
+
+.subhead { font-family: Arial, Helvetica, sans-serif; font-size: 14pt; color: #FFFFFF; font-weight: bold; text-decoration: none; }
+
+.small { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #CCCCCC; text-decoration: none; }
+
+.headline { font-family: Arial, Helvetica, sans-serif; font-size: 16pt; color: #FFFFFF; text-decoration: none; font-style: bold; }
+
+LI { color: #FFFFFF; }
+
+
+#menuback { position: absolute; z-index: 1; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menuproducts { position: absolute; z-index: 2; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menuorders { position: absolute; z-index: 3; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menudevelopment { position: absolute; z-index: 4; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menusupport { position: absolute; z-index: 5; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menupress { position: absolute; z-index: 6; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+#menunews { position: absolute; z-index: 7; top: 250px; left: 0px; width: 100%;  height: 24px; visibility: hidden; }
+
+#menuabout { position: absolute; z-index: 8; top: 250px; left: 0px; width: 100%; height: 24px; visibility: hidden; }
+
+.linkmenu { color: #FFFFFF; }
+
+
+a:link { color: #B08F6F; text-decoration: none; }
+a:visited { color: #B08F6F; text-decoration: none; }
+a:active { color: #3366CC; text-decoration: none; }
+
+
+
+
+
+/* This image-driven header is one fixed-width composition. Preventing table
+   reflow keeps its historical slices aligned on narrow viewports. */
+#home-composite { position: relative; width: 541px; height: 257px; min-width: 541px; }
+#home-composite img { position: absolute; display: block; max-width: none; }
+#home-top-left { left: 0; top: 0; width: 255px; height: 69px; }
+#home-portal { left: 255px; top: 0; width: 286px; height: 69px; }
+#home-logo { left: 0; top: 69px; width: 366px; height: 116px; }
+#home-bottom-left { left: 0; top: 185px; width: 313px; height: 72px; }
+#home-composite .home-nav { position: absolute; z-index: 1; text-align: left; line-height: 0; }
+#home-primary-nav { left: 366px; top: 69px; }
+#home-secondary-nav { left: 313px; top: 185px; }
+#home-composite .home-nav img { position: static; }
