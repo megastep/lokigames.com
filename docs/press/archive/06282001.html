@@ -1,170 +1,36 @@
+---
+noindex: false
+---
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loki | PressCenter | Archive</title>
+  <meta name="description" content="Loki Software, Inc. Archive Write the Games Linux People Play FOR IMMEDIATE RELEASE June 28, 2001 New book teaches how to program Linux games with SDL, Open">
+  <meta name="robots" content="index, follow">
+  {% assign canonical_origin = site.github.url | default: site.url %}
+  <link rel="canonical" href="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:title" content="Loki | PressCenter | Archive">
+  <meta property="og:description" content="Loki Software, Inc. Archive Write the Games Linux People Play FOR IMMEDIATE RELEASE June 28, 2001 New book teaches how to program Linux games with SDL, Open">
+  <meta property="og:url" content="{{ canonical_origin }}{{ page.url }}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
 <!-- Copyright (C) 1999-2001 Loki Software, Inc. -->
 <!-- Design and programming from John Grantham -->
 <!-- http://surf.to/multimedia -->
-<TITLE>Loki | PressCenter | Archive</TITLE><SCRIPT LANGUAGE="JavaScript">
-<!--
-
-var active = 0;
-
-function activate() {
-	active = 1;
-}
-
-
-// JavaScripts for all pages except for HOME
-
-if (document.images) {
-
-var section = 'press';
-
-products_on = new Image();
-products_on.src="../../global/img/overview/nav/products_on.gif";
-products_off = new Image();
-products_off.src="../../global/img/overview/nav/products_off.gif";
-
-orders_on = new Image();
-orders_on.src="../../global/img/overview/nav/orders_on.gif";
-orders_off = new Image();
-orders_off.src="../../global/img/overview/nav/orders_off.gif";
-
-support_on = new Image();
-support_on.src="../../global/img/overview/nav/support_on.gif";
-support_off = new Image();
-support_off.src="../../global/img/overview/nav/support_off.gif";
-
-development_on = new Image();
-development_on.src="../../global/img/overview/nav/development_on.gif";
-development_off = new Image();
-development_off.src="../../global/img/overview/nav/development_off.gif";
-
-press_on = new Image();
-press_on.src="../../global/img/overview/nav/press_on.gif";
-press_off = new Image();
-press_off.src="../../global/img/overview/nav/press_off.gif";
-
-news_on = new Image();
-news_on.src="../../global/img/overview/nav/news_on.gif";
-news_off = new Image();
-news_off.src="../../global/img/overview/nav/news_off.gif";
-
-about_on = new Image();
-about_on.src="../../global/img/overview/nav/about_on.gif";
-about_off = new Image();
-about_off.src="../../global/img/overview/nav/about_off.gif";
-
-}
-
-function flip(name,on) {
-	if (document.images && active && (name != section)) {
-		image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
-		document[name].src = image;
-	}
-}
-
-function flipNav(name,on) {
-	if (document.images && active) {
-		portalImg = (on == 1) ? eval("'/global/img/overview/sections/"+name+".gif'") : "/global/img/overview/sections/press.gif";
-		document.portal.src = portalImg;
-	}
-}
-
-function flipSec(pic) {
-	if (pic != "error") {
-		if (document.images && active) {
-			image = eval(pic + "_on.src");
-			document[pic].src = image;
-		}
-	}
-}
-
-
-// Global JavaScripts
-
-function flipPortalStart() {
-//	document.portal.src="../../global/img/navbar/portals_anim/products.gif";
-}
-
-var ie4 = (document.all)    ? 1 : 0;
-var nn4 = (document.layers) ? 1 : 0;
-bOK = (ie4) || (nn4);
-
-if (nn4) {
-	layerVar = "document.layers"; styleVar = ""; visVar = "show";
-} else if (ie4) {
-	layerVar = "document.all"; styleVar = ".style"; visVar = "visible";
-}
-
-var layer = "null";
-        
-function showLayer(num,isMenu){
-	if (bOK && active) {
-		hideAllLayers();
-		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="visible"');
-		if (isMenu == 1) {
-			eval(layerVar + '["' + layerList[0] + '"]' + styleVar + '.visibility="visible"');
-		}
-	} else if (active) {
-		window.location = eval("'/"+buttonsList[num]+"/'");
-	}
-}
-     
-function hideLayer(num){
-	if (bOK && active) {
-		eval(layerVar + '["' + layerList[num] + '"]' + styleVar + '.visibility="hidden"');
-	}
-}
-
-function hideAllLayers() {
-	if (bOK && active) {
-		for (i = 0; i < layerList.length; i++) {
-			hideLayer(i);
-			hideLayer(0);
-			flipNav('',0);
-		}
-	}
-}
-
-layerList = new Array();
-layerList[0] = "menuback";
-layerList[1] = "menuproducts";
-layerList[2] = "menuorders";
-layerList[3] = "menusupport";
-layerList[4] = "menudevelopment";
-layerList[5] = "menupress";
-layerList[6] = "menuabout";
-layerList[7] = "menunews";
-
-if (document.images) {
-
-buttonsList = new Array();
-buttonsList[0] = "back";
-buttonsList[1] = "products";
-buttonsList[2] = "orders";
-buttonsList[3] = "support";
-buttonsList[4] = "development";
-buttonsList[5] = "press";
-buttonsList[6] = "about";
-buttonsList[7] = "news";
-
-}
-
-
-//-->
-</SCRIPT>
 <META NAME="copyright" CONTENT="(C) 1999 Loki Software, Inc.">
 
 <MAP NAME="standardsmap">
-	<AREA SHAPE="rect" COORDS="0,0,23,18" HREF="../../about/contact.html">
-	<AREA SHAPE="rect" COORDS="23,0,40,18" HREF="../../news/links.html">
-	<AREA SHAPE="rect" COORDS="40,0,60,18" HREF="../../about/copyright.html">
-	<AREA SHAPE="rect" COORDS="60,0,276,105" HREF="../../">
+	<AREA SHAPE="rect" COORDS="0,0,23,18" href="../../about/contact.html">
+	<AREA SHAPE="rect" COORDS="23,0,40,18" href="../../news/links.html">
+	<AREA SHAPE="rect" COORDS="40,0,60,18" href="../../about/copyright.html">
+	<AREA SHAPE="rect" COORDS="60,0,276,105" href="../../">
 </MAP>
 
 </HEAD>
-<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" onLoad="activate()"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Software, Inc.</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Write the Games Linux People Play
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F"><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Loki Software, Inc.</FONT></H4><H5><FONT FACE="" COLOR="#FFFFFF" CLASS="subhead">Archive</FONT></H5><H4><FONT FACE="" COLOR="#FFFFFF" CLASS="headline">Write the Games Linux People Play
 </FONT></H4>
 <P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">FOR IMMEDIATE RELEASE<BR>
 June 28, 2001
@@ -233,12 +99,12 @@ www.nostarch.com
 </FONT></P>
 <P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Linux is a registered trademark of Linus Torvalds. All company and product names are the trademarks, registrations, or copyrights of their respective owners.
 </FONT></P><!--htdig_noindex--><NOSCRIPT><H5>Note</H5><P>If you are seeing this text, you have JavaScript disabled.<BR>Currently, we recommend using JavaScript to fully appreciate the site,<BR>partly due to a bug in Netscape that also turns off style sheets.<BR>We will be adding non-JS support as soon as we can. Sorry for any inconvenience.</P></NOSCRIPT>
-<P><IMG SRC="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+<P><IMG src="../../global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
 
-<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../products/">Products</A> | <A
-HREF="../../orders/">Order</A> | <A HREF="../../support/">Support</A> | <A HREF="../../development/">Development</A> | <A HREF="../">Press</A> | <A HREF="../../news/">News</A> | <A HREF="../../about/">About Loki</A>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A href="../../products/">Products</A> | <A
+href="../../orders/">Order</A> | <A href="../../support/">Support</A> | <A href="../../development/">Development</A> | <A href="../">Press</A> | <A href="../../news/">News</A> | <A href="../../about/">About Loki</A>
 </FONT></P>
-<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="../../about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A HREF="../../about/contact.html">Contact Us</A> | <A HREF="mailto:webmaster@lokigames.com?Subject=Loki Website Webmaster">Webmaster</A><BR>
+<P><FONT FACE="" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A href="../../about/copyright.html">&copy;</A> 2000 Loki Software, Inc. | <A href="../../about/contact.html">Contact Us</A> | <A href="../../legacy-services.html#email">Webmaster</A><BR>
 Loki is a registered trademark of Loki Software, Inc.
 </FONT></P>
 <P>&nbsp;</P>

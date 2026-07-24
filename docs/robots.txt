@@ -1,2 +1,5 @@
+---
+---
 User-agent: *
 Disallow: /i-am+so+british-like-ck/
+Sitemap: {{ site.github.url | default: site.url }}/sitemap.xml

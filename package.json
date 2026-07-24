@@ -1,0 +1,12 @@
+{
+  "name": "lokigames-archive",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-static-site.mjs",
+    "validate": "node scripts/validate-static-site.mjs /private/tmp/lokigames-jekyll-build"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.2"
+  }
+}
