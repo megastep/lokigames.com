@@ -5,7 +5,7 @@
  * static site. The old host serves PHP 3 source files and their `php3f`
  * content fragments, so this deliberately never executes legacy PHP.
  */
-import { cp, mkdir, readFile, readdir, rm, stat, unlink, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rename, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = process.cwd();
@@ -21,6 +21,30 @@ const walk = async (directory) => {
     return entry.isDirectory() ? walk(item) : [item];
   }));
   return nested.flat();
+};
+
+const staticName = (name) => ({
+  _global: 'global',
+  _img: 'img',
+  _bak: 'bak',
+}[name] ?? `legacy-${name.slice(1)}`);
+
+const renameHiddenLegacyPaths = async (directory) => {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const item = path.join(directory, entry.name);
+    if (entry.isDirectory()) await renameHiddenLegacyPaths(item);
+    if (!entry.name.startsWith('_') || entry.name === '_config.yml') continue;
+    const target = path.join(directory, staticName(entry.name));
+    try {
+      await stat(target);
+      // A rendered fragment can recreate a legacy directory after its copied
+      // assets have already been renamed. Merge it into the public directory.
+      await cp(item, target, { recursive: entry.isDirectory(), force: true });
+      await rm(item, { recursive: entry.isDirectory(), force: true });
+    } catch {
+      await rename(item, target);
+    }
+  }
 };
 
 const titleFor = async (fragmentPath) => {
@@ -129,9 +153,10 @@ const localizeLegacyLinks = async (html, output) => {
 
 await rm(destination, { recursive: true, force: true });
 await cp(source, destination, { recursive: true });
-await mkdir(path.join(destination, '_global'), { recursive: true });
-await writeFile(path.join(destination, '_global', 'legacy.css'), `
-body { margin: 0; min-height: 100vh; background: #000 url('/_global/_img/back_stripe_blur3.gif') repeat-y; color: #ccc; font: 16px Arial, Helvetica, sans-serif; }
+await renameHiddenLegacyPaths(destination);
+await mkdir(path.join(destination, 'global'), { recursive: true });
+await writeFile(path.join(destination, 'global', 'legacy.css'), `
+body { margin: 0; min-height: 100vh; background: #000 url('img/back_stripe_blur3.gif') repeat-y; color: #ccc; font: 16px Arial, Helvetica, sans-serif; }
 .site-header, .content, footer { width: min(900px, calc(100% - 32px)); margin: 0 auto; }
 .site-header { padding: 26px 0 12px; } .site-header img { max-width: 100%; height: auto; }
 nav { display: flex; flex-wrap: wrap; gap: 0; margin-top: 16px; border-block: 1px solid #66503e; } nav a { padding: 9px 12px; color: #fff; font-weight: bold; }
@@ -142,11 +167,6 @@ img { max-width: 100%; } footer { padding: 24px 0 38px; font-size: .8rem; line-h
 await writeFile(path.join(destination, '_config.yml'), `title: Loki Entertainment Software Archive
 description: The Games that Linux People Play
 markdown: kramdown
-
-# The original site stores shared visual assets in this historical directory.
-# Jekyll normally skips underscore-prefixed directories, so keep it public.
-include:
-  - _global
 `);
 await writeFile(path.join(destination, 'legacy-services.html'), pageShell('Loki legacy services', `
   <h1>Legacy Loki services</h1>
@@ -163,6 +183,10 @@ for (const fragmentPath of fragments) {
   await writeFile(output, pageShell(await titleFor(fragmentPath), renderFragment(fragment)));
 }
 
+// A few PHP fragments themselves live under legacy underscore directories.
+// Rename those generated pages as well before Jekyll reads the site.
+await renameHiddenLegacyPaths(destination);
+
 for (const file of await walk(destination)) {
   if (file.endsWith('.php3.html') || file.endsWith('.php3f.html') || file.includes('.php3?') || file.includes('?C=')) {
     await unlink(file);
@@ -171,7 +195,11 @@ for (const file of await walk(destination)) {
   if (file.endsWith('.html')) {
     const html = await readFile(file, 'utf8');
     const staticHtml = await localizeLegacyLinks(
-      html.replace(/\.php3f?(?:\.html)?(?=["'#?\s>])/gi, '.html'),
+      html
+        .replace(/\.php3f?(?:\.html)?(?=["'#?\s>])/gi, '.html')
+        .replaceAll('_global/', 'global/')
+        .replaceAll('_img/', 'img/')
+        .replaceAll('_bak/', 'bak/'),
       file,
     );
     if (html !== staticHtml) await writeFile(file, staticHtml);
@@ -181,6 +209,10 @@ for (const file of await walk(destination)) {
 const staticFiles = await walk(destination);
 if (staticFiles.some((file) => file.endsWith('.php') || file.endsWith('.php3.html') || file.endsWith('.php3f.html'))) {
   throw new Error('Static conversion left PHP files in the deployment output.');
+}
+const jekyllExcludedPaths = staticFiles.filter((file) => path.relative(destination, file).split(path.sep).some((part) => part.startsWith('_') && part !== '_config.yml'));
+if (jekyllExcludedPaths.length) {
+  throw new Error(`Static conversion left Jekyll-excluded legacy paths in the deployment output: ${jekyllExcludedPaths.join(', ')}`);
 }
 for (const file of staticFiles.filter((item) => item.endsWith('.html'))) {
   if (/(?:https?|ftp|news):\/\/(?:[a-z0-9-]+\.)?lokigames\.com(?=[:/?#]|["'\s<])/i.test(await readFile(file, 'utf8'))) {

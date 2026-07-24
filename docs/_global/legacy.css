@@ -1,8 +1,0 @@
-
-body { margin: 0; min-height: 100vh; background: #000 url('/_global/_img/back_stripe_blur3.gif') repeat-y; color: #ccc; font: 16px Arial, Helvetica, sans-serif; }
-.site-header, .content, footer { width: min(900px, calc(100% - 32px)); margin: 0 auto; }
-.site-header { padding: 26px 0 12px; } .site-header img { max-width: 100%; height: auto; }
-nav { display: flex; flex-wrap: wrap; gap: 0; margin-top: 16px; border-block: 1px solid #66503e; } nav a { padding: 9px 12px; color: #fff; font-weight: bold; }
-.content { box-sizing: border-box; min-height: 440px; padding: 28px 24px; background: rgba(0,0,0,.48); } a { color: #b08f6f; } h1, h2 { color: #fff; } h1 { font-size: 1.5rem; } h2 { font-size: 1.15rem; } .normal { margin: 0 0 18px; line-height: 1.45; } .small { margin: 0 0 14px; font-size: .9rem; line-height: 1.45; }
-.legacy-table { border-collapse: collapse; width: 100%; margin: 18px 0; } .legacy-table td, .legacy-table th { padding: 8px; border: 1px solid #564334; text-align: left; } .legacy-table .dark { background: #251b14; } .legacy-table .light { background: #3a2c20; }
-img { max-width: 100%; } footer { padding: 24px 0 38px; font-size: .8rem; line-height: 1.8; } @media (max-width: 600px) { .content { padding: 20px 14px; } nav a { padding: 8px; } }

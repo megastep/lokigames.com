@@ -6,7 +6,7 @@ This repository preserves the public pages of [lokigames.com](https://www.lokiga
 
 - `legacy-source/www.lokigames.com/` is the downloaded public snapshot (including original PHP source fragments exposed by the host).
 - `docs/` is the Jekyll source and GitHub Pages deployment input: PHP content fragments have been converted to ordinary HTML pages and the legacy assets are served locally.
-- `docs/_config.yml` configures Jekyll, including the historical `_global` asset directory.
+- `docs/_config.yml` is the GitHub Pages Jekyll configuration. The conversion flattens legacy underscore-prefixed asset directories so Jekyll publishes them normally.
 - `scripts/build-static-site.mjs` rebuilds `docs/` from the snapshot.
 - `.github/workflows/deploy-pages.yml` builds and deploys the site on each push to `main`.
 

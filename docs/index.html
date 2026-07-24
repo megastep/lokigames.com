@@ -9,7 +9,7 @@
 <STYLE TYPE="text/css">
 <!--
 
-BODY { background-image: url(_global/_img/back_stripe_blur3.gif); background-color: #000000; background-repeat: repeat-y; }
+BODY { background-image: url(global/img/back_stripe_blur3.gif); background-color: #000000; background-repeat: repeat-y; }
 
 .normal { font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #CCCCCC; text-decoration: none; }
 
@@ -62,7 +62,7 @@ function activate() {
 // Global JavaScripts
 
 function flipPortalStart() {
-//	document.portal.src="_global/_img/navbar/portals_anim/products.gif";
+//	document.portal.src="global/img/navbar/portals_anim/products.gif";
 }
 
 var ie4 = (document.all)    ? 1 : 0;
@@ -147,7 +147,7 @@ function startupAnim() {
 		if (start <= 7) {
 //			showLayer(start,1);
 			image = buttonsList[start];
-			imagesrc = eval("'/home/_img/nav/"+image+"_off.gif'");
+			imagesrc = eval("'/home/img/nav/"+image+"_off.gif'");
 			document[image].src = imagesrc;
 			start++;
 			setTimeout('startupAnim()',500);
@@ -158,45 +158,45 @@ function startupAnim() {
 if (document.images) {
 
 products_on = new Image();
-products_on.src="home/_img/nav/products_on.gif";
+products_on.src="home/img/nav/products_on.gif";
 products_off = new Image();
-products_off.src="home/_img/nav/products_off.gif";
+products_off.src="home/img/nav/products_off.gif";
 
 orders_on = new Image();
-orders_on.src="home/_img/nav/orders_on.gif";
+orders_on.src="home/img/nav/orders_on.gif";
 orders_off = new Image();
-orders_off.src="home/_img/nav/orders_off.gif";
+orders_off.src="home/img/nav/orders_off.gif";
 
 support_on = new Image();
-support_on.src="home/_img/nav/support_on.gif";
+support_on.src="home/img/nav/support_on.gif";
 support_off = new Image();
-support_off.src="home/_img/nav/support_off.gif";
+support_off.src="home/img/nav/support_off.gif";
 
 development_on = new Image();
-development_on.src="home/_img/nav/development_on.gif";
+development_on.src="home/img/nav/development_on.gif";
 development_off = new Image();
-development_off.src="home/_img/nav/development_off.gif";
+development_off.src="home/img/nav/development_off.gif";
 
 press_on = new Image();
-press_on.src="home/_img/nav/press_on.gif";
+press_on.src="home/img/nav/press_on.gif";
 press_off = new Image();
-press_off.src="home/_img/nav/press_off.gif";
+press_off.src="home/img/nav/press_off.gif";
 
 about_on = new Image();
-about_on.src="home/_img/nav/about_on.gif";
+about_on.src="home/img/nav/about_on.gif";
 about_off = new Image();
-about_off.src="home/_img/nav/about_off.gif";
+about_off.src="home/img/nav/about_off.gif";
 
 news_on = new Image();
-news_on.src="home/_img/nav/news_on.gif";
+news_on.src="home/img/nav/news_on.gif";
 news_off = new Image();
-news_off.src="home/_img/nav/news_off.gif";
+news_off.src="home/img/nav/news_off.gif";
 
 }
 
 function flipNav(name,on) {
 	if (active) {
-		portalImg = (on == 1) ? eval("'/home/_img/portal/"+name+".gif'") : "/home/_img/portal/blank.gif";
+		portalImg = (on == 1) ? eval("'/home/img/portal/"+name+".gif'") : "/home/img/portal/blank.gif";
 		document.portal.src = portalImg;
 //	image = (on == 1) ? eval(name+"_on.src") : eval(name+"_off.src");
 //	document[name].src = image;
@@ -221,34 +221,34 @@ function flipNav(name,on) {
 <BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#B08F6F" ALINK="#3366CC" VLINK="#B08F6F" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="activate(),startupAnim()"><CENTER>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
 	<TR>
-		<TD COLSPAN="3"><IMG SRC="home/_img/topleft.gif" ALT="" WIDTH="255" HEIGHT="69" BORDER="0" ISMAP USEMAP="#standardsmap"><IMG SRC="home/_img/portal/blank.gif" ALT="" WIDTH="286" HEIGHT="69" BORDER="0" NAME="portal"></TD>
+		<TD COLSPAN="3"><IMG SRC="home/img/topleft.gif" ALT="" WIDTH="255" HEIGHT="69" BORDER="0" ISMAP USEMAP="#standardsmap"><IMG SRC="home/img/portal/blank.gif" ALT="" WIDTH="286" HEIGHT="69" BORDER="0" NAME="portal"></TD>
 	</TR>
 	<TR>
-		<TD COLSPAN="2"><IMG SRC="home/_img/lokilogo2.gif" ALT="Loki Entertainment Software" WIDTH="370" HEIGHT="116" BORDER="0"></TD>
-		<TD><A HREF="javascript:showLayer(1,1),flipNav('products',1)" onMouseOver="flip('products',1)" onMouseOut="flip('products',0)"><IMG SRC="home/_img/nav/products_out.gif" ALT="Products" WIDTH="130" HEIGHT="21" BORDER="0" NAME="products"></A><BR><A HREF="javascript:showLayer(2,1),flipNav('orders',1)" onMouseOver="flip('orders',1)" onMouseOut="flip('orders',0)"><IMG SRC="home/_img/nav/orders_out.gif" ALT="Orders" WIDTH="106" HEIGHT="24" BORDER="0" NAME="orders"></A><BR><A HREF="javascript:showLayer(3,1),flipNav('support',1)" onMouseOver="flip('support',1)" onMouseOut="flip('support',0)"><IMG SRC="home/_img/nav/support_out.gif" ALT="Support" WIDTH="103" HEIGHT="25" BORDER="0" NAME="support"></A><BR><A HREF="javascript:showLayer(4,1),flipNav('development',1)" onMouseOver="flip('development',1)" onMouseOut="flip('development',0)"><IMG SRC="home/_img/nav/development_out.gif" ALT="Development" WIDTH="116" HEIGHT="27" BORDER="0" NAME="development"></A><BR><A HREF="javascript:showLayer(5,1),flipNav('press',1)" onMouseOver="flip('press',1)" onMouseOut="flip('press',0)"><IMG SRC="home/_img/nav/press_out.gif" ALT="Press" WIDTH="67" HEIGHT="19" BORDER="0" NAME="press"></A></TD>
+		<TD COLSPAN="2"><IMG SRC="home/img/lokilogo2.gif" ALT="Loki Entertainment Software" WIDTH="370" HEIGHT="116" BORDER="0"></TD>
+		<TD><A HREF="javascript:showLayer(1,1),flipNav('products',1)" onMouseOver="flip('products',1)" onMouseOut="flip('products',0)"><IMG SRC="home/img/nav/products_out.gif" ALT="Products" WIDTH="130" HEIGHT="21" BORDER="0" NAME="products"></A><BR><A HREF="javascript:showLayer(2,1),flipNav('orders',1)" onMouseOver="flip('orders',1)" onMouseOut="flip('orders',0)"><IMG SRC="home/img/nav/orders_out.gif" ALT="Orders" WIDTH="106" HEIGHT="24" BORDER="0" NAME="orders"></A><BR><A HREF="javascript:showLayer(3,1),flipNav('support',1)" onMouseOver="flip('support',1)" onMouseOut="flip('support',0)"><IMG SRC="home/img/nav/support_out.gif" ALT="Support" WIDTH="103" HEIGHT="25" BORDER="0" NAME="support"></A><BR><A HREF="javascript:showLayer(4,1),flipNav('development',1)" onMouseOver="flip('development',1)" onMouseOut="flip('development',0)"><IMG SRC="home/img/nav/development_out.gif" ALT="Development" WIDTH="116" HEIGHT="27" BORDER="0" NAME="development"></A><BR><A HREF="javascript:showLayer(5,1),flipNav('press',1)" onMouseOver="flip('press',1)" onMouseOut="flip('press',0)"><IMG SRC="home/img/nav/press_out.gif" ALT="Press" WIDTH="67" HEIGHT="19" BORDER="0" NAME="press"></A></TD>
 	</TR>
 	<TR>
-		<TD ALIGN="RIGHT" VALIGN="TOP"><IMG SRC="home/_img/bottom_left.gif" ALT="" WIDTH="313" HEIGHT="72" BORDER="0"></TD>
-		<TD COLSPAN="2" VALIGN="TOP"><A HREF="javascript:showLayer(6,1),flipNav('about',1)" onMouseOver="flip('about',1)" onMouseOut="flip('about',0)"><IMG SRC="home/_img/nav/about_out.gif" ALT="About Loki" WIDTH="112" HEIGHT="24" BORDER="0" NAME="about"></A><BR><A HREF="javascript:showLayer(7,1),flipNav('news',1)" onMouseOver="flip('news',1)" onMouseOut="flip('news',0)"><IMG SRC="home/_img/nav/news_out.gif" ALT="Newsstand" WIDTH="89" HEIGHT="35" BORDER="0" NAME="news"></A></TD>
+		<TD ALIGN="RIGHT" VALIGN="TOP"><IMG SRC="home/img/bottom_left.gif" ALT="" WIDTH="313" HEIGHT="72" BORDER="0"></TD>
+		<TD COLSPAN="2" VALIGN="TOP"><A HREF="javascript:showLayer(6,1),flipNav('about',1)" onMouseOver="flip('about',1)" onMouseOut="flip('about',0)"><IMG SRC="home/img/nav/about_out.gif" ALT="About Loki" WIDTH="112" HEIGHT="24" BORDER="0" NAME="about"></A><BR><A HREF="javascript:showLayer(7,1),flipNav('news',1)" onMouseOver="flip('news',1)" onMouseOut="flip('news',0)"><IMG SRC="home/img/nav/news_out.gif" ALT="Newsstand" WIDTH="89" HEIGHT="35" BORDER="0" NAME="news"></A></TD>
 	</TR>
 	<TR>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="313" HEIGHT="30" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="35" HEIGHT="1" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="180" HEIGHT="1" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="313" HEIGHT="30" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="35" HEIGHT="1" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="180" HEIGHT="1" BORDER="0" ALT=""></TD>
 	</TR>
 </TABLE>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="483">
 	<TR>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="258" HEIGHT="1" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="15" HEIGHT="1" BORDER="0" ALT=""></TD>
-		<TD><IMG SRC="_global/_img/pixel.gif" WIDTH="210" HEIGHT="1" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="258" HEIGHT="1" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="15" HEIGHT="1" BORDER="0" ALT=""></TD>
+		<TD><IMG SRC="global/img/pixel.gif" WIDTH="210" HEIGHT="1" BORDER="0" ALT=""></TD>
 	</TR>
 	<TR>
-		<TD><A HREF="products/mindrover/index.html"><IMG SRC="home/_img/topics/mindrover_left.jpg" WIDTH=155 HEIGHT=129 ALT="MindRover" BORDER=0><IMG SRC="home/_img/topics/mindrover_anim.gif" WIDTH=103 HEIGHT=129 ALT="MindRover" BORDER=0></A></TD>
-		<TD><IMG SRC="_global/_img/pixel.gif" ALT="" WIDTH="10" HEIGHT="10" BORDER="0" NAME=""></TD>
+		<TD><A HREF="products/mindrover/index.html"><IMG SRC="home/img/topics/mindrover_left.jpg" WIDTH=155 HEIGHT=129 ALT="MindRover" BORDER=0><IMG SRC="home/img/topics/mindrover_anim.gif" WIDTH=103 HEIGHT=129 ALT="MindRover" BORDER=0></A></TD>
+		<TD><IMG SRC="global/img/pixel.gif" ALT="" WIDTH="10" HEIGHT="10" BORDER="0" NAME=""></TD>
 		<TD VALIGN="TOP" ROWSPAN="2">
 
-		<P><A HREF="press/index.html"><IMG SRC="home/_img/headlines/press2.gif" ALT="Press" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
+		<P><A HREF="press/index.html"><IMG SRC="home/img/headlines/press2.gif" ALT="Press" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
 		<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><!-- ############## -->
 <!-- PRESS RELEASES -->
 <!-- ############## -->
@@ -258,22 +258,22 @@ function flipNav(name,on) {
 		Kohan: Immortal Sovereigns Now Available for Linux<BR>
 		<B><A HREF="press/archive.php3%3F08102001.html">8.10.2001</a></B><BR>
 		Immortals Can Now Wear Tuxedos Too!<BR>	
-		<A HREF="press/index.html"><IMG SRC="home/_img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
+		<A HREF="press/index.html"><IMG SRC="home/img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
 		</FONT></P>
 
-		<P><A HREF="development/index.html"><IMG SRC="home/_img/headlines/open_source2.gif" ALT="Open Source Development" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
+		<P><A HREF="development/index.html"><IMG SRC="home/img/headlines/open_source2.gif" ALT="Open Source Development" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
 		<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">		Loki is active in supporting and initiating open source development projects. Find out how you can participate and make a difference. Use the source!<BR>
-		<A HREF="development/index.html"><IMG SRC="home/_img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
+		<A HREF="development/index.html"><IMG SRC="home/img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
 		</FONT></P>
-		<P><A HREF="support/index.html"><IMG SRC="home/_img/headlines/support2.gif" ALT="Support" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
+		<P><A HREF="support/index.html"><IMG SRC="home/img/headlines/support2.gif" ALT="Support" WIDTH="165" HEIGHT="18" BORDER="0"></A></P>
 		<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">		When Murphy rears his ugly head, we're here to help. If you have a problem, comment or bug report, you'll get fast and concise help in our Support section.<BR>
-		<A HREF="support/index.html"><IMG SRC="home/_img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
+		<A HREF="support/index.html"><IMG SRC="home/img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A>
 		</FONT></P>
 		<P>&nbsp;</P>
 		</TD>
 	</TR>
 	<TR>
-		<TD VALIGN="TOP"><BR><A HREF="news/index.html"><IMG SRC="home/_img/headlines/news2.gif" ALT="News from Loki" WIDTH="165" HEIGHT="18" BORDER="0"></A><BR>
+		<TD VALIGN="TOP"><BR><A HREF="news/index.html"><IMG SRC="home/img/headlines/news2.gif" ALT="News from Loki" WIDTH="165" HEIGHT="18" BORDER="0"></A><BR>
 		<P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>Loki is closed.  Thanks for your patronage.</B>
 </FONT></P>
 <P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><B>01.31.02 1:00 PM PST</B>
@@ -317,7 +317,7 @@ We'd like to thank everyone for their support these past three years.
 Best Wishes,<br>  
 The Loki Software Team
 </FONT></P>
-		<P><A HREF="news/index.html"><IMG SRC="home/_img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A></P>
+		<P><A HREF="news/index.html"><IMG SRC="home/img/headlines/more2.gif" ALT="More" WIDTH="43" HEIGHT="15" BORDER="0"></A></P>
 		<P>&nbsp;</P>
 		</TD>
 		<TD>&nbsp;</TD>
@@ -331,7 +331,7 @@ Currently, we recommend using JavaScript to fully appreciate the site,<BR>
 partly due to a bug in Netscape that also turns off style sheets.<BR>
 We will be adding non-JS support as soon as we can. Sorry for any inconvenience.
 </FONT></P></NOSCRIPT>
-<P><IMG SRC="_global/_img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
+<P><IMG SRC="global/img/blurline.gif" ALT="" WIDTH="333" HEIGHT="1" BORDER="0" VSPACE="10"></P>
 
 <P><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small"><A HREF="products/index.html">Products</A> | <A
 HREF="orders/">Order</A> | <A HREF="orders/resellers.html">Resellers</A> | <A HREF="support/index.html">Support</A> | <A HREF="development/index.html">Development</A> | <A HREF="press/index.html">Press</A> | <A HREF="news/index.html">News</A> | <A HREF="about/index.html">About Loki</A>
@@ -350,10 +350,10 @@ Loki is a registered trademark of Loki Software, Inc.
 </CENTER>
 
 
-<DIV ID="menuback" CLASS="menuback" NAME="menuback"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER">&nbsp;<!--
-<IMG SRC="home/_img/backbar.gif" ALT="" WIDTH="333" HEIGHT="30" BORDER="0">-->
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menuproducts" CLASS="menuproducts" NAME="menuproducts"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="products/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Products</FONT></A></B>
+<DIV ID="menuback" CLASS="menuback" NAME="menuback"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER">&nbsp;<!--
+<IMG SRC="home/img/backbar.gif" ALT="" WIDTH="333" HEIGHT="30" BORDER="0">-->
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menuproducts" CLASS="menuproducts" NAME="menuproducts"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="products/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Products</FONT></A></B>
  - <A HREF="products/demos.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Game Demos</FONT></A>
  - <A HREF="products/postal/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Postal Plus</FONT></A>
  - <A HREF="products/hov/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Rune: Halls of Valhalla</FONT></A>
@@ -382,18 +382,18 @@ Loki is a registered trademark of Loki Software, Inc.
 <BR> <A HREF="products/rt2/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Railroad Tycoon II</FONT></A>
 
  - <A HREF="products/civctp/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Civilization: Call to Power</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menuorders" CLASS="menuorders" NAME="menuorders"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="orders/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Order</FONT></A></B> - <A HREF="orders/resellers.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Where to Buy</FONT></A> - <A HREF="orders/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Store</FONT></A> - <A HREF="orders/lug.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">LUG Program</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menusupport" CLASS="menusupport" NAME="menusupport"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="support/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Support</FONT></A></B> - <A HREF="legacy-services.html#faqs/"><?phpecho $text_small_nop ?>FAQs</FONT></A> - <A HREF="support/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Get Help from Loki</FONT></A> - <A HREF="legacy-services.html#fenris/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Bug Reports</FONT></A> - <A HREF="support/gldrivers/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">GL Drivers</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menudevelopment" CLASS="menudevelopment" NAME="menudevelopment"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="development/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Open Source Development</FONT></A></B> - <A HREF="http://www.openal.org/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">OpenAL</FONT></A> - <A HREF="development/smpeg.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">SMPEG</FONT></A> - <A HREF="development/smjpeg.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">SMJPEG</FONT></A> - <A HREF="development/fenris.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Fenris</FONT></A> <BR> <A HREF="development/setup.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Setup</FONT></A> - <A HREF="development/loki_update.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Update Tool</FONT></A> - <A HREF="development/loki_uninstall.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Uninstall Tool</FONT></A> - <A HREF="development/loki_patch.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Patch Tools</FONT></A> - <A HREF="products/quake3/sdk.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Quake III SDK</FONT></A> - <A HREF="http://www.gtkradiant.org/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">GtkRadiant</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menupress" CLASS="menupress" NAME="menupress"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="press/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press</FONT></A></B> - <A HREF="press/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press Releases</FONT></A> - <A HREF="press/news.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki in the News</FONT></A> - <A HREF="press/material.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press Material</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menunews" CLASS="menunews" NAME="menunews"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="news/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">News</FONT></A></B>  - <A HREF="news/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">News Archive</FONT></A> - <A HREF="news/links.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Links</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
-<DIV ID="menuabout" CLASS="menuabout" NAME="menuabout"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="about/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Loki</FONT></A></B> - <A HREF="about/faq.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Q &amp; A</FONT></A> - <A HREF="about/events.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Events</FONT></A> - <A HREF="about/contact.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Contact Us</FONT></A> - <A HREF="hack/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Hack 1999</FONT></A> - <A HREF="about/jobs.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Jobs at Loki</FONT></A>
-</TD><TD BGCOLOR="#333333"><IMG SRC="_global/_img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="_global/_img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menuorders" CLASS="menuorders" NAME="menuorders"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="orders/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Order</FONT></A></B> - <A HREF="orders/resellers.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Where to Buy</FONT></A> - <A HREF="orders/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Store</FONT></A> - <A HREF="orders/lug.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">LUG Program</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menusupport" CLASS="menusupport" NAME="menusupport"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="support/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Support</FONT></A></B> - <A HREF="legacy-services.html#faqs/"><?phpecho $text_small_nop ?>FAQs</FONT></A> - <A HREF="support/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Get Help from Loki</FONT></A> - <A HREF="legacy-services.html#fenris/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Bug Reports</FONT></A> - <A HREF="support/gldrivers/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">GL Drivers</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menudevelopment" CLASS="menudevelopment" NAME="menudevelopment"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="development/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Open Source Development</FONT></A></B> - <A HREF="http://www.openal.org/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">OpenAL</FONT></A> - <A HREF="development/smpeg.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">SMPEG</FONT></A> - <A HREF="development/smjpeg.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">SMJPEG</FONT></A> - <A HREF="development/fenris.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Fenris</FONT></A> <BR> <A HREF="development/setup.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Setup</FONT></A> - <A HREF="development/loki_update.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Update Tool</FONT></A> - <A HREF="development/loki_uninstall.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Uninstall Tool</FONT></A> - <A HREF="development/loki_patch.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Patch Tools</FONT></A> - <A HREF="products/quake3/sdk.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Quake III SDK</FONT></A> - <A HREF="http://www.gtkradiant.org/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">GtkRadiant</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menupress" CLASS="menupress" NAME="menupress"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="press/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press</FONT></A></B> - <A HREF="press/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press Releases</FONT></A> - <A HREF="press/news.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki in the News</FONT></A> - <A HREF="press/material.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Press Material</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menunews" CLASS="menunews" NAME="menunews"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="news/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">News</FONT></A></B>  - <A HREF="news/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">News Archive</FONT></A> - <A HREF="news/links.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Links</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
+<DIV ID="menuabout" CLASS="menuabout" NAME="menuabout"><CENTER><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR><TR><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD><TD CLASS="small" BGCOLOR="#333333" ALIGN="CENTER"><B><A HREF="about/index.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">About Loki</FONT></A></B> - <A HREF="about/faq.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Q &amp; A</FONT></A> - <A HREF="about/events.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Events</FONT></A> - <A HREF="about/contact.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Contact Us</FONT></A> - <A HREF="hack/"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Loki Hack 1999</FONT></A> - <A HREF="about/jobs.html"><FONT FACE="Arial, Helvetica, sans-serif" COLOR="#CCCCCC" SIZE="-1" CLASS="small">Jobs at Loki</FONT></A>
+</TD><TD BGCOLOR="#333333"><IMG SRC="global/img/pixel.gif" WIDTH="8" HEIGHT="24" BORDER="0" ALT=""></TD></TR><TR><TD COLSPAN="3" BGCOLOR="#B08F6F"><IMG SRC="global/img/pixel.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT=""></TD></TR></TABLE></CENTER></DIV>
 </BODY>
 </HTML>
